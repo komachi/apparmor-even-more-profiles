@@ -1,0 +1,27 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile gimp /usr/bin/gimp{-[0-9].*,} {
+    #include <abstractions/base>
+    #include <abstractions/user-tmp>
+    #include <abstractions/X>
+    #include <abstractions/wayland>
+    #include <abstractions/user-download-strict>
+    #include <abstractions/fonts>
+
+    owner @{HOME}/@{XDG_PICTURES_DIR}/ r,
+    owner @{HOME}/@{XDG_PICTURES_DIR}/** rw,
+
+    /usr/share/gimp/** r,
+    /usr/share/mime/** r,
+    /usr/share/themes/** r,
+    /usr/share/icons/** r,
+    /usr/lib/gimp/** rix,
+
+    owner @{HOME}/.config/GIMP/{**,} rw,
+    owner @{HOME}/.gtkrc-2.0 r,
+    owner @{HOME}/.config/gtk-2.0/** r,
+    owner @{HOME}/.local/share/recently-used.xbel r,
+    owner @{HOME}/.cache/{gegl-*,babl}/** rw,
+}

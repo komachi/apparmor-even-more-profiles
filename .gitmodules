@@ -1,0 +1,12 @@
+[submodule "apparmor-profiles"]
+	path = apparmor-profiles
+	url = git://git.launchpad.net/apparmor-profiles
+[submodule "apparmor-profile-everything"]
+	path = apparmor-profile-everything
+	url = https://github.com/Whonix/apparmor-profile-everything.git
+[submodule "apparmor-profiles-krathalan"]
+	path = apparmor-profiles-krathalan
+	url = https://git.sr.ht/~krathalan/apparmor-profiles
+[submodule "morfikov-debian-files"]
+	path = morfikov-debian-files
+	url = https://gitlab.com/morfikov/debian-files.git

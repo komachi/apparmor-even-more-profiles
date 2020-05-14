@@ -1,0 +1,27 @@
+#include <tunables/global>
+
+profile aria2c /usr/bin/aria2c {
+  #include <abstractions/base>
+  #include <abstractions/ssl_certs>
+  #include <abstractions/ssl_keys>
+  #include <abstractions/nameservice>
+
+  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
+  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** rw,
+  owner @{HOME}/@{XDG_MUSIC_DIR}/ r,
+  owner @{HOME}/@{XDG_MUSIC_DIR}/** rw,
+  owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
+  owner @{HOME}/@{XDG_VIDEOS_DIR}/** rw,
+  owner @{HOME}/Games/ r,
+  owner @{HOME}/Games/** rw,
+  owner @{HOME}/Books/ r,
+  owner @{HOME}/Books/** rw,
+
+  /usr/bin/aria2c mr,
+
+  owner @{HOME}/.cache/aria2 wr,
+  owner @{HOME}/.cache/aria2/** wr,
+  owner @{HOME}/.config/aria2/aria2.conf r,
+
+  #include if exists <local/usr.bin.aria2c>
+}

@@ -1,0 +1,49 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile mpv /usr/bin/mpv {
+    #include <abstractions/base>
+    #include <abstractions/consoles>
+    #include <abstractions/audio>
+    #include <abstractions/gstreamer>
+    #include <abstractions/user-tmp> 
+    #include <abstractions/nameservice>
+    #include <abstractions/X>
+    #include <abstractions/wayland>
+    #include <abstractions/gstreamer>
+    #include <abstractions/mesa>
+    #include <abstractions/dri-enumerate>
+    #include <abstractions/opencl>
+    #include <abstractions/vulkan>
+    #include <abstractions/fonts>
+
+    signal (send) set=(term, kill) peer=youtube-dl,
+  
+    /usr/bin/mpv mr,
+
+    owner @{PROC}/*/{cmdline,task/} r,
+
+    owner @{HOME}/@{XDG_MUSIC_DIR}/ r,
+    owner @{HOME}/@{XDG_MUSIC_DIR}/** r,
+    owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
+    owner @{HOME}/@{XDG_VIDEOS_DIR}/** r,
+    owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
+    owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** r,
+
+    /etc/mpv/** r,
+    owner @{HOME}/.config/mpv/ rw,
+    owner @{HOME}/.config/mpv/** rw,
+
+    /usr/share/icons/** r,
+    /etc/glvnd/egl_vendor.d/ r,
+    /usr/share/glvnd/egl_vendor.d/ r,
+    /usr/share/glvnd/egl_vendor.d/** r,
+
+    /{usr/,}bin/xdg-screensaver rPUx,
+    /{usr/,usr/local/,}bin/youtube-dl rPUx,
+    owner @{HOME}/.local/{pipx/venvs/youtube-dl/,}bin/youtube-dl rPUx,
+
+    #include if exists <local/usr.bin.mpv>
+}
+

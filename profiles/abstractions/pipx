@@ -1,0 +1,4 @@
+#include <abstractions/python>
+  /usr/bin/python3.[0-9]* r,
+  owner @{HOME}/.local/pipx/venvs/@{profile_name}/{**,} mr,
+  owner @{HOME}/.local/pipx/shared/** r,

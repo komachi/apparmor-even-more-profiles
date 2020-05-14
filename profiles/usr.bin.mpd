@@ -1,0 +1,25 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile mpd /usr/bin/mpd {
+    #include <abstractions/base>
+    #include <abstractions/audio>
+    #include <abstractions/gstreamer>
+    #include <abstractions/user-tmp>
+    #include <abstractions/nameservice>
+
+    /usr/bin/mpd mr,
+
+    owner @{HOME}/@{XDG_MUSIC_DIR}/ r,
+    owner @{HOME}/@{XDG_MUSIC_DIR}/** r,
+
+    owner @{HOME}/.cache/mpd.db rw,
+    owner @{HOME}/.config/mpd/ rw,
+    owner @{HOME}/.config/mpd/** rwkl,
+    owner @{HOME}/.config/mpd/mpd.conf r,
+
+    owner /run/*/*/mpd/{socket,} rw,
+
+    #include if exists <local/usr.bin.mpd>
+}

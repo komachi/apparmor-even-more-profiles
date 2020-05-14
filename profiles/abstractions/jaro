@@ -1,0 +1,4 @@
+  #include <abstractions/guile>
+
+  /{usr,usr/local,}/bin/jaro rix,
+  

@@ -1,0 +1,39 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+# This abstraction meant to cover AppImage's needs
+#include <abstractions/base>
+  mount fstype=fuse,
+  mount fstype=fuse.*,
+  umount fstype=fuse,
+  umount fstype=fuse.*,
+
+  /dev/fuse rw,
+  /tmp/.mount_*/ rw,
+  /tmp/.mount_*/** rwixm,
+
+  /usr/bin/fusermount Cx -> fusermount,
+
+  profile fusermount {
+    #include <abstractions/base>
+
+    capability dac_read_search,
+    capability dac_override,
+    capability sys_admin,
+
+    mount fstype=fuse,
+    mount fstype=fuse.*,
+    umount fstype=fuse,
+    umount fstype=fuse.*,
+
+    /usr/bin/fusermount r,
+    /etc/fuse.conf r,
+    /etc/nsswitch.conf r,
+    /etc/passwd r,
+    /dev/fuse rw,
+    @{PROC}/*/mounts r,
+    
+    /tmp/.mount_*/ r,
+    /tmp/.mount_*/** r,
+
+    # where your appimages stored
+    /usr/local/bin/** r,
+  }

@@ -1,0 +1,22 @@
+# Upstream version https://raw.githubusercontent.com/getdnsapi/stubby/develop/contrib/apparmor/net.getdnsapi.stubby
+# License is 3-clause BSD https://github.com/getdnsapi/stubby/blob/develop/COPYING
+
+
+#include <tunables/global>
+
+profile net.getdnsapi.stubby /usr/bin/stubby {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  capability net_bind_service,
+  # config
+  /etc/stubby/stubby.yml r,
+  owner @{HOME}/.stubby.yml r,
+  # static DNSSEC anchors
+  /etc/unbound/getdns-root.key r,
+  # auto-downloaded DNSSEC anchors
+  /var/cache/stubby/{,**} rw,
+  owner @{HOME}/.getdns/{,**} rw,
+  # debian package asks this
+  /usr/share/dns/root.key r,
+  /etc/ssl/openssl.cnf r,
+}

@@ -1,0 +1,48 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+profile mycrypto /usr/local/bin/mycrypto {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/user-tmp>
+  #include <abstractions/ssl_certs>
+  #include <abstractions/ssl_keys>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/nameservice>
+  #include <abstractions/dri-enumerate>
+  #include <abstractions/mesa>
+  #include <abstractions/appimage>
+  /usr/local/bin/mycrypto mr,
+
+  /usr/sbin/killall5 rix,
+  /usr/bin/which rix,
+
+  @{PROC}/ r,
+  @{PROC}/vmstat r,
+  owner @{PROC}/*/{mounts,stat,fd/,cmdline,task/} r,
+  owner @{PROC}/*/oom_score_adj rw,
+
+  /usr/share/themes/** r,
+  /usr/share/icons/** r,
+  /dev/shm/ r,
+  /dev/shm/.org.chromium.Chromium.* rw,
+  
+  /sys/bus/pci/devices/ r,
+  /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+  @{sys}/devices/pci[0-9]*/**/{resource,irq,class} r,
+
+  owner @{HOME}/.config/user-dirs.dirs r,
+  owner @{HOME}.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/MyCrypto rw,
+  owner @{HOME}/.config/MyCrypto/** rwk,
+
+  deny /dev/pts/ r,
+  deny /dev/pts/** r,
+  deny @{HOME}/.pki/** rw,
+  deny /etc/pulse/client.conf.d/ r,
+  deny /etc/pulse/client.conf r,
+  deny @{sys}/devices/virtual/tty/** r,
+
+  #include if exists <local/usr.local.bin.mycrypto>
+}

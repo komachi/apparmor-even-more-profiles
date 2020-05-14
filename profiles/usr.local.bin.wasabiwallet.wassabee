@@ -1,0 +1,26 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+profile wasabiwallet /usr/local/bin/wasabiwallet/wassabee {
+  #include <abstractions/base>
+  #include <abstractions/gstreamer>
+  #include <abstractions/fonts>
+  #include <abstractions/openssl>
+  #include <abstractions/ssl_certs>
+  #include <abstractions/ssl_keys>
+  #include <abstractions/user-tmp>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/mesa>
+
+  /usr/bin/dash rix,
+
+  /usr/local/bin/wasabiwallet/ r,
+  /usr/local/bin/wasabiwallet/** mr,
+
+  owner @{HOME}/.walletwasabi/ rw,
+  owner @{HOME}/.walletwasabi/** rwk,
+  owner /proc/*/{cgroup,stat} r,
+
+  #include if exists <local/usr.local.bin.wasabiwallet.wasssabee>
+}

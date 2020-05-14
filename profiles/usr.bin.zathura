@@ -1,0 +1,36 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+profile zathura /usr/bin/zathura {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/user-tmp>
+
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  /etc/magic r,
+  /usr/share/mime/** r,
+  /usr/share/icons/ r,
+  /usr/share/icons/** r,
+  /usr/share/pixmaps/ r,
+  /usr/share/pixmaps/** r,
+  /usr/share/themes/* r,
+  /usr/share/themes/** r,
+  /usr/share/poppler/** r,
+
+  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
+  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** r,
+  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/ r,
+  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/** r,
+
+  owner @{HOME}/.local/share/zathura/ rw,
+  owner @{HOME}/.local/share/zathura/** rwk,
+  owner @{HOME}/.config/zathura/** r,
+
+  deny /etc/passwd r,
+  deny /etc/nsswitch.conf r,
+  deny network,
+
+  #include if exists <local/usr.bin.zathura>
+}

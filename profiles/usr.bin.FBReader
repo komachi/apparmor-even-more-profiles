@@ -1,0 +1,30 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile FBReader /usr/bin/FBReader {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/kde>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+
+  /usr/bin/FBReader mr,
+  /usr/share/FBReader/** r,
+  /usr/share/icons/** r,
+  /usr/share/pixmaps/FBReader.png r,
+  /usr/share/pixmaps/FBReader/** r,
+  /usr/share/zlibrary/ r,
+  /usr/share/zlibrary/** r,
+
+  owner @{HOME}/.config/fontconfig/fonts.conf r,
+  owner @{HOME}/.config/Trolltech.conf r,
+  owner @{HOME}/.FBReader/ rw,
+  owner @{HOME}/.FBReader/* rwk,
+
+  owner @{HOME}/Books/ r,
+  owner @{HOME}/Books/** r,
+
+  deny network,
+
+  #include if exists <local/usr.bin.FBReader>
+}
