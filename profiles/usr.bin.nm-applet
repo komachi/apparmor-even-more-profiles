@@ -1,0 +1,23 @@
+#include <tunables/global>
+
+profile nm-applet /{usr/,}bin/nm-applet {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/dri-enumerate>
+  #include <abstractions/mesa>
+  #include <abstractions/fonts>
+  #include <abstractions/dconf>
+
+  @{system_share_dirs}/{themes,poppler,icons,pixmaps,mime}/{**,} r,
+  @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  /etc/passwd r,
+  /etc/nsswitch.conf r,
+
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner /{,var/}run/user/*/dconf/{*,} rw,
+
+  deny /dev/tty* rw,
+
+  #include if exists <local/usr.bin.nm-applet>
+}

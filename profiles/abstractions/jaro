@@ -1,4 +1,13 @@
   #include <abstractions/guile>
 
   /{usr,usr/local,}/bin/jaro rix,
-  
+  /{usr/,}bin/dash rix,
+  /{usr/,}bin/python* rix,
+  owner @{HOME}/bin/youtube-dl-supports.py rPix,
+
+  /{usr/,}bin/mpv rPux,
+  /{usr/,}bin/firefox rPux,
+  /{usr/,}bin/telegram-desktop rPux,
+  /{usr/,}bin/uget-gtk rPux,
+  /{usr/,}bin/notify-send rPux,
+  /{usr/,}bin/xclip rPux,

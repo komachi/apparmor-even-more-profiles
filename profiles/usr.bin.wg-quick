@@ -1,0 +1,23 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile wg-quick /{usr/,}bin/wg-quick {
+  #include <abstractions/base>
+
+  capability net_admin,
+
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/wireguard/** r,
+  /{usr/,}bin/wg-quick r,
+  /{usr/,}bin/stat ix,
+  /{usr/,}bin/sort ix,
+  /{usr/,}bin/wg Pux,
+  /{usr/,}bin/ip Pux,
+  /{usr/,}sbin/resolvconf Pux,
+  /{usr/,}sbin/nft Pux,
+  /{usr/,}sbin/xtables-nft-multi Pux,
+  /{usr/,}sbin/sysctl Pux,
+  
+  #include if exists <local/usr.bin.wg-quick>
+}

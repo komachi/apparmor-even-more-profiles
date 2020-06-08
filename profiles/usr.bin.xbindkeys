@@ -1,0 +1,24 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile xbindkeys /{usr/,}bin/xbindkeys {
+  #include <abstractions/base>
+
+  owner @{HOME}/.Xauthority r,
+  owner @{HOME}/.xbindkeysrc r,
+  owner @{PROC}/@{pid}/statm r,
+
+  /dev/tty* rw,
+  /{usr/,}bin/dash rix,
+
+  /{usr/,}bin/playerctl rPux,
+  /{usr/,}bin/xset rPux,
+  /{usr/,}bin/pactl rPux,
+  /{usr/,}bin/brightnessctl rPux,
+  /{usr/,}bin/maim rPux,
+  /{usr/,}bin/xclip rPux,
+
+  #include if exists <local/usr.bin.xbindkeys>
+}
+  

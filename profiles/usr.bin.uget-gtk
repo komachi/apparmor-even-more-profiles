@@ -1,0 +1,26 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile uget-gtk /{usr/,}bin/uget-gtk {
+  #include <abstractions/base>
+  #include <abstractions/user-tmp>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/dri-enumerate>
+  #include <abstractions/fonts>
+  #include <abstractions/gstreamer>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+
+  @{system_share_dirs}/{themes,icons,pixmaps,mime}/{**,} r,
+
+  /{usr/,}bin/uget-gtk mrix,
+
+  /dev/dri/ r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  owner @{HOME}/.config/uGet/** rw,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+
+  deny /run/udev/data/** r,
+}

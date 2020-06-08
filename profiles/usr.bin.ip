@@ -1,0 +1,14 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile ip /{usr/,}bin/ip flags=(attach_disconnected,complain) {
+  #include <abstractions/base>
+
+  capability net_admin,
+  capability sys_module,
+
+  /{usr/,}bin/ip r,
+  /etc/iproute2/** r,
+
+  #include if exists <local/usr.bin.ip>
+}

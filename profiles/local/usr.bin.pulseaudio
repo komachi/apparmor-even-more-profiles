@@ -1,0 +1,3 @@
+  /sys/devices/system/node/ r,
+  /sys/devices/system/node/node*/meminfo r,
+  /var/lib/flatpak/exports/share/applications/ r,

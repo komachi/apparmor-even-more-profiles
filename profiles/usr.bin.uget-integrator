@@ -1,0 +1,23 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile uget-integrator /{usr/,}bin/uget-integrator {
+  #include <abstractions/base>
+  #include <abstractions/python>
+  #include <abstractions/user-tmp>
+
+  owner @{PROC}/@{pid}/fd/ r,
+
+  /{usr/,}bin/python3* rix,
+  /{usr/,}bin/uget-integrator r,
+  /{usr/,}bin/uget-gtk rPux,
+
+  deny /dev/shm/** r,
+  deny /{usr/,}bin/ r,
+  deny /{usr/,}bin/env r,
+  deny @{HOME}/.mozilla/** rw,
+  deny @{HOME}/.cache/mozilla/** rw,
+  deny @{HOME}/.local/lib/python** rw,
+  
+  #include if exists <local/usr.bin.uget-integrator>
+}

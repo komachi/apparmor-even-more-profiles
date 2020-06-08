@@ -1,0 +1,4 @@
+  owner @{HOME}/Games/ r,
+  owner @{HOME}/Games/** rw,
+  owner @{HOME}/Books/ r,
+  owner @{HOME}/Books/** rw,

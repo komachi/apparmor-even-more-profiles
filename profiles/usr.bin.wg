@@ -1,0 +1,12 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile wg /{usr/,}bin/wg {
+  #include <abstractions/base>
+
+  capability net_admin,
+
+  /{usr/,}bin/wg r,
+  
+  #include if exists <local/usr.bin.wg>
+}

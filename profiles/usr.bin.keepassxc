@@ -1,7 +1,7 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 #include <tunables/global>
 
-profile keepassxc /usr/bin/keepassxc {
+profile keepassxc /{usr/,}bin/keepassxc {
   #include <abstractions/base>
   #include <abstractions/fonts>
   #include <abstractions/X>
@@ -9,22 +9,18 @@ profile keepassxc /usr/bin/keepassxc {
   #include <abstractions/mesa>
   #include <abstractions/dri-enumerate>
   #include <abstractions/user-tmp>
+  #include <abstractions/qt5-compose-cache-write>
 
-  /usr/bin/keepassxc mr,
-  /usr/share/icons/** r,
-  /usr/share/keepassxc/** r,
-  /usr/share/mime/ r,
-  /usr/share/mime/** r,
+  /{usr/,}bin/keepassxc mr,
+  @{system_share_dirs}/{icons,keepassxc,mime}/{**,} r,
 
   owner /tmp/keepassxc-user.lock rw,
-  owner @{HOME}/.config/keepassxc/ rw,
-  owner @{HOME}/.config/keepassxc/** rwkl,
+  owner @{HOME}/.config/keepassxc/{**,} rwkl,
   owner @{HOME}/.config/qt5ct/** r,
   owner @{HOME}/.config/fontconfig/fonts.conf r,  
   owner @{HOME}/.cache/icon-cache.kcache rw,
   owner @{HOME}/.config/QtProject.conf r,
   owner @{HOME}/.config/user-dirs.dirs r,
-  owner @{HOME}/Sync/.keys/{#*,*.kdbx,*.kdbx.*} rwl,
 
   owner /dev/shm/* rw,
 
@@ -35,12 +31,12 @@ profile keepassxc /usr/bin/keepassxc {
   deny /dev/bus/usb/ r,
   deny /etc/nsswitch.conf r,
   deny /etc/passwd r,
-  deny /run/udev/** r,
-  deny /sys/bus/ r,
-  deny /sys/bus/usb/devices/ r,
-  deny /sys/class/ r,
-  deny /sys/devices/pci*/*/usb*/** r,
-  deny /usr/bin/ r,
+  deny /{var/,}run/udev/** r,
+  deny @{sys}/bus/ r,
+  deny @{sys}/bus/usb/devices/ r,
+  deny @{sys}/class/ r,
+  deny @{sys}/devices/pci*/*/usb*/** r,
+  deny /{usr/,}bin/ r,
   deny @{HOME}/.config/QtProject.conf w,
   deny @{PROC}/sys/kernel/random/boot_id r,
 

@@ -7,20 +7,38 @@ profile wasabiwallet /usr/local/bin/wasabiwallet/wassabee {
   #include <abstractions/fonts>
   #include <abstractions/openssl>
   #include <abstractions/ssl_certs>
+  #include <abstractions/nameservice>
   #include <abstractions/ssl_keys>
   #include <abstractions/user-tmp>
   #include <abstractions/X>
   #include <abstractions/wayland>
   #include <abstractions/mesa>
+  #include <abstractions/dri-enumerate>
 
-  /usr/bin/dash rix,
+  /{usr/,}bin/dash rix,
 
-  /usr/local/bin/wasabiwallet/ r,
-  /usr/local/bin/wasabiwallet/** mr,
+  /usr/local/bin/wasabiwallet/{**,} mrixk,
+  @{system_share_dirs}/icons/** r,
+  @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
+  @{sys}/fs/cgroup/memory/user.slice/user-1000.slice/session-1.scope/memory.limit_in_bytes r,
+  @{sys}/devices/pci*/**/usb*/**/{manufacturer,product,bcdDevice,bInterfaceNumber,bConfigurationValue} r,
+  @{sys}/devices/pci*/**/usb*/bConfigurationValue r,
+  @{sys}/bus/pci/devices/ r,
+  /dev/hidraw* rw,
+  /dev/bus/usb/** rw,
+  /usr/lib/terminfo/** rk,
+  @{system_share_dirs}/zoneinfo/** rk,
+
+  /{usr/,}sbin/ldconfig rix,
+  /{usr/,}bin/x86_64-linux-gnu-ld.bfd rix,
+  /{usr/,}bin/x86_64-linux-gnu-gcc-8 rix,
+  /{usr/,}bin/uname ix,
+
+  owner /tmp/*/{libz.so.1,libpython3.6m.so.1.0,libffi.so.6,*.cpython-36m-x86_64-linux-gnu.so,libssl.so.1.1,libbz2.so.1.0,liblzma.so.5,libudev.so.1,libcrypto.so.1.1} m,
 
   owner @{HOME}/.walletwasabi/ rw,
-  owner @{HOME}/.walletwasabi/** rwk,
-  owner /proc/*/{cgroup,stat} r,
-
+  owner @{HOME}/.walletwasabi/** rwkl,
+  owner @{PROC}/@{pid}/{cgroup,stat,mountinfo,mounts,fd/} r,
+  
   #include if exists <local/usr.local.bin.wasabiwallet.wasssabee>
 }

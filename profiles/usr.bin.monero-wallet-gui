@@ -1,0 +1,37 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+@{monerogui_exec_path} = /{usr/,usr/local/,}bin/monero-wallet-gui
+profile monerogui @{monerogui_exec_path} {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/user-tmp>
+  #include <abstractions/fonts>
+  #include <abstractions/nameservice>
+  #include <abstractions/mesa>
+  #include <abstractions/dri-enumerate>
+
+  /etc/ssl/openssl.cnf r,
+  owner @{HOME}/#* rwm,
+  owner @{HOME}/.cache/qtshadercache/** r,
+  owner @{HOME}/.config/monero-project/{**,} rwl,
+  owner @{HOME}/.cache/monero-project/{**,} rwm,
+  owner @{HOME}/.shared-ringdb/{**,} rwk,
+  owner @{HOME}/Monero/{**,} rwk,
+  owner @{HOME}/.bitmonero/{**,} rwk,
+  owner @{HOME}/.config/user-dirs.dirs r,
+  owner @{user_share_dirs}/applications/monero-gui.desktop rw,
+
+  @{system_share_dirs}/{icons,mime}/** r,
+  /{usr/,usr/local/,}bin/monerod mrPix,
+  @{sys}/bus/ r,
+  @{sys}/class/ r,
+  @{sys}/class/hidraw/ r,
+  @{sys}/devices/pci*/**/usb*/**/{manufacturer,product,bcdDevice,bInterfaceNumber,bConfigurationValue} r,
+  @{sys}/devices/pci*/**/usb*/bConfigurationValue r,
+  /dev/hidraw* rw,
+
+  #include if exists <local/usr.bin.monero-wallet-gui>
+}

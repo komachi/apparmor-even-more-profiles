@@ -1,0 +1,48 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile spacefm /{usr/,}bin/spacefm {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/user-tmp>
+  #include <abstractions/fonts>
+  #include <abstractions/private-files-strict>
+
+  @{system_share_dirs}/{icons,mime,pixmaps,applications,themes}/{**,} r,
+
+  owner @{PROC}/@{pid}/{mountinfo,mounts,fd/} r,
+  owner @{HOME}/{**,} r,
+  owner @{HOME}/.thumbnails/** rw,
+  owner /media/{**,} r,
+
+  @{sys}/devices/system/node/ r,
+  @{sys}/devices/system/node/node*/meminfo r,
+  @{sys}/bus/ r,
+  @{sys}/class/ r,
+  @{sys}/class/block/ r,
+  /{var/,}run/udev/data/* r,
+  @{sys}/devices/virtual/block/*/{uevent,removable,size,ro} r,
+  @{sys}/devices/virtual/block/**/queue/hw_sector_size r,
+  @{sys}/devices/virtual/block/{loop,dm}*/ r,
+  @{sys}/devices/pci*/**/{usb,ata}*/**/block/**/{uevent,removable,size,alignment_offset,ro,start,hw_sector_size} r,
+  @{sys}/devices/pci*/**/{usb,ata}*/**/block/**/sda*/sda* r,
+  @{sys}/devices/pci*/**/{usb,ata}*/**/{model,vendor,speed} r,
+
+  /etc/nsswitch.conf r,
+  /etc/spacefm/** r,
+  /{usr/,}bin/sleep ix,
+  /{usr/,}bin/rm ix,
+  /{usr/,}bin/udevil rPux,
+  /etc/passwd r,
+  /etc/group r,
+  owner @{HOME}/.config/spacefm/{**,} rw,
+
+  /{usr/,}bin/mpv rPux,
+
+  deny / r,
+  deny /home/ r,
+
+  #include if exists <local/usr.bin.spacefm>
+}

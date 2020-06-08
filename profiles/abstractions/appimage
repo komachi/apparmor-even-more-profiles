@@ -1,5 +1,6 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 # This abstraction meant to cover AppImage's needs
+
 #include <abstractions/base>
   mount fstype=fuse,
   mount fstype=fuse.*,
@@ -10,7 +11,7 @@
   /tmp/.mount_*/ rw,
   /tmp/.mount_*/** rwixm,
 
-  /usr/bin/fusermount Cx -> fusermount,
+  /{usr/,}bin/fusermount Cx -> fusermount,
 
   profile fusermount {
     #include <abstractions/base>
@@ -24,12 +25,12 @@
     umount fstype=fuse,
     umount fstype=fuse.*,
 
-    /usr/bin/fusermount r,
+    /{usr/,}bin/fusermount r,
     /etc/fuse.conf r,
     /etc/nsswitch.conf r,
     /etc/passwd r,
     /dev/fuse rw,
-    @{PROC}/*/mounts r,
+    @{PROC}/@{pid}/mounts r,
     
     /tmp/.mount_*/ r,
     /tmp/.mount_*/** r,

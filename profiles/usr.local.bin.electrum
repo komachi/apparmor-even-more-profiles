@@ -1,36 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 
 #include <tunables/global>
-profile electrum /usr/local/bin/electrum {
-  #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/user-tmp>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/nameservice>
+@{electrum_exec_path} = /{usr/,usr/local/,}bin/electrum
+profile electrum @{electrum_exec_path} {
+  #include <abstractions/electrum>
   #include <abstractions/appimage>
 
-  /usr/local/bin/electrum mr,
+  @{electrum_exec_path} mr,
 
-  /usr/bin/dirname rix,
-  
-  owner @{HOME}/.electrum/ rw,
-  owner @{HOME}/.electrum/** rw,
-
-  owner @{PROC}/*/{mounts,fd/} r,
-
-  /usr/sbin/ldconfig ix,
-  /usr/bin/{file,dash} ix,
-  /usr/bin/x86_64-linux-gnu-gcc-8 ix,
-  /usr/bin/x86_64-linux-gnu-ld.bfd ix,
-  /etc/mime.types r,
-  /usr/share/mime/** r,
-  /usr/share/icons/** r,
-  /dev/bus/usb/ r,
-  /dev/ r,
-  /run/udev/data/+usb:* r,
-
-  deny /usr/bin/uname x,
+  owner @{HOME}/.electrum/{**,} rw,
 
   #include if exists <local/usr.local.bin.electrum>
 }

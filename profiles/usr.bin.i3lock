@@ -1,0 +1,21 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile i3lock /{usr/,}bin/i3lock {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+
+  /{usr/,}bin/i3lock r,
+  /etc/pam.d/** r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/group r,
+  /etc/login.defs r,
+  /dev/tty* rw,
+  /run/utmp rk,
+
+  /{usr/,}sbin/unix_chkpwd Pux,  
+
+  #include if exists <local/usr.bin.i3lock>
+}

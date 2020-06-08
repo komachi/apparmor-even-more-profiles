@@ -1,0 +1,25 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile resolvconf /{usr/,}sbin/resolvconf  {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability dac_override,
+
+  /{usr/,}sbin/resolvconf r,
+  /{var/,}run/resolvconf/{**,} rw,
+  /{var/,}run/dnsmasq/resolv.conf rw,
+  /var/cache/unbound/resolvconf_resolvers.conf rw,
+  /etc/resolvconf.conf r,
+  /etc/resolv.conf rw,
+
+  /{usr/,}bin/{cat,rm,dash} rix,
+  /{usr/,}bin/{systemctl,dbus-send} rPux,
+
+  deny / r,
+
+  #include if exists <local/usr.sbin.resolvconf>
+}
+  

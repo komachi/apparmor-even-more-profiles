@@ -1,4 +1,4 @@
-
+# Author: Anton Nesterov <anton@nesterov.cc>
 #include <tunables/global>
 
 @{streamlink_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/streamlink/}bin/streamlink
@@ -14,9 +14,9 @@ profile streamlink @{streamlink_exec_path} {
   owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
   owner @{HOME}/@{XDG_VIDEOS_DIR}/** rw,
 
-  /usr/bin/mpv mrPx,
-  /usr/bin/file rix,
-  /usr/sbin/ldconfig rix,
+  /{usr/,}bin/mpv mrPx,
+  /{usr/,}bin/file rix,
+  /{usr/,}sbin/ldconfig rix,
   /etc/{magic,mime.types} r,
 
   owner @{PROC}/@{pid}/{fd/,mounts} r,

@@ -1,10 +1,10 @@
 # Upstream version https://raw.githubusercontent.com/getdnsapi/stubby/develop/contrib/apparmor/net.getdnsapi.stubby
+# adapted for debian buster
 # License is 3-clause BSD https://github.com/getdnsapi/stubby/blob/develop/COPYING
-
 
 #include <tunables/global>
 
-profile net.getdnsapi.stubby /usr/bin/stubby {
+profile net.getdnsapi.stubby /{usr/,}bin/stubby {
   #include <abstractions/base>
   #include <abstractions/nameservice>
   capability net_bind_service,
@@ -17,6 +17,6 @@ profile net.getdnsapi.stubby /usr/bin/stubby {
   /var/cache/stubby/{,**} rw,
   owner @{HOME}/.getdns/{,**} rw,
   # debian package asks this
-  /usr/share/dns/root.key r,
+  @{system_share_dirs}/dns/root.key r,
   /etc/ssl/openssl.cnf r,
 }

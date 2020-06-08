@@ -1,0 +1,3 @@
+  /etc/apt/trusted.gpg r,
+  /etc/apt/* rwl,
+  /etc/apt/trusted.gpg.d/* rwl,

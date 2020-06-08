@@ -1,0 +1,4 @@
+  # Deny attempts to save/read recently used files
+  
+  deny @{user_share_dirs}/recently-used.xbel{*,} rwkl,
+  deny @{HOME}/.recently-used.xbel{*,} rwkl,

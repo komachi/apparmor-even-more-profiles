@@ -1,0 +1,44 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile NetworkManager /{usr/,}sbin/NetworkManager {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  signal (send,receive) set=(term) peer=dhclient,
+
+  capability net_admin,
+  capability net_raw,
+  capability dac_override,
+  
+  /{var/,}run/NetworkManager/{**,} rw,
+  /{var/,}run/network/** r,
+  /{var/,}run/dhclient.pid r,
+  /{var/,}run/dhclient-*.pid r,
+  /etc/NetworkManager/** r,
+  /var/lib/NetworkManager/** rw,
+  @{sys}/devices/pci*/**/net/** r,
+  @{sys}/bus/ r,
+  @{sys}/class/ r,
+  @{sys}/class/net/ r,
+  /{var/,}run/udev/data/** r,
+  @{sys}/devices/virtual/net/** r,
+  /dev/rfkill rw,
+  /etc/network/interfaces r,
+  /etc/network/interfaces.d/{**,} r,
+  /etc/dhcp/dhclient.conf r,
+
+  @{PROC}/sys/net/** rw,
+  @{PROC}/sys/kernel/random/boot_id r,
+  @{PROC}/@{pid}/{stat,fd/} r,
+
+  /{usr/,}bin/{dash,cat} ixm,
+  /{usr/,}sbin/dhclient rPux,
+  /{usr/,}sbin/resolvconf rPux,
+  /{usr/,}bin/dbus-send rPux,
+  /{usr/,}bin/systemctl rPux,
+
+  #include if exists <local/usr.sbin.NetworkManager>
+}
+  

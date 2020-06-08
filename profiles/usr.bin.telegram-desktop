@@ -1,6 +1,7 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
 #include <tunables/global>
 
-profile telegram-desktop /usr/bin/telegram-desktop {
+profile telegram-desktop /{usr/,}bin/telegram-desktop {
   #include <abstractions/base>
   #include <abstractions/audio>
   #include <abstractions/fonts>
@@ -13,35 +14,29 @@ profile telegram-desktop /usr/bin/telegram-desktop {
   #include <abstractions/wayland>
   #include <abstractions/dri-enumerate>
   #include <abstractions/user-download-strict>
+  #include <abstractions/qt5-compose-cache-write>
 
   owner @{HOME}/ r,
-  
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** rw,
 
-  owner @{HOME}/.local/share/TelegramDesktop/ rw,
-  owner @{HOME}/.local/share/TelegramDesktop/** rwlk,
+  owner @{user_share_dirs}/TelegramDesktop/{**,} rwlk,
   owner @{HOME}/.config/QtProject.conf r,
 
-  /usr/share/TelegramDesktop/** r,
-  /usr/share/icons/** r,
-  /usr/share/mime/** r,
+  @{system_share_dirs}/{TelegramDesktop,icons,mime}/** r,
 
   /dev/dri/ r,
-  /sys/devices/system/node/ r,
-  /sys/devices/system/node/*/meminfo r,
-  /{usr/,}bin/xdg-open rCx -> open,
+  @{sys}/devices/system/node/ r,
+  @{sys}/devices/system/node/*/meminfo r,
+  /{usr/,usr/local/,}bin/{xdg-open,jaro} rCx -> open,
+  @{PROC}/@{pid}/cmdline r,
 
   owner /dev/shm/* rw,
 
-  deny /proc/*/cmdline r,
   deny /usr/bin/fc-list x,
   deny /usr/bin/uname x,
-  
 
   profile open {
-    #include <abstractions/base>
     #include <abstractions/xdg-open>
+    #include <abstractions/jaro>
   }
 
   #include if exists <local/usr.bin.telegram-desktop>

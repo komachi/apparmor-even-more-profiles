@@ -1,0 +1,4 @@
+  owner @{HOME}/src/ r,
+  owner @{HOME}/src/** rw,
+  owner @{HOME}/bin/ r,
+  owner @{HOME}/bin/** rw,

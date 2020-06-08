@@ -1,0 +1,15 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile xss-lock /{usr/,}bin/xss-lock {
+  #include <abstractions/base>
+  #include <abstractions/X>
+
+  /{usr/,}bin/i3lock Pux,
+
+  owner @{PROC}/@{pid}/fd/ r,
+
+  /dev/tty* rw,
+
+  #include if exists <local/usr.bin.xss-lock>
+}

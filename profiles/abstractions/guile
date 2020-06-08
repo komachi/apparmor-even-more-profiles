@@ -1,1 +1,1 @@
-  owner @{HOME}/.cache/guile/ccache/** rw,
+  owner @{HOME}/.cache/guile/{**,} rw,

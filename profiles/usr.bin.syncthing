@@ -1,21 +1,20 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
 #include <tunables/global>
 
-profile syncthing /usr/bin/syncthing {
+profile syncthing /{usr/,}bin/syncthing {
   #include <abstractions/base>
   #include <abstractions/ssl_certs>
   #include <abstractions/ssl_keys>
   #include <abstractions/nameservice>
 
-  /usr/bin/syncthing r,
+  /{usr/,}bin/syncthing r,
 
-  owner @{HOME}/.config/syncthing/ r,
-  owner @{HOME}/.config/syncthing/** rwk,
+  owner @{HOME}/.config/syncthing/{**,} rwk,
 
-  @{HOME}/src/ r,
-  @{HOME}/src/** r,
+  @{HOME}/src/{**,} r,
   owner @{HOME}/src/** rw,
-  @{HOME}/Sync/ r,
-  @{HOME}/Sync/** r,
+  @{HOME}/Sync/{**,} r,
   owner @{HOME}/Sync/** rw,
 
   @{PROC}/sys/net/core/somaxconn r,

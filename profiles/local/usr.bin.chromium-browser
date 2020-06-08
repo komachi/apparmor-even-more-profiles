@@ -1,0 +1,8 @@
+  #include <abstractions/mesa>
+
+  @{PROC}/sys/fs/inotify/max_user_watches r,  
+  owner @{PROC}/@{pid}/mem r,
+  /dev/shm/shm** rw,
+
+  # deny widewine trojan
+  deny @{HOME}/.config/chromium/WidevineCdm/{**,} mrw,

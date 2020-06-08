@@ -1,0 +1,3 @@
+  deny /dev/tty* rw,
+  deny /etc/passwd r,
+  deny /etc/nsswitch.conf r,

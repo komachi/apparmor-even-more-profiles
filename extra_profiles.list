@@ -2,14 +2,9 @@ bin.netstat
 etc.cron.daily.logrotate
 etc.cron.daily.slocate.cron
 etc.cron.daily.tmpwatch
-sbin.dhclient
-sbin.dhclient-script
 usr.bin.passwd
 usr.bin.wireshark
 usr.lib.GConf.2.gconfd-2
-usr.lib.firefox.firefox
-usr.lib.firefox.firefox.sh
-usr.lib.firefox.mozilla-xremote-client
 usr.lib.man-db.man
 usr.sbin.useradd
 usr.sbin.userdel

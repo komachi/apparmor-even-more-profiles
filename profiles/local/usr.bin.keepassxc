@@ -1,0 +1,1 @@
+  owner @{HOME}/Sync/.keys/{#*,*.kdbx,*.kdbx.*} rwl,

@@ -1,0 +1,11 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile XD /{usr/,usr/local,}bin/{XD,XD-cli} flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  #include if exists <local/usr.bin.XD>
+}
+  

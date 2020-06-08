@@ -1,7 +1,8 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 
 #include <tunables/global>
-profile mycrypto /usr/local/bin/mycrypto {
+@{mycrypto_exec_path} = /{usr/,usr/local/,}bin/mycrypto
+profile mycrypto @{mycrypto_exec_path} {
   #include <abstractions/base>
   #include <abstractions/fonts>
   #include <abstractions/user-tmp>
@@ -13,36 +14,47 @@ profile mycrypto /usr/local/bin/mycrypto {
   #include <abstractions/dri-enumerate>
   #include <abstractions/mesa>
   #include <abstractions/appimage>
-  /usr/local/bin/mycrypto mr,
+  #include <abstractions/user-tmp>
 
-  /usr/sbin/killall5 rix,
-  /usr/bin/which rix,
+  @{mycrypto_exec_path} mr,
+
+  /{usr/,}sbin/killall5 rix,
+  /{usr/,}bin/which rix,
 
   @{PROC}/ r,
   @{PROC}/vmstat r,
-  owner @{PROC}/*/{mounts,stat,fd/,cmdline,task/} r,
-  owner @{PROC}/*/oom_score_adj rw,
+  owner @{PROC}/@{pid}/{mounts,stat,fd/,cmdline,task/} r,
+  owner @{PROC}/@{pid}/oom_score_adj rw,
+  owner @{PROC}/@{pid}/task/*/status r,
 
-  /usr/share/themes/** r,
-  /usr/share/icons/** r,
+  @{system_share_dirs}/{themes,icons}/** r,
   /dev/shm/ r,
   /dev/shm/.org.chromium.Chromium.* rw,
   
-  /sys/bus/pci/devices/ r,
-  /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+  @{sys}/bus/ r,
+  @{sys}/class/ r,
+  @{sys}/class/hidraw/ r,
+  /{var,}run/udev/data/* r,
+  @{sys}/devices/pci*/*/usb*/**/{manufacturer,product,bcdDevice,bInterfaceNumber,serial} r,
+  @{sys}/bus/pci/devices/ r,
+  @{sys}/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq r,
+  /dev/hidraw* rw,
   @{sys}/devices/pci[0-9]*/**/{resource,irq,class} r,
 
   owner @{HOME}/.config/user-dirs.dirs r,
-  owner @{HOME}.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/MyCrypto rw,
   owner @{HOME}/.config/MyCrypto/** rwk,
+  owner /tmp/.org.chromium.Chromium.* mr,
 
   deny /dev/pts/ r,
-  deny /dev/pts/** r,
+  deny /dev/pts/** rw,
   deny @{HOME}/.pki/** rw,
   deny /etc/pulse/client.conf.d/ r,
   deny /etc/pulse/client.conf r,
   deny @{sys}/devices/virtual/tty/** r,
+
+  deny ptrace read,
 
   #include if exists <local/usr.local.bin.mycrypto>
 }

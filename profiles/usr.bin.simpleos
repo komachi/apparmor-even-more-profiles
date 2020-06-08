@@ -1,0 +1,123 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+@{simpleos_exec_path} = /{usr/bin,bin,opt/simpleos}/simpleos
+profile simpleos @{simpleos_exec_path} {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/dri-enumerate>
+  #include <abstractions/fonts>
+  #include <abstractions/mesa>
+  #include <abstractions/user-tmp>
+  #include <abstractions/nameservice>
+  
+  @{simpleos_exec_path} mrix,
+
+  /dev/shm/.org.chromium.Chromium.* rw,
+  /opt/simpleos/chrome-sandbox cx -> simpleos_chromium_browser_sandbox,
+  /opt/simpleos/** r,
+  /opt/simpleos/**.so mr,
+  @{system_share_dirs}/{themes,icons,zoneinfo,mime}/** r,
+  @{sys}/bus/ r,
+  @{sys}/class/ r,
+  @{sys}/class/hidraw/ r,
+  @{sys}/bus/{pci,usb}/devices/ r,
+  /{var,}run/udev/data/* r,
+  @{sys}/devices/pci*/*/usb*/**/{manufacturer,product,bcdDevice,bInterfaceNumber,serial,busnum,devnum,speed,descriptors} r,
+  @{sys}/devices/pci*/*/usb*/{busnum,devnum,speed,descriptors} r,
+  @{sys}/devices/pci*/**/{irq,resource,class} r,
+  @{sys}/devices/virtual/tty/tty*/active r,
+  @{sys}/devices/system/cpu/online r,
+  /dev/hidraw* rw,
+  /dev/bus/usb/ r,
+  @{PROC}/ r,
+  @{PROC}/sys/fs/inotify/max_user_watches r,
+  @{PROC}/sys/kernel/yama/ptrace_scope r,
+  @{PROC}/@{pid}/stat r,
+  owner @{PROC}/@{pid}/{fd,task}/ r,
+  owner @{PROC}/@{pid}/task/@{tid}/status r,
+  owner /tmp/.org.chromium.Chromium.* mr,
+
+# Sandbox policy copied from ubuntu apparmor chromium profile
+# Original author: Jamie Strandboge <jamie@canonical.com>
+  profile simpleos_chromium_browser_sandbox {
+    # Be fanatical since it is setuid root and don't use an abstraction
+    /{usr/,}lib/libgcc_s.so* mr,
+    /{usr/,}lib/@{multiarch}/libgcc_s.so* mr,
+    /{usr/,}lib{,32,64}/libm-*.so* mr,
+    /{usr/,}lib/@{multiarch}/libm-*.so* mr,
+    /{usr/,}lib{,32,64}/libpthread-*.so* mr,
+    /{usr/,}lib/@{multiarch}/libpthread-*.so* mr,
+    /{usr/,}lib{,32,64}/libc-*.so* mr,
+    /{usr/,}lib/@{multiarch}/libc-*.so* mr,
+    /{usr/,}lib{,32,64}/libdl-*.so* mr,
+    /{usr/,}lib/@{multiarch}/libdl-*.so* mr,
+    /{usr/,}lib{,32,64}/libld-*.so* mr,
+    /{usr/,}lib/@{multiarch}/libld-*.so* mr,
+    /{usr/,}lib{,32,64}/librt-*.so* mr,
+    /{usr/,}lib/@{multiarch}/librt-*.so* mr,
+    /{usr/,}lib{,32,64}/ld-*.so* mr,
+    /{usr/,}lib/@{multiarch}/ld-*.so* mr,
+    /{usr/,}lib/tls/*/{cmov,nosegneg}/libm-*.so* mr,
+    /{usr/,}lib/tls/*/{cmov,nosegneg}/libpthread-*.so* mr,
+    /{usr/,}lib/tls/*/{cmov,nosegneg}/libc-*.so* mr,
+    /{usr/,}lib/libatomic.so* mr,
+    /{usr/,}lib/@{multiarch}/libatomic.so* mr,
+    /{usr/,}lib/libstdc++.so* mr,
+    /{usr/,}lib/@{multiarch}/libstdc++.so* mr,
+    /etc/ld.so.cache r,
+
+    # Required for dropping into PID namespace. Keep in mind that until the
+    # process drops this capability it can escape confinement, but once it
+    # drops CAP_SYS_ADMIN we are ok.
+    capability sys_admin,
+
+    # All of these are for sanely dropping from root and chrooting
+    capability chown,
+    capability fsetid,
+    capability setgid,
+    capability setuid,
+    capability dac_override,
+    capability sys_chroot,
+
+    capability sys_ptrace,
+    ptrace (read, readby),
+
+    signal (receive) peer=unconfined,
+    signal peer=@{profile_name},
+    signal (receive, send) set=("exists"),
+    signal (receive) peer=@{simpleos_exec_path},
+
+    unix (receive, send) peer=(label=@{simpleos_exec_path}),
+    unix (create),
+    unix peer=(label=@{profile_name}),
+    unix (getattr, getopt, setopt, shutdown) addr=none,
+
+    @{PROC}/ r,
+    @{PROC}/@{pid}/ r,
+    @{PROC}/@{pid}/fd/ r,
+    deny @{PROC}/@{pid}/oom_adj w,
+    deny @{PROC}/@{pid}/oom_score_adj w,
+    @{PROC}/@{pid}/status r,
+    @{PROC}/@{pid}/task/@{tid}/stat r,
+
+    @{simpleos_exec_path} px,
+    /opt/simpleos/chrome-sandbox mr,
+
+    /dev/null rw,
+
+    owner /tmp/** rw,
+  }
+
+  owner @{HOME}/.config/{simpleos,simpleos-config,simpleosAutosave}/{**,} rwk,
+  owner @{HOME}/.config/user-dirs.dirs r,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  
+  deny /dev/pts/* rw,
+  deny /dev/tty* rw,
+  deny /{usr/,}bin/xdg-settings rx,
+  deny @{HOME}/.pki/nssdb/* rwk,
+
+  #include if exists <local/usr.bin.simpleos>
+}

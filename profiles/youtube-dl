@@ -2,7 +2,7 @@
 
 #include <tunables/global>
 
-@{youtube_dl_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/youtube-dl/}bin/youtube-dl
+@{youtube_dl_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/youtube-dl/,}bin/youtube-dl
 profile youtube-dl @{youtube_dl_exec_path} {
   #include <abstractions/base>
   #include <abstractions/nameservice>
@@ -15,15 +15,14 @@ profile youtube-dl @{youtube_dl_exec_path} {
   owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
   owner @{HOME}/@{XDG_VIDEOS_DIR}/** rw,
 
-  owner @{HOME}/.cache/youtube-dl/ rw,
-  owner @{HOME}/.cache/youtube-dl/** rw,
+  owner @{HOME}/.cache/youtube-dl/{**,} rw,
   owner @{HOME}/.config/youtube-dl/* r,
 
-  /usr/bin/ffmpeg rPUx,
-  /usr/bin/ffprobe rPUx,
+  /{usr/,}bin/ffmpeg rPUx,
+  /{usr/,}bin/ffprobe rPUx,
   /etc/mime.types r,
 
-  owner @{PROC}/*/mounts r,
+  owner @{PROC}/@{pid}/mounts r,
 
   #include if exists <local/youtube-dl>
 }

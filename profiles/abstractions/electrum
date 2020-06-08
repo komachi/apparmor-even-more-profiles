@@ -1,0 +1,32 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+# this meant to work as abstraction for many electrum-based clients
+#include <abstractions/base>
+#include <abstractions/fonts>
+#include <abstractions/user-tmp>
+#include <abstractions/X>
+#include <abstractions/wayland>
+#include <abstractions/mesa>
+#include <abstractions/dri-enumerate>
+#include <abstractions/nameservice>
+
+  owner @{PROC}/@{pid}/{mounts,fd/} r,
+
+  /{usr/,}sbin/ldconfig ix,
+  /{usr/,}bin/{file,dash,dirname} rix,
+  /{usr/,}bin/x86_64-linux-gnu-gcc-8 ix,
+  /{usr/,}bin/x86_64-linux-gnu-ld.bfd ix,
+  /etc/mime.types r,
+  @{system_share_dirs}/{mime,icons}/{**,} r,
+  /dev/bus/usb/ r,
+  /dev/bus/usb/** rw,
+  @{sys}/class/ r,
+  @{sys}/bus/ r,
+  /etc/udev/udev.conf r,
+  /etc/magic r,
+  @{sys}/devices/pci*/**/usb*/**{busnum,devnum,descriptors,speed,bConfigurationValue} r,
+  /dev/ r,
+  /{var/,}run/udev/data/* r,
+  @{sys}/bus/usb/devices/ r,
+
+  deny /{usr/,}/bin/uname x,
+  deny /etc/ r,

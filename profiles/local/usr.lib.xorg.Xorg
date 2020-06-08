@@ -1,1 +1,2 @@
   deny ptrace read,
+  /tmp/serverauth.* r,

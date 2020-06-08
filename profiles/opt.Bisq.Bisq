@@ -1,0 +1,53 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile bisq /opt/Bisq/Bisq {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/dri-enumerate>
+  #include <abstractions/fonts>
+  #include <abstractions/mesa>
+  #include <abstractions/user-tmp>
+  #include <abstractions/nameservice>
+  #include <abstractions/dconf-deny>
+
+  /opt/Bisq/** r,
+  /opt/Bisq/libpackager.so mr,
+  /opt/Bisq/runtime/lib/**.so mr,
+  /opt/Bisq/runtime/lib/modules r,
+  @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  @{system_share_dirs}/{themes,icons}/** r,
+  /etc/timezone r,
+  @{sys}/fs/cgroup/memory/**/memory.limit_in_bytes r,
+  @{sys}/fs/cgroup/cpu,cpuacct/**/cpu.{cfs_quota_us,shares,cfs_period_us} r,
+  /{usr/,}bin/uname rix,
+  /{usr/,}bin/ps rix,
+  @{PROC}/sys/kernel/osrelease r,
+  owner @{PROC}/@{pid}/{mountinfo,cgroup,cmdline,stat,fd/} r,
+  owner @{HOME}/.oracle_jre_usage/{**,} rw,
+  owner @{HOME}/.java/fonts/** r,
+  owner @{user_share_dirs}/Bisq/{**,} rwk,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{user_share_dirs}/Bisq/btc_mainnet/tor/tor Cx -> bisq_tor,
+
+  profile bisq_tor {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    owner @{user_share_dirs}/Bisq/btc_mainnet/tor/{**,} mrwk,
+    
+    @{sys}/devices/system/cpu/ r,
+    @{sys}/devices/system/cpu/online r,
+    @{PROC}/meminfo r,
+    @{PROC}/sys/kernel/random/uuid r,
+    /etc/ssl/openssl.cnf r,
+  }
+
+  deny @{PROC}/ r,
+  deny ptrace (read),
+  deny @{PROC}/uptime r,
+
+  #include if exists <local/opt.Bisq.Bisq>
+}

@@ -1,0 +1,3 @@
+  /usr/lib/dconf/dconf-service rix,
+  owner @{HOME}/.config/dconf/** rw,
+  /run/systemd/dynamic-uid/ r,

@@ -2,29 +2,25 @@
 
 #include <tunables/global>
 
-profile inkscape /usr/bin/inkscape {
+profile inkscape /{usr/,}bin/inkscape {
     #include <abstractions/base>
     #include <abstractions/user-tmp>
     #include <abstractions/X>
     #include <abstractions/wayland>
     #include <abstractions/user-download-strict>
     #include <abstractions/fonts>
+    #include <abstractions/recent-deny>
 
     owner @{HOME}/@{XDG_PICTURES_DIR}/ r,
     owner @{HOME}/@{XDG_PICTURES_DIR}/** rw,
 
-    /usr/share/inkscape/** r,
-    /usr/share/mime/** r,
-    /usr/share/themes/** r,
-    /usr/share/icons/{**,} r,
-    /usr/share/pixmaps/{**,} r,
+    @{system_share_dirs}/{inkscape,mime,themes,icons,pixmaps}/{**,} r,
     /usr/lib/inkscape/** rix,
 
     owner @{HOME}/.gtkrc-2.0 r,
     owner @{HOME}/.config/gtk-2.0/** r,
     owner @{HOME}/.config/inkscape/{**,} rw,
     owner @{HOME}/.cache/inkscape/{**,} rw,
-    owner @{HOME}/.local/share/recently-used.xbel r,
 
     #include if exists <local/usr.bin.inkscape>
 }

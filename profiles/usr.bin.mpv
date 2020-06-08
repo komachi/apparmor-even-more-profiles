@@ -2,7 +2,7 @@
 
 #include <tunables/global>
 
-profile mpv /usr/bin/mpv {
+profile mpv /{usr/,}bin/mpv {
     #include <abstractions/base>
     #include <abstractions/consoles>
     #include <abstractions/audio>
@@ -20,25 +20,20 @@ profile mpv /usr/bin/mpv {
 
     signal (send) set=(term, kill) peer=youtube-dl,
   
-    /usr/bin/mpv mr,
+    /{usr/,}bin/mpv mr,
 
-    owner @{PROC}/*/{cmdline,task/} r,
+    owner @{PROC}/@{pid}/{cmdline,task/} r,
 
-    owner @{HOME}/@{XDG_MUSIC_DIR}/ r,
-    owner @{HOME}/@{XDG_MUSIC_DIR}/** r,
-    owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
-    owner @{HOME}/@{XDG_VIDEOS_DIR}/** r,
-    owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
-    owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** r,
+    owner @{HOME}/@{XDG_MUSIC_DIR}/{**,} r,
+    owner @{HOME}/@{XDG_VIDEOS_DIR}/{**,} r,
+    owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
 
     /etc/mpv/** r,
-    owner @{HOME}/.config/mpv/ rw,
-    owner @{HOME}/.config/mpv/** rw,
+    owner @{HOME}/.config/mpv/{**,} rw,
 
-    /usr/share/icons/** r,
+    @{system_share_dirs}/icons/** r,
     /etc/glvnd/egl_vendor.d/ r,
-    /usr/share/glvnd/egl_vendor.d/ r,
-    /usr/share/glvnd/egl_vendor.d/** r,
+    @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
 
     /{usr/,}bin/xdg-screensaver rPUx,
     /{usr/,usr/local/,}bin/youtube-dl rPUx,

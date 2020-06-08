@@ -1,7 +1,7 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 
 #include <tunables/global>
-profile zathura /usr/bin/zathura {
+profile zathura /{usr/,}bin/zathura {
   #include <abstractions/base>
   #include <abstractions/fonts>
   #include <abstractions/X>
@@ -10,22 +10,12 @@ profile zathura /usr/bin/zathura {
 
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   /etc/magic r,
-  /usr/share/mime/** r,
-  /usr/share/icons/ r,
-  /usr/share/icons/** r,
-  /usr/share/pixmaps/ r,
-  /usr/share/pixmaps/** r,
-  /usr/share/themes/* r,
-  /usr/share/themes/** r,
-  /usr/share/poppler/** r,
+  @{system_share_dirs}/{mime,icons,pixmaps,themes,poppler}/{**,} r,
 
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** r,
-  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/ r,
-  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/** r,
+  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
+  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
 
-  owner @{HOME}/.local/share/zathura/ rw,
-  owner @{HOME}/.local/share/zathura/** rwk,
+  owner @{user_share_dirs}/zathura/{**,} rwk,
   owner @{HOME}/.config/zathura/** r,
 
   deny /etc/passwd r,

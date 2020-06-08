@@ -1,0 +1,19 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile sxiv /{usr/,}bin/sxiv {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/fonts>
+  #include <abstractions/user-tmp>
+
+  owner @{HOME}/src/{**,} r,
+  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
+  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
+  owner @{HOME}/@{XDG_PICTURES_DIR}/{**,} r,
+
+  owner /dev/shm/#* rw,
+
+  #include if exists <local/usr.bin.sxiv>
+}
