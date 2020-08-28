@@ -1,0 +1,2 @@
+  /{usr/,}bin/select-editor rCx -> editor,
+  /{usr/,}bin/nano rCx -> editor,

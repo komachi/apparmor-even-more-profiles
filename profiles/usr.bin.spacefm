@@ -22,14 +22,13 @@ profile spacefm /{usr/,}bin/spacefm {
   @{sys}/bus/ r,
   @{sys}/class/ r,
   @{sys}/class/block/ r,
-  /{var/,}run/udev/data/* r,
   @{sys}/devices/virtual/block/*/{uevent,removable,size,ro} r,
   @{sys}/devices/virtual/block/**/queue/hw_sector_size r,
   @{sys}/devices/virtual/block/{loop,dm}*/ r,
   @{sys}/devices/pci*/**/{usb,ata}*/**/block/**/{uevent,removable,size,alignment_offset,ro,start,hw_sector_size} r,
-  @{sys}/devices/pci*/**/{usb,ata}*/**/block/**/sda*/sda* r,
+  @{sys}/devices/pci*/{**,}/{usb,ata}*/**/block/sda*/{**,} r,
   @{sys}/devices/pci*/**/{usb,ata}*/**/{model,vendor,speed} r,
-
+  /{var/,}run/udev/data/* r,
   /etc/nsswitch.conf r,
   /etc/spacefm/** r,
   /{usr/,}bin/sleep ix,
@@ -37,6 +36,7 @@ profile spacefm /{usr/,}bin/spacefm {
   /{usr/,}bin/udevil rPux,
   /etc/passwd r,
   /etc/group r,
+
   owner @{HOME}/.config/spacefm/{**,} rw,
 
   /{usr/,}bin/mpv rPux,

@@ -11,11 +11,13 @@ profile nm-applet /{usr/,}bin/nm-applet {
 
   @{system_share_dirs}/{themes,poppler,icons,pixmaps,mime}/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+
   /etc/passwd r,
   /etc/nsswitch.conf r,
 
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
-  owner /{,var/}run/user/*/dconf/{*,} rw,
+  owner /{,var/}run/user/@{uid}/dconf/{*,} rw,
+  owner @{user_share_dirs}/icons/{**,} r,
 
   deny /dev/tty* rw,
 

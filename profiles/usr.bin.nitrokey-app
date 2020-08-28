@@ -1,0 +1,8 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile nitrokey-app /{usr/,}bin/nitrokey-app flags=(complain) {
+  #include <abstractions/base>
+
+  #include if exists <local/usr.bin.nitrokey-app>
+}

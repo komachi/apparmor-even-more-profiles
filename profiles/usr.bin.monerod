@@ -3,7 +3,7 @@
 #include <tunables/global>
 
 @{monerod_exec_path} = /{usr/,usr/local/,}bin/monerod
-profile monerod @{monerod_exec_path} {
+profile monerod @{monerod_exec_path} flags=(attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/user-tmp>
   #include <abstractions/nameservice>

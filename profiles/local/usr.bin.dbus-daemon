@@ -1,3 +1,4 @@
-  /usr/lib/dconf/dconf-service rix,
-  owner @{HOME}/.config/dconf/** rw,
-  /run/systemd/dynamic-uid/ r,
+  /{var/,}run/systemd/dynamic-uid/ r,
+  /usr/lib/dconf/dconf-service Pux,
+  /var/lib/flatpak/exports/share/dbus-*/services/ r,
+  /var/lib/flatpak/app/**/share/dbus-*/services/* r,

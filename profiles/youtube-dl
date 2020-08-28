@@ -23,6 +23,7 @@ profile youtube-dl @{youtube_dl_exec_path} {
   /etc/mime.types r,
 
   owner @{PROC}/@{pid}/mounts r,
+  owner @{PROC}/@{pid}/fd/ r,
 
   #include if exists <local/youtube-dl>
 }

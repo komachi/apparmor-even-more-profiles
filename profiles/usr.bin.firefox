@@ -90,6 +90,12 @@ profile firefox @{firefox_exec_path} {
   @{system_share_dirs}/firefox*/** r,
   /usr/lib/firefox*/** r,
   /usr/lib/firefox*/fonts/** rw,
+  /{usr/,}lib/@{multiarch}/glib-2.0/gio-launch-desktop Pix -> open,
+
+  profile open {
+    #include <abstractions/xdg-open>
+    #include <abstractions/jaro>
+  }
 
   # noisy
   deny /usr/lib/xulrunner-addons/** w,
@@ -157,7 +163,7 @@ profile firefox @{firefox_exec_path} {
   owner @{HOME}/.cache/mozilla/firefox/{**,} rwk,
   owner @{HOME}/.config/gtk-3.0/bookmarks r,
   owner @{HOME}/.config/dconf/user w,
-  owner /{,var/}run/user/*/dconf/user w,
+  owner /{,var/}run/user/@{uid}/dconf/user w,
   dbus (send)
        bus=session
        path=/org/gnome/GConf/Server
@@ -238,9 +244,10 @@ profile firefox @{firefox_exec_path} {
   # Ideally these would use a child profile. They are all ELF executables
   # so running with 'Ux', while not ideal, is ok because we will at least
   # benefit from glibc's secure execute.
-  /{usr/,}bin/mkfifo Uxr,  # investigate
-  /{usr/,}ps Uxr,
-  /{usr/,}uname Uxr,  
+  # Changed some them to rix and PUxr, fit better
+  /{usr/,}bin/mkfifo rix,
+  /{usr/,usr/bin/,}ps rix,
+  /{usr/,usr/bin,}uname PUxr,
 
   /{usr/,}bin/lsb_release Cxr -> lsb_release,
   profile lsb_release {
@@ -264,7 +271,7 @@ profile firefox @{firefox_exec_path} {
   }
 
   /{usr/,}bin/uget-integrator rPux,
-
+  /{usr/,}bin/keepassxc-proxy Pux,
   /dev/ r,
   /dev/dri/ r,
   @{sys}/class/ r,

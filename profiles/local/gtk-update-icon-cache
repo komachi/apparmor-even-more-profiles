@@ -1,0 +1,2 @@
+  /{var/,}lib/flatpak/exports/share/icons/** r,
+  /{var/,}lib/flatpak/exports/share/icons/{**,.}icon-theme.cache rw,

@@ -8,7 +8,7 @@ profile syncthing /{usr/,}bin/syncthing {
   #include <abstractions/ssl_keys>
   #include <abstractions/nameservice>
 
-  /{usr/,}bin/syncthing r,
+  /{usr/,}bin/syncthing rix,
 
   owner @{HOME}/.config/syncthing/{**,} rwk,
 
@@ -18,6 +18,7 @@ profile syncthing /{usr/,}bin/syncthing {
   owner @{HOME}/Sync/** rw,
 
   @{PROC}/sys/net/core/somaxconn r,
+  @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
 
   #include if exists <local/usr.bin.syncthing>
 }

@@ -9,7 +9,7 @@ profile xbindkeys /{usr/,}bin/xbindkeys {
   owner @{HOME}/.xbindkeysrc r,
   owner @{PROC}/@{pid}/statm r,
 
-  /dev/tty* rw,
+  owner /dev/tty* rw,
   /{usr/,}bin/dash rix,
 
   /{usr/,}bin/playerctl rPux,

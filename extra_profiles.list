@@ -2,9 +2,11 @@ bin.netstat
 etc.cron.daily.logrotate
 etc.cron.daily.slocate.cron
 etc.cron.daily.tmpwatch
+sbin.dhclient-script
+sbin.portmap
+usr.bin.apropos
 usr.bin.passwd
 usr.bin.wireshark
 usr.lib.GConf.2.gconfd-2
 usr.lib.man-db.man
-usr.sbin.useradd
 usr.sbin.userdel

@@ -7,7 +7,7 @@ profile xsettingsd /{usr/,}bin/xsettingsd {
   owner @{HOME}/.xsettingsd r,
   owner @{HOME}/.Xauthority r,
 
-  /dev/tty* rw,
+  owner /dev/tty* rw,
   
   #include if exists <local/usr.bin.xsettingsd>
 }

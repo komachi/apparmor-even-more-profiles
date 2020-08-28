@@ -12,8 +12,8 @@ profile i3lock /{usr/,}bin/i3lock {
   /etc/passwd r,
   /etc/group r,
   /etc/login.defs r,
-  /dev/tty* rw,
-  /run/utmp rk,
+  /{var/,}run/utmp rk,
+  owner /dev/tty* rw,
 
   /{usr/,}sbin/unix_chkpwd Pux,  
 

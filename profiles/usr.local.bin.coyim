@@ -1,0 +1,10 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile coyim /{usr/,usr/local/,}bin/coyim flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  #include if exists <local/usr.local.bin.coyim>
+}

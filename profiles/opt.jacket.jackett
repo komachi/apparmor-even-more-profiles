@@ -1,0 +1,35 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+@{jackett_exec_path} = /opt/jackett/jackett
+profile jackett @{jackett_exec_path} flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/openssl>
+
+  capability sys_nice,
+
+  /opt/jackett/ r,
+  /opt/jackett/** mrk,
+  /var/lib/jackett/** rk,
+  @{sys}/fs/cgroup/cpu,cpuacct/{user,system}.slice/cpu.cfs_quota_us r,
+  @{sys}/fs/cgroup/cpu,cpuacct/{user,system}.slice/jackett.service/cpu.cfs_quota_us r,
+  @{sys}/fs/cgroup/memory/system.slice/jackett.service/memory.limit_in_bytes r,
+  @{sys}/fs/cgroup/memory/user.slice/user-@{uid}.slice/session-[0-9].scope/memory.limit_in_bytes r,
+  @{sys}/devices/system/node/ r,
+  @{sys}/devices/system/node/node[0-9]/meminfo r,
+  owner @{PROC}/@{pid}/mountinfo r,
+  owner @{PROC}/@{pid}/cgroup r,
+  owner @{PROC}/@{pid}/stat r,
+
+  deny /usr/lib/terminfo/** k,
+  deny /etc/localtime k,
+  deny @{system_share_dirs}/zoneinfo/{**,} k,
+  deny /etc/issue r,
+  deny @{PROC}/stat k,
+  deny @{PROC}/@{pid}/stat k,
+
+  #include if exists <local/opt.jackett.jackett>
+}

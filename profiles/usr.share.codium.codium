@@ -11,23 +11,21 @@ profile codium /usr/share/codium/codium {
   #include <abstractions/wayland>
   #include <abstractions/mesa>
   #include <abstractions/dri-enumerate>
-  #include <abstractions/dconf-deny>
+  #include <abstractions/deny-dconf>
   #include <abstractions/openfile>
   #include <abstractions/recent-deny>
+  #include <abstractions/private-files-strict>
 
-  owner @{HOME}/ r,
-  owner @{HOME}/src/ r,
-  owner @{HOME}/src/** rw,
-  owner @{HOME}/bin/ r,
-  owner @{HOME}/bin/** rw,
+  ptrace (read) peer=lsb_release,
 
   owner @{HOME}/.vscode-oss/{**,} rw,
-  owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live Cx -> languagetool_languageserver,
+  owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live Cix -> languagetool_languageserver,
   owner @{HOME}/.config/VSCodium/{**,} rwk,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/gtk-3.0/bookmarks r,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.gitconfig r,
+  owner @{user_share_dirs}/icons/{**,} r,
 
   @{system_share_dirs}/{icons,themes,pixmaps,poppler,mime}/{**,} r,
   @{system_share_dirs}/codium/ r,
@@ -40,36 +38,81 @@ profile codium /usr/share/codium/codium {
   @{PROC}/sys/kernel/yama/ptrace_scope r,
   @{PROC}/sys/fs/inotify/max_user_watches r,
   owner @{PROC}/@{pid}/coredump_filter rw,
-  owner @{PROC}/@{pid}/{stat,statm,fd/,task/,mountinfo,mounts,cgroup,coredump_filter} r,
+  owner @{PROC}/@{pid}/{stat,statm,fd/,task/,mountinfo,mounts,cgroup} r,
+  @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/{comm,clear_refs} w,
   owner @{PROC}/@{pid}/task/@{tid}/status r,
   owner /{var/,}run/*/*/vscode*.sock w,
+  @{sys}/kernel/mm/transparent_hugepage/enabled r,
+  @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
 
   /{usr/,}bin/{dirname,git,dash,shellcheck,uname,gio,which,sed,getcap} rix,
   /{usr/,}lib/git-core/git rix,
-  /{usr/,}bin/python* rix,
+  /{usr/,}bin/python* Cix -> codium_python,
+  /{usr/,}bin/lsb_release Px -> lsb_release,
+  /{usr/,}lib/node_modules/npm/bin/npm-cli.js Cx -> npm_cli,
+  owner @{HOME}/.cache/typescript/{**,} rw,
+
+  profile npm_cli flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/fonts>
+    #include <abstractions/openssl>
+    #include <abstractions/nameservice-strict>
+
+    /{usr/,}bin/node rix,
+    /{usr/,}bin/env rix,
+    /{usr/,}lib/node_modules/npm/** r,
+    @{system_share_dirs}/codium/** r,
+    @{sys}/fs/cgroup/memory/memory.limit_in_bytes r,
+
+    owner @{HOME}/.cache/typescript/{**,} rw,
+    owner @{HOME}/.npmrc r,
+    owner @{HOME}/.npm/** rwl,
+
+    deny @{HOME}/.npm/anonymous-cli-metrics.json{*,} rw,
+    deny @{HOME}/ r,
+    deny /home/ r,
+
+    #include if exists <local/codium_npm_cli>
+  }
 
   profile languagetool_languageserver {
     #include <abstractions/base>
+    #include <abstractions/nameservice>
 
     owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live r,
+    owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/{**,} r,
+    owner @{PROC}/@{pid}/{mountinfo,cgroup} r,
+    owner @{PROC}/@{pid}/coredump_filter rw,
 
+    /tmp/hsperfdata_user/{**,} rw,
     /{usr/,}bin/env rix,
     /{usr/,}bin/dash rix,
-    /usr/share/{fonts,codium}/** r,
+    /{usr/,}bin/dirname ix,
+    /{usr/,}bin/uname ix,
+    /{usr/,}bin/which rix,
+    /{usr/,}bin/sed ix,
+    @{system_share_dirs}/{fonts,codium}/** r,
     /{usr/,}lib/jvm/java-*-openjdk-*/bin/java rix,
     /{usr/,}lib/jvm/java-*-openjdk-*/lib/**.jsa mr,
     /{usr/,}lib/jvm/java-*-openjdk-*/** r,
     /etc/java-*-openjdk/** r,
     @{sys}/fs/cgroup/memory/**/memory.{limit_in_bytes,use_hierarchy,stat} r,
     @{sys}/fs/cgroup/cpu,cpuacct/**/cpu.{cfs_quota_us,shares,cfs_period_us} r,
+
+    deny /etc/timezone r,
+  }
+
+  profile codium_python flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/python>
   }
 
   deny /dev/pts/ r,
   deny @{HOME}/.local/bin/ r,
   deny /{usr/,}{local/,}{bin,sbin,games}/ r,
   deny /opt/ r,
-  deny /usr/share/ r,
+  deny @{system_share_dirs} r,
   deny /dev/pts/** r,
   deny /dev/tty* wr,
   deny @{sys}/devices/virtual/tty/** r,
@@ -78,11 +121,12 @@ profile codium /usr/share/codium/codium {
   deny @{HOME}/.pki/** rw,
   deny @{system_share_dirs}/fonts/** w,
   deny @{system_share_dirs}/poppler/** w,
-  deny /sys/bus/pci/devices/ r,
+  deny @{sys}/bus/pci/devices/ r,
   deny @{system_share_dirs}/gvfs/remote-volume-monitors/ r,
   deny /etc/fstab r,
   # https://gitlab.freedesktop.org/fontconfig/fontconfig/issues/121
   deny /usr/local/share/fonts/** w,
+  deny /usr/share/ r,
 
   #include if exists <local/usr.share.codium.codium>
 }

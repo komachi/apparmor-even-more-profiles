@@ -1,0 +1,2 @@
+  owner @{HOME}/src/**/package.json r,
+  owner @{HOME}/src/**/.npmrc r,

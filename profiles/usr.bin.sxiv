@@ -8,6 +8,8 @@ profile sxiv /{usr/,}bin/sxiv {
   #include <abstractions/fonts>
   #include <abstractions/user-tmp>
 
+  @{system_share_dirs}/icons/** r,
+
   owner @{HOME}/src/{**,} r,
   owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
   owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,

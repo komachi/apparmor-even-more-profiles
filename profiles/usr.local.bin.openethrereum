@@ -1,0 +1,21 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile openethereum /{usr/,usr/local/,}bin/openethereum {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  /{usr/,}bin/df ix,
+  
+  /etc/openethereum/config.toml r,
+
+  owner /home/openethereum/** rwk,
+  owner @{PROC}/@{pid}/task/@{tid}/comm rw,
+  owner @{PROC}/@{pid}/mountinfo r,
+  @{PROC}/sys/kernel/random/uuid r,
+  @{sys}/devices/virtual/block/*/queue/logical_block_size r,
+  @{sys}/kernel/mm/transparent_hugepage/enabled r,
+
+  #include if exists <local/usr.local.bin.openethereum>
+}

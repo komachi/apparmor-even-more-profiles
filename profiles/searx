@@ -1,0 +1,17 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+@{searx_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/searx/,}bin/searx-run
+profile searx @{searx_exec_path} {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/pipx>
+
+  /etc/mime.types r,
+  /etc/timezone r,
+  @{HOME}/.config/searx/settings.yml r,
+
+  #include if exists <local/searx>
+}

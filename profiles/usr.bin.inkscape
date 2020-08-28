@@ -21,6 +21,10 @@ profile inkscape /{usr/,}bin/inkscape {
     owner @{HOME}/.config/gtk-2.0/** r,
     owner @{HOME}/.config/inkscape/{**,} rw,
     owner @{HOME}/.cache/inkscape/{**,} rw,
+    owner @{user_share_dirs}/icons/{**,} r,
+    owner @{HOME}/.config/gtk-3.0/bookmarks r,
+    owner @{HOME}/.config/user-dirs.dirs r,
+    owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* w,
 
     #include if exists <local/usr.bin.inkscape>
 }

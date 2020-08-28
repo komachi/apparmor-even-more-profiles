@@ -1,0 +1,11 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile dconf-service /{usr/,}lib/dconf/dconf-service flags=(complain) {
+  #include <abstractions/base>
+
+  owner @{HOME}/.config/dconf/{**,} rw,
+
+  #include if exists <local/usr.lib.dconf.dconf-service>
+
+}

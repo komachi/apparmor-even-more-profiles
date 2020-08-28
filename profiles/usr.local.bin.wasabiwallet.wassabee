@@ -30,11 +30,11 @@ profile wasabiwallet /usr/local/bin/wasabiwallet/wassabee {
   @{system_share_dirs}/zoneinfo/** rk,
 
   /{usr/,}sbin/ldconfig rix,
-  /{usr/,}bin/x86_64-linux-gnu-ld.bfd rix,
-  /{usr/,}bin/x86_64-linux-gnu-gcc-8 rix,
+  /{usr/,}bin/@{multiarch}-ld.bfd rix,
+  /{usr/,}bin/@{multiarch}-gcc-8 rix,
   /{usr/,}bin/uname ix,
 
-  owner /tmp/*/{libz.so.1,libpython3.6m.so.1.0,libffi.so.6,*.cpython-36m-x86_64-linux-gnu.so,libssl.so.1.1,libbz2.so.1.0,liblzma.so.5,libudev.so.1,libcrypto.so.1.1} m,
+  owner /tmp/*/{libz.so.1,libpython3.6m.so.1.0,libffi.so.6,*.cpython-36m-@{multiarch}.so,libssl.so.1.1,libbz2.so.1.0,liblzma.so.5,libudev.so.1,libcrypto.so.1.1} m,
 
   owner @{HOME}/.walletwasabi/ rw,
   owner @{HOME}/.walletwasabi/** rwkl,

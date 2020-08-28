@@ -1,1 +1,8 @@
-  /dev/tty* rw,
+  #include <abstractions/openssl>
+
+  /{usr/,}bin/ssh-agent Pux,
+  /{usr/,}bin/ssh-add ix,
+  /{usr/,}lib/gcr/gcr-ssh-askpas ix,
+  owner /dev/tty[0-9]* rw,
+  @{PROC}/@{pid}/fd/ r,
+  /{var/,}run/user/@{uid}/ssh-askpass.*/ rw,

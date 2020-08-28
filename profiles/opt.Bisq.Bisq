@@ -11,7 +11,7 @@ profile bisq /opt/Bisq/Bisq {
   #include <abstractions/mesa>
   #include <abstractions/user-tmp>
   #include <abstractions/nameservice>
-  #include <abstractions/dconf-deny>
+  #include <abstractions/deny-dconf>
 
   /opt/Bisq/** r,
   /opt/Bisq/libpackager.so mr,
@@ -28,13 +28,16 @@ profile bisq /opt/Bisq/Bisq {
   owner @{PROC}/@{pid}/{mountinfo,cgroup,cmdline,stat,fd/} r,
   owner @{HOME}/.oracle_jre_usage/{**,} rw,
   owner @{HOME}/.java/fonts/** r,
-  owner @{user_share_dirs}/Bisq/{**,} rwk,
+  owner @{user_share_dirs}/Bisq/ rw,
+  owner @{user_share_dirs}/Bisq/** rwk,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{user_share_dirs}/Bisq/btc_mainnet/tor/tor Cx -> bisq_tor,
+  /{var/,}run/tor/control.authcookie r,
 
   profile bisq_tor {
     #include <abstractions/base>
     #include <abstractions/nameservice>
+    #include <abstractions/openssl>
 
     owner @{user_share_dirs}/Bisq/btc_mainnet/tor/{**,} mrwk,
     
@@ -42,7 +45,6 @@ profile bisq /opt/Bisq/Bisq {
     @{sys}/devices/system/cpu/online r,
     @{PROC}/meminfo r,
     @{PROC}/sys/kernel/random/uuid r,
-    /etc/ssl/openssl.cnf r,
   }
 
   deny @{PROC}/ r,

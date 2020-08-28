@@ -2,19 +2,18 @@
 
 #include <tunables/global>
 
-profile XD /{usr/,usr/local/,}bin/{XD,XD-cli} {
+profile ipfs /{usr/,}bin/ipfs flags=(attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/nameservice>
-  #include <abstractions/user-download-strict>
 
   @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
   @{PROC}/sys/net/core/somaxconn r,
   /etc/mime.types r,
+  /{usr/,}bin/ipfs r,
 
-  owner @{HOME}/.cache/XD/** r,
-  owner @{HOME}/.config/XD/** r,
-  owner @{HOME}/.config/XD/metadata/{**,} rw,
+  owner /{var/,}lib/ipfs/** rwk,
+  owner @{HOME}/.ipfs/ rw,
+  owner @{HOME}/.ipfs/** rwk,
 
-  #include if exists <local/usr.bin.XD>
+  #include if exists <local/usr.bin.ipfs>
 }
-  

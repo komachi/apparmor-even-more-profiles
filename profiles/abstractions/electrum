@@ -13,8 +13,8 @@
 
   /{usr/,}sbin/ldconfig ix,
   /{usr/,}bin/{file,dash,dirname} rix,
-  /{usr/,}bin/x86_64-linux-gnu-gcc-8 ix,
-  /{usr/,}bin/x86_64-linux-gnu-ld.bfd ix,
+  /{usr/,}bin/@{multiarch}-gcc-8 ix,
+  /{usr/,}bin/@{multiarch}-ld.bfd ix,
   /etc/mime.types r,
   @{system_share_dirs}/{mime,icons}/{**,} r,
   /dev/bus/usb/ r,

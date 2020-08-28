@@ -14,13 +14,24 @@ profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
     owner @{HOME}/@{XDG_PICTURES_DIR}/ r,
     owner @{HOME}/@{XDG_PICTURES_DIR}/** rw,
 
-    @{system_share_dirs}/{icons,mime,themes,gimp}/{**,} r,
+    @{system_share_dirs}/{icons,mime,themes,gimp,pixmaps}/{**,} r,
+    @{system_share_dirs}/xml/iso-codes/** r,
     /usr/lib/gimp/** rix,
+    /etc/gimp/** r,
+    @{sys}/devices/system/node/ r,
 
     owner @{HOME}/.config/GIMP/{**,} rw,
     owner @{HOME}/.gtkrc-2.0 r,
+    owner @{HOME}/.config/gtk-3.0/bookmarks r,
+    owner @{HOME}/.config/user-dirs.dirs r,
     owner @{HOME}/.config/gtk-2.0/** r,
     owner @{HOME}/.cache/{gegl-*,babl}/** rw,
+    owner @{HOME}/.cache/thumbnails/** rw,
+    owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* w,
+    owner @{HOME}/.local/share/icons/** r,
+    owner @{user_share_dirs}/gegl-*/** r,
+    
+    
 
     #include if exists <local/usr.bin.gimp>
 

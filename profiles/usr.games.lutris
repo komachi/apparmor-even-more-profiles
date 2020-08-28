@@ -1,0 +1,42 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+@{lutris_exec_path} =  /{usr/,}{bin,games}/lutris
+profile lutris @{lutris_exec_path} flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/X>
+  #include <abstractions/wayland>
+  #include <abstractions/dri-enumerate>
+  #include <abstractions/mesa>
+  #include <abstractions/python>
+  #include <abstractions/openssl>
+  #include <abstractions/fonts>
+
+  @{lutris_exec_path} r,
+  /{usr/,}bin/dash ix,
+  /{usr/,}bin/uname ix,
+  /{usr/,}bin/glxinfo Pix,
+  /{usr/,}sbin/ldconfig ix,
+  /{usr/,}bin/lspci ix,
+  /{usr/,}bin/wine-stable ix,
+  /{usr/,}lib/wine/wine ix,
+
+  @{system_share_dirs}/{lutris,themes,icons,poppler}/** r,
+  /var/lib/flatpak/exports/share/icons/** r,
+
+  /{usr/,}games r,
+
+  owner @{PROC}/@{pid}/mount r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  owner @{HOME}/.cache/lutris/{**,} rw,
+  owner @{HOME}/.config/lutris/{**,} rw,
+  owner @{user_share_dirs}/lutris/{**,} rwk,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+
+  deny @{HOME}/ r,
+  deny @{HOME}/.var/app/ r,
+  deny @{user_share_dirs}/ r,
+
+  #include if exists <local/usr.games.lutris>
+}

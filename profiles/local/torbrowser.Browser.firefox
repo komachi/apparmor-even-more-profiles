@@ -1,0 +1,2 @@
+  /{var/,}run/tor/control.authcookie r,
+  @{sys}/class/input/ r,

@@ -20,6 +20,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
 
   owner @{user_share_dirs}/TelegramDesktop/{**,} rwlk,
   owner @{HOME}/.config/QtProject.conf r,
+  owner @{HOME}/.config/user-dirs.dirs r,
 
   @{system_share_dirs}/{TelegramDesktop,icons,mime}/** r,
 
@@ -30,7 +31,6 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   @{PROC}/@{pid}/cmdline r,
 
   owner /dev/shm/* rw,
-
   deny /usr/bin/fc-list x,
   deny /usr/bin/uname x,
 

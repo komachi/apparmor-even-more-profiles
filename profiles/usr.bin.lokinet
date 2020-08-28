@@ -1,0 +1,16 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+#include <tunables/global>
+
+profile lokinet /{usr/,}bin/lokinet {
+  #include <abstractions/base>
+
+  capability net_admin,
+  capability net_bind_service,
+
+  /{var/,}lib/lokinet/** rw,
+  /{var/,}lib/lokinet/self.signed k,
+  /etc/loki/lokinet.ini r,
+  /dev/net/tun rw,
+
+  #include if exists <local/usr.bin.lokinet>
+}

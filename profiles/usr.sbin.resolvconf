@@ -7,15 +7,24 @@ profile resolvconf /{usr/,}sbin/resolvconf  {
   #include <abstractions/nameservice>
 
   capability dac_override,
+  capability kill,
+
+  signal (send) set=(hup) peer=/usr/sbin/unbound,
 
   /{usr/,}sbin/resolvconf r,
   /{var/,}run/resolvconf/{**,} rw,
-  /{var/,}run/dnsmasq/resolv.conf rw,
-  /var/cache/unbound/resolvconf_resolvers.conf rw,
   /etc/resolvconf.conf r,
   /etc/resolv.conf rw,
 
-  /{usr/,}bin/{cat,rm,dash} rix,
+  /{var/,}run/dnsmasq/ rw,
+  /{var/,}run/dnsmasq/resolv.conf rw,
+
+  /{var/,}run/unbound.pid r,
+  /var/cache/unbound/resolvconf_resolvers.conf rw,
+
+  /var/lib/lokinet/ r,
+
+  /{usr/,}bin/{cat,rm,dash,install} rix,
   /{usr/,}bin/{systemctl,dbus-send} rPux,
 
   deny / r,

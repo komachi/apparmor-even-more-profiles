@@ -9,7 +9,7 @@ profile xss-lock /{usr/,}bin/xss-lock {
 
   owner @{PROC}/@{pid}/fd/ r,
 
-  /dev/tty* rw,
+  owner /dev/tty* rw,
 
   #include if exists <local/usr.bin.xss-lock>
 }
