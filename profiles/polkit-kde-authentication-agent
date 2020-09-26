@@ -1,1 +1,1 @@
-../morfikov-debian-files/configs/etc/apparmor.d/polkit-kde-authentication-agent
+../apparmemall/apparmor.d/polkit-kde-authentication-agent

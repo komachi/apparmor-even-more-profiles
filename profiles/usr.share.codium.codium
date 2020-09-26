@@ -15,6 +15,7 @@ profile codium /usr/share/codium/codium {
   #include <abstractions/openfile>
   #include <abstractions/recent-deny>
   #include <abstractions/private-files-strict>
+  #include <abstractions/python>
 
   ptrace (read) peer=lsb_release,
 
@@ -26,6 +27,7 @@ profile codium /usr/share/codium/codium {
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.gitconfig r,
   owner @{user_share_dirs}/icons/{**,} r,
+  owner @{user_share_dirs}/Trash/{**,} w,
 
   @{system_share_dirs}/{icons,themes,pixmaps,poppler,mime}/{**,} r,
   @{system_share_dirs}/codium/ r,
@@ -38,7 +40,8 @@ profile codium /usr/share/codium/codium {
   @{PROC}/sys/kernel/yama/ptrace_scope r,
   @{PROC}/sys/fs/inotify/max_user_watches r,
   owner @{PROC}/@{pid}/coredump_filter rw,
-  owner @{PROC}/@{pid}/{stat,statm,fd/,task/,mountinfo,mounts,cgroup} r,
+  owner @{PROC}/@{pid}/{stat,statm,fd/,task/,mountinfo,mounts,cgroup,cmdline} r,
+  owner @{PROC}/@{pid}/oom_score_adj rw,
   @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/{comm,clear_refs} w,
   owner @{PROC}/@{pid}/task/@{tid}/status r,
@@ -48,12 +51,12 @@ profile codium /usr/share/codium/codium {
 
   /{usr/,}bin/{dirname,git,dash,shellcheck,uname,gio,which,sed,getcap} rix,
   /{usr/,}lib/git-core/git rix,
-  /{usr/,}bin/python* Cix -> codium_python,
+  /{usr/,}bin/python* rix,
   /{usr/,}bin/lsb_release Px -> lsb_release,
   /{usr/,}lib/node_modules/npm/bin/npm-cli.js Cx -> npm_cli,
   owner @{HOME}/.cache/typescript/{**,} rw,
 
-  profile npm_cli flags=(complain) {
+  profile npm_cli {
     #include <abstractions/base>
     #include <abstractions/fonts>
     #include <abstractions/openssl>
@@ -64,10 +67,12 @@ profile codium /usr/share/codium/codium {
     /{usr/,}lib/node_modules/npm/** r,
     @{system_share_dirs}/codium/** r,
     @{sys}/fs/cgroup/memory/memory.limit_in_bytes r,
+    owner @{PROC}/@{pid}/statm r,
 
     owner @{HOME}/.cache/typescript/{**,} rw,
     owner @{HOME}/.npmrc r,
     owner @{HOME}/.npm/** rwl,
+    owner @{HOME}/.config/VSCodium/Dictionaries/*.bdi r,
 
     deny @{HOME}/.npm/anonymous-cli-metrics.json{*,} rw,
     deny @{HOME}/ r,
@@ -101,11 +106,6 @@ profile codium /usr/share/codium/codium {
     @{sys}/fs/cgroup/cpu,cpuacct/**/cpu.{cfs_quota_us,shares,cfs_period_us} r,
 
     deny /etc/timezone r,
-  }
-
-  profile codium_python flags=(complain) {
-    #include <abstractions/base>
-    #include <abstractions/python>
   }
 
   deny /dev/pts/ r,

@@ -5,4 +5,4 @@
   /{usr/,}lib/gcr/gcr-ssh-askpas ix,
   owner /dev/tty[0-9]* rw,
   @{PROC}/@{pid}/fd/ r,
-  /{var/,}run/user/@{uid}/ssh-askpass.*/ rw,
+  /{var/,}run/user/@{uid}/ssh-askpass.*/{socket,} rw,

@@ -1,1 +1,1 @@
-../../morfikov-debian-files/configs/etc/apparmor.d/abstractions/deny-root-dir-access
+../../apparmemall/apparmor.d/abstractions/deny-root-dir-access

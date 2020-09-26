@@ -2,7 +2,7 @@
 
 #include <tunables/global>
 
-profile NetworkManager /{usr/,}sbin/NetworkManager {
+profile NetworkManager /{usr/,}{s,}bin/NetworkManager {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 
@@ -11,13 +11,13 @@ profile NetworkManager /{usr/,}sbin/NetworkManager {
   capability net_admin,
   capability net_raw,
   capability dac_override,
-  
+  capability kill,
+
   /{var/,}run/NetworkManager/{**,} rw,
   /{var/,}run/network/** r,
-  /{var/,}run/dhclient.pid r,
-  /{var/,}run/dhclient-*.pid r,
+  /{var/,}run/dhclient{6,}{-*,}.pid rw,
   /etc/NetworkManager/** r,
-  /var/lib/NetworkManager/** rw,
+  /{var/,}lib/NetworkManager/** rw,
   @{sys}/devices/pci*/**/net/** r,
   @{sys}/bus/ r,
   @{sys}/class/ r,

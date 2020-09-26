@@ -1,2 +1,3 @@
   /{var/,}run/tor/control.authcookie r,
   @{sys}/class/input/ r,
+  owner @{PROC}/@{pid}/cgroup r,

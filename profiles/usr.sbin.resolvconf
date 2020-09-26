@@ -24,7 +24,7 @@ profile resolvconf /{usr/,}sbin/resolvconf  {
 
   /var/lib/lokinet/ r,
 
-  /{usr/,}bin/{cat,rm,dash,install} rix,
+  /{usr/,}bin/{cat,rm,dash,install,sleep} rix,
   /{usr/,}bin/{systemctl,dbus-send} rPux,
 
   deny / r,

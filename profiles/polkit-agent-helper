@@ -1,1 +1,1 @@
-../morfikov-debian-files/configs/etc/apparmor.d/polkit-agent-helper
+../apparmemall/apparmor.d/polkit-agent-helper

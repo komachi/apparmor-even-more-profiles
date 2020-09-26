@@ -16,6 +16,7 @@ profile zathura /{usr/,}bin/zathura {
   owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
 
   owner @{user_share_dirs}/zathura/{**,} rwk,
+  owner @{user_share_dirs}/icons/{**,} r,
   owner @{HOME}/.config/zathura/** r,
 
   deny /etc/passwd r,

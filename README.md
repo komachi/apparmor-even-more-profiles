@@ -19,4 +19,4 @@ Read more about AppArmor on [project page](https://gitlab.com/apparmor/apparmor)
 
 ## Acknowledgements
 
-This repo also incorporates some projects as submodules, reusing already created profiles. So special thanks goes to [apparmor-profile-everything](https://github.com/Whonix/apparmor-profile-everything), [krathalan](https://git.sr.ht/~krathalan/apparmor-profiles), [Mikhail Morfikov](https://gitlab.com/morfikov/debian-files) and [Ubuntu maintainers](https://git.launchpad.net/apparmor-profiles)
+This repo also incorporates some projects as submodules, reusing already created profiles. So special thanks goes to [apparmor-profile-everything](https://github.com/Whonix/apparmor-profile-everything), [krathalan](https://git.sr.ht/~krathalan/apparmor-profiles), [Mikhail Morfikov](https://gitlab.com/morfikov/apparmemall.git)

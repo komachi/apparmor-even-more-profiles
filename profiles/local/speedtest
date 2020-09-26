@@ -1,2 +1,2 @@
-  owner @{HOME}/.local/lib/python*/site-packages/ r,
-  /{usr/,}local/lib/python*/dist-packages/* r,
+  owner @{HOME}/.local/lib/python*/site-packages/{**,} r,
+  /{usr/,}local/lib/python*/dist-packages/{**,} r,

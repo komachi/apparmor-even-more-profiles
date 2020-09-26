@@ -7,6 +7,6 @@
 [submodule "apparmor-profiles-krathalan"]
 	path = apparmor-profiles-krathalan
 	url = https://git.sr.ht/~krathalan/apparmor-profiles
-[submodule "morfikov-debian-files"]
-	path = morfikov-debian-files
-	url = https://gitlab.com/morfikov/debian-files.git
+[submodule "apparmemall"]
+	path = apparmemall
+	url = https://gitlab.com/morfikov/apparmemall.git
