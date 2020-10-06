@@ -15,6 +15,8 @@ profile sxiv /{usr/,}bin/sxiv {
   owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
   owner @{HOME}/@{XDG_PICTURES_DIR}/{**,} r,
 
+  owner @{HOME}/.config/sxiv/{**,} r,
+  owner @{HOME}/.cache/sxiv/{**,} rw,
   owner /dev/shm/#* rw,
 
   #include if exists <local/usr.bin.sxiv>

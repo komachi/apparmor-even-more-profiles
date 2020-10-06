@@ -72,7 +72,7 @@ profile codium /usr/share/codium/codium {
     owner @{HOME}/.cache/typescript/{**,} rw,
     owner @{HOME}/.npmrc r,
     owner @{HOME}/.npm/** rwl,
-    owner @{HOME}/.config/VSCodium/Dictionaries/*.bdi r,
+    owner @{HOME}/.config/VSCodium/Dictionaries/*.bdi{c,} r,
 
     deny @{HOME}/.npm/anonymous-cli-metrics.json{*,} rw,
     deny @{HOME}/ r,

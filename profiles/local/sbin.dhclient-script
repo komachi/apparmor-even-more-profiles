@@ -1,0 +1,5 @@
+  /{usr/,}bin/dash mrix,
+  /{usr/,}bin/run-parts rix,
+  /{usr/,}bin/logger rix,
+  /{usr/,}{s,}bin/resolvconf rPux,
+  /etc/dhcp/{**,} r,

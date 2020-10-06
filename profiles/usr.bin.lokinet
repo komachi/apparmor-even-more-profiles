@@ -3,6 +3,7 @@
 
 profile lokinet /{usr/,}bin/lokinet {
   #include <abstractions/base>
+  #include <abstractions/nameservice>
 
   capability net_admin,
   capability net_bind_service,
@@ -11,6 +12,8 @@ profile lokinet /{usr/,}bin/lokinet {
   /{var/,}lib/lokinet/self.signed k,
   /etc/loki/lokinet.ini r,
   /dev/net/tun rw,
+  owner @{PROC}/@{pid}/task/@{pid}/comm r,
+  owner /tmp/lokinet.*/{**,} rw,
 
   #include if exists <local/usr.bin.lokinet>
 }

@@ -133,6 +133,7 @@ profile firefox @{firefox_exec_path} {
   @{sys}/devices/system/node/node[0-9]*/meminfo r,
   @{sys}/devices/system/node/ r,
   owner @{HOME}/.cache/thumbnails/** rw,
+  owner @{HOME}/.cache/mozilla/firefox/default/adb/adb rix,
 
   /etc/mtab r,
   /etc/fstab r,

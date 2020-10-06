@@ -1,0 +1,10 @@
+  @{sys}/devices/virtual/dmi/id/product_uuid r,
+  @{sys}/devices/virtual/dmi/id/chassis_type r,
+  @{sys}/firmware/acpi/pm_profile r,
+  @{sys}/power/state r,
+  /dev/tty1 rw,
+  @{PROC}/devices r,
+
+  /{usr/,}bin/mpd rPux,
+  /{usr/,}bin/ipfs rPux,
+  /{usr/,}bin/aria2c rPux,

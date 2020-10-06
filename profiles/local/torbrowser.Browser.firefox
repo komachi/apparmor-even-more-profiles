@@ -1,3 +1,4 @@
   /{var/,}run/tor/control.authcookie r,
   @{sys}/class/input/ r,
+  @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
   owner @{PROC}/@{pid}/cgroup r,

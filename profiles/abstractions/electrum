@@ -27,6 +27,6 @@
   /dev/ r,
   /{var/,}run/udev/data/* r,
   @{sys}/bus/usb/devices/ r,
+  /{usr/,}/bin/uname rix,
 
-  deny /{usr/,}/bin/uname x,
   deny /etc/ r,
