@@ -11,3 +11,5 @@
   /{usr/,}bin/uget-gtk rPux,
   /{usr/,}bin/notify-send rPux,
   /{usr/,}bin/xclip rPux,
+  /{usr/,}lib/libreoffice/program/soffice rPux,
+  /{usr/,}bin/spacefm rPux,

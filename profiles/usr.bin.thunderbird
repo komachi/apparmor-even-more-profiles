@@ -98,24 +98,17 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
   deny /boot/vmlinuz* r,
   deny /var/cache/fontconfig/ w,
 
-  # TODO: investigate
-  deny /usr/bin/gconftool-2 x,
-
-  # Deny proprietary NVIDIA driver optimizations
-  # TODO: remove once it can be disabled via conditionals set up in nvidia abstraction
-  deny /tmp/#[0-9][0-9][0-9][0-9][0-9][0-9][0-9] m,
-  deny /tmp/.gl?????? mrw,
-  deny @{HOME}/#[0-9][0-9][0-9][0-9][0-9][0-9][0-9]{,[0-9]} m,
-  deny @{HOME}/.nv/.gl?????? mrw,
 
   owner @{PROC}/@{pid}/mountinfo r,
   owner @{PROC}/@{pid}/stat r,
+  owner @{PROC}/@{pid}/cgroup r,
   owner @{PROC}/@{pids}/task/ r,
   owner @{PROC}/@{pid}/task/@{tid}/stat r,
   owner @{PROC}/@{pids}/fd/ r,
   @{sys}/devices/pci[0-9]*/**/uevent r,
   @{sys}/devices/pci*/**/config r,
   @{sys}/devices/system/node/node[0-9]*/meminfo r,
+  @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
   /etc/mtab r,
   /etc/fstab r,
 
@@ -166,27 +159,21 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
   /{usr/,}bin/gpg2              Cx -> gpg,
   /{usr/,}bin/gpgconf           Cx -> gpg,
   /{usr/,}bin/gpg-connect-agent Cx -> gpg,
+  /{usr/,}bin/gpgsm             Cx -> gpg,
   /usr/lib/gnupg/gpg-wks-client ix,
   /{usr/,}bin/ps                ix,
 
   # TB tries to create this file but has no business doing so
   deny @{HOME}/.gnupg/gpg-agent.conf w,
 
+  /dev/urandom r,
+
   profile gpg {
     #include <abstractions/base>
 
     # Required to import keys from keyservers
-    #include <abstractions/nameservice>
+    #include <abstractions/nameservice-strict>
     #include <abstractions/p11-kit>
-
-    @{system_share_dirs}/xul-ext/enigmail/chrome/** r,
-
-    # silence noise from enigmail 1.9+
-    deny owner @{HOME}/.thunderbird/*/.parentlock w,
-    deny owner @{HOME}/.thunderbird/*/panacea.dat w,
-    deny owner @{HOME}/.thunderbird/*/*.mab w,
-    deny owner @{HOME}/.thunderbird/**/*.msf w,
-    deny owner @{HOME}/.cache/thunderbird/**/_CACHE_* w,
 
     # noise from inherited files
     deny @{HOME}/.thunderbird/*/ImapMail/*/INBOX w,
@@ -205,6 +192,7 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
     /{usr/,}bin/gpg2 mr,
     /{usr/,}bin/gpgconf mr,
     /{usr/,}bin/gpg-connect-agent mr,
+    /{usr/,}bin/gpgsm mr,
     /usr/lib/gnupg/gpgkeys_* ix,
     /usr/lib/gnupg2/gpg2keys_* ix,
     owner @{HOME}/.gnupg/ rw,
@@ -224,7 +212,6 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
     owner @{HOME}/.gnupg/.#lk0x[0-9a-f]* rwl,
     owner @{HOME}/.gnupg/.gpg-v[0-9]*-migrated rw,
     owner @{HOME}/.gnupg/openpgp-revocs.d/{,[A-F0-9]*.rev} rw,
-    owner @{HOME}/** r,
     owner @{PROC}/@{pids}/mountinfo r,
 
     # For gpgconf
@@ -240,17 +227,8 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
     owner /tmp/encfile-[0-9]* rw,
 
     # for key import
-    owner /tmp/enigmail_import/.#lk0x[0-9a-f]*  rw,
-    owner /tmp/enigmail_import/.#lk0x[0-9a-f]*x rwl,
-    owner /tmp/enigmail_import/{keyring,trustdb}.lock rwl,
-    owner /tmp/enigmail_import/{keyring,trustdb}{,~,.tmp} rw,
     /{usr/,}bin/dirmngr ix,
     owner @{PROC}/@{pids}/task/@{tid}/comm rw,
-
-    # for revocation certificate generation in the Enigmail setup wizard
-    owner @{HOME}/.thunderbird/*/0x[A-F0-9]*_rev.asc rw,
-    # for revocation certificate generation in the Enigmail key manager
-    owner @{HOME}/*0x[A-F0-9]**.asc rw,
 
     # for signature generation
     owner /tmp/nsemail.eml w,
@@ -265,6 +243,7 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
     @{system_share_dirs}/sounds/** r,
 
     owner /dev/shm/org.chromium.* r,
+    owner /dev/shm/org.mozilla.ipc.* r,
 
     owner @{HOME}/.thunderbird/**/filterlog.html w,
 

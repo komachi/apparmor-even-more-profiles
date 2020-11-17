@@ -1,1 +1,3 @@
-signal (receive) set=(hup) peer=resolvconf,
+  signal (receive) set=(hup) peer=resolvconf,
+  /{var/,}run/systemd/userdb/ r,
+  @{PROC}/sys/kernel/random/boot_id r,

@@ -14,6 +14,7 @@ profile zathura /{usr/,}bin/zathura {
 
   owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
   owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
+  owner @{HOME}/.zaread/{**,} r,
 
   owner @{user_share_dirs}/zathura/{**,} rwk,
   owner @{user_share_dirs}/icons/{**,} r,

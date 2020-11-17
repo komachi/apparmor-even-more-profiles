@@ -1,5 +1,9 @@
+
   /{var/,}run/systemd/dynamic-uid/ r,
-  /usr/lib/dconf/dconf-service Pux,
   /{var/,}lib/flatpak/exports/share/dbus-*/services/ r,
   /{var/,}lib/flatpak/app/**/share/dbus-*/services/* r,
   /{var/,}run/systemd/inhibit/2.ref rw,
+  /{var/,}run/systemd/userdb/ r,
+  /{usr/,}lib/dconf/dconf-service Pux,
+  /{usr/,}lib/@{multiarch}/tumbler-1/tumblerd Pux,
+  @{PROC}/sys/kernel/random/boot_id r,

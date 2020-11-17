@@ -2,7 +2,7 @@
 
   @{PROC}/sys/fs/inotify/max_user_watches r,  
   owner @{PROC}/@{pid}/mem r,
-  owner @{PROC}/@{pid}/clear_refs r,
+  owner @{PROC}/@{pid}/clear_refs rw,
   /dev/shm/shm** rw,
   /dev/video0 r,
   @{sys}/devices/virtual/dmi/id/{sys_vendor,product_name} r,

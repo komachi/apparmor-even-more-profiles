@@ -90,7 +90,7 @@ profile firefox @{firefox_exec_path} {
   @{system_share_dirs}/firefox*/** r,
   /usr/lib/firefox*/** r,
   /usr/lib/firefox*/fonts/** rw,
-  /{usr/,}lib/@{multiarch}/glib-2.0/gio-launch-desktop Pix -> open,
+  /{usr/,}lib/@{multiarch}/glib-2.0/gio-launch-desktop Cx -> open,
 
   profile open {
     #include <abstractions/xdg-open>
@@ -121,6 +121,7 @@ profile firefox @{firefox_exec_path} {
   @{PROC}/@{pid}/mountinfo r,
   @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/cgroup r,
   owner @{PROC}/@{pid}/task/[0-9]*/stat r,
   @{PROC}/@{pid}/status r,
   @{PROC}/filesystems r,

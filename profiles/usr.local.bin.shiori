@@ -1,0 +1,15 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile shiori /{usr/,usr/local/,}bin/shiori flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  owner @{user_share_dirs}/shiori rw,
+  owner @{user_share_dirs}/shiori/* rwk,
+
+  @{PROC}/sys/net/core/somaxconn r,
+
+  #include if exists <local/usr.local.bin.shiori>
+}

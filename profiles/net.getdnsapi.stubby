@@ -19,4 +19,6 @@ profile net.getdnsapi.stubby /{usr/,}bin/stubby {
   # debian package asks this
   @{system_share_dirs}/dns/root.key r,
   /etc/ssl/openssl.cnf r,
+  /{var/,}run/systemd/userdb/ r,
+  @{PROC}/sys/kernel/random/boot_id r,
 }
