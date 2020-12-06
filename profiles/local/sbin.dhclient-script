@@ -1,3 +1,5 @@
+  capability net_admin,
+
   /{usr/,}bin/dash mrix,
   /{usr/,}bin/ip mrix,
   /{usr/,}bin/run-parts rix,

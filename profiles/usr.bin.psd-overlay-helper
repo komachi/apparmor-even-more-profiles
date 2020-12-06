@@ -1,0 +1,14 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile psd-overlay-helper /{usr/,}bin/psd-overlay-helper flags=(complain) {
+    #include <abstractions/base>
+
+    capability dac_read_search,
+    capability dac_override,
+
+    /{usr/,}bin/{u,}mount ix,
+
+    #include if exists <local/usr.bin.psd-overlay-helper>
+}
