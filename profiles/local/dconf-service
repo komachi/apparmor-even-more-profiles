@@ -1,0 +1,2 @@
+  @{PROC}/cmdline r,
+  /{var/,}run/user/1000/dconf/user rw,

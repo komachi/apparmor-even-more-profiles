@@ -24,9 +24,9 @@ profile mpv /{usr/,}bin/mpv {
 
     owner @{PROC}/@{pid}/{cmdline,task/} r,
 
-    owner @{HOME}/@{XDG_MUSIC_DIR}/{**,} r,
-    owner @{HOME}/@{XDG_VIDEOS_DIR}/{**,} r,
-    owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
+    owner @{XDG_MUSIC_DIR}/{**,} r,
+    owner @{XDG_VIDEOS_DIR}/{**,} r,
+    owner @{XDG_DOWNLOAD_DIR}/{**,} r,
 
     /etc/mpv/** r,
     owner @{HOME}/.config/mpv/{**,} rw,

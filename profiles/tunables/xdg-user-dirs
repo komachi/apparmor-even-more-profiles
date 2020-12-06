@@ -1,0 +1,9 @@
+@{XDG_DOWNLOAD_DIR}="{@{HOME},/mnt/hdd}/Downloads"
+@{XDG_TEMPLATES_DIR}="{@{HOME},/mnt/hdd}/Templates"
+@{XDG_PUBLICSHARE_DIR}="{@{HOME},/mnt/hdd}/Sync"
+@{XDG_DOCUMENTS_DIR}="{@{HOME},/mnt/hdd}/Documents"
+@{XDG_MUSIC_DIR}="{@{HOME},/mnt/hdd}/Music"
+@{XDG_PICTURES_DIR}="{@{HOME},/mnt/hdd}/Pictures"
+@{XDG_DESKTOP_DIR}="{@{HOME},/mnt/hdd}/Desktop"
+@{XDG_VIDEOS_DIR}="{@{HOME},/mnt/hdd}/Videos"
+#include <tunables/xdg-user-dirs.d>

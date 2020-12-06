@@ -1,2 +1,2 @@
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** rwl,
+  owner @{XDG_DOWNLOAD_DIR}/ r,
+  owner @{XDG_DOWNLOAD_DIR}/** rwl,

@@ -1,1 +1,11 @@
+  #include <abstractions/openssl>
+
+  capability net_admin,
+
   /{var/,}run/dhclient{6,}.*.pid rw,
+  /etc/dhcp/dhclient.conf r,
+  /{usr/,}lib/NetworkManager/nm-dhcp-helper mrix,
+  /{var/,}lib/NetworkManager/dhclient{6,}-* r,
+  /{var/,}run/dhclient{6,}-enp5s0.pid rw,
+  signal (receive) set=(term) peer=NetworkManager,
+  

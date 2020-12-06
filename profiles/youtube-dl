@@ -12,8 +12,8 @@ profile youtube-dl @{youtube_dl_exec_path} {
 
   signal (receive) set=(term, kill) peer=mpv,
 
-  owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
-  owner @{HOME}/@{XDG_VIDEOS_DIR}/** rw,
+  owner @{XDG_VIDEOS_DIR}/ r,
+  owner @{XDG_VIDEOS_DIR}/** rw,
 
   owner @{HOME}/.cache/youtube-dl/{**,} rw,
   owner @{HOME}/.config/youtube-dl/* r,

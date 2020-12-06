@@ -6,6 +6,9 @@
   /dev/shm/shm** rw,
   /dev/video0 r,
   @{sys}/devices/virtual/dmi/id/{sys_vendor,product_name} r,
+  @{sys}/devices/pci[0-9]*/**/usb[0-9]/**/descriptors r,
+  /etc/chromium/{**,} r,
 
   # deny widewine trojan
   deny @{HOME}/.config/chromium/WidevineCdm/{**,} mrw,
+  

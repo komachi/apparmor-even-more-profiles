@@ -13,10 +13,10 @@ profile mousepad /{usr/,}bin/mousepad {
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
 
   owner @{HOME}/ r,
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/ r,
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** rw,
-  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/ r,
-  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/** rw,
+  owner @{XDG_DOWNLOAD_DIR}/ r,
+  owner @{XDG_DOWNLOAD_DIR}/** rw,
+  owner @{XDG_DOCUMENTS_DIR}/ r,
+  owner @{XDG_DOCUMENTS_DIR}/** rw,
 
   #include if exists <local/usr.bin.mousepad>
 }

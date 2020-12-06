@@ -26,6 +26,7 @@ profile codium /usr/share/codium/codium {
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/gtk-3.0/bookmarks r,
   owner @{HOME}/.config/user-dirs.dirs r,
+  owner @{HOME}/.config/configstore/update-notifier-npm.json r,
   owner @{HOME}/.gitconfig r,
   owner @{user_share_dirs}/icons/{**,} r,
   owner @{user_share_dirs}/Trash/{**,} rw,
@@ -48,6 +49,7 @@ profile codium /usr/share/codium/codium {
   owner @{PROC}/@{pid}/task/@{tid}/status r,
   owner @{PROC}/@{pid}/statm r,
   owner @{HOME}/.cache/typescript/{**,} rw,
+  owner @{HOME}/.cache/jedi/{**,} rwm,
   owner @{HOME}/.npmrc r,
   owner @{HOME}/.npm/** rwl,
   owner /{var/,}run/*/*/vscode*.sock w,
@@ -63,6 +65,7 @@ profile codium /usr/share/codium/codium {
   /{usr/,}bin/docker rPux,
   /{usr/,}lib/node_modules/npm/bin/npm-cli.js ix,
   /{usr/,}bin/node rix,
+  /{usr/,}bin/tput rix,
   /{usr/,}lib/go-*.*/bin/go ix,
   /{usr/,}lib/node_modules/npm/** r,
 

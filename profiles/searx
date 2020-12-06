@@ -9,9 +9,13 @@ profile searx @{searx_exec_path} {
   #include <abstractions/openssl>
   #include <abstractions/pipx>
 
+  /{usr/,}bin/dash rix,
+  /{usr/,}bin/uname rix,
   /etc/mime.types r,
   /etc/timezone r,
-  @{HOME}/.config/searx/settings.yml r,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{HOME}/.config/searx/settings.yml r,
 
   #include if exists <local/searx>
 }

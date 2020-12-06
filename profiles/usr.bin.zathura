@@ -12,8 +12,8 @@ profile zathura /{usr/,}bin/zathura {
   /etc/magic r,
   @{system_share_dirs}/{mime,icons,pixmaps,themes,poppler}/{**,} r,
 
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
-  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
+  owner @{XDG_DOWNLOAD_DIR}/{**,} r,
+  owner @{XDG_DOCUMENTS_DIR}/{**,} r,
   owner @{HOME}/.zaread/{**,} r,
 
   owner @{user_share_dirs}/zathura/{**,} rwk,

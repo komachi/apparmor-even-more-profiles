@@ -6,4 +6,11 @@
   /{var/,}run/systemd/userdb/ r,
   /{usr/,}lib/dconf/dconf-service Pux,
   /{usr/,}lib/@{multiarch}/tumbler-1/tumblerd Pux,
+  /{usr/,}lib/at-spi2-core/at-spi2-registryd Pix,
+  /{usr/,}lib/ring/dring Pix,
+  /{usr/,}bin/kwalletd5 Pux,
+  /{usr/,}lib/gcr/gcr-prompter Pux,
   @{PROC}/sys/kernel/random/boot_id r,
+  owner /dev/tty[0-9] rw,
+  @{system_share_dirs}/defaults/at-spi2/accessibility.conf r,
+  

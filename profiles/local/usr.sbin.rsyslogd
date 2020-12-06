@@ -1,0 +1,3 @@
+  capability net_admin,
+  /etc/resolv.conf r,
+  /etc/hosts r,

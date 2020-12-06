@@ -11,8 +11,8 @@ profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
     #include <abstractions/fonts>
     #include <abstractions/recent-deny>
 
-    owner @{HOME}/@{XDG_PICTURES_DIR}/ r,
-    owner @{HOME}/@{XDG_PICTURES_DIR}/** rw,
+    owner @{XDG_PICTURES_DIR}/ r,
+    owner @{XDG_PICTURES_DIR}/** rw,
 
     @{system_share_dirs}/{icons,mime,themes,gimp,pixmaps,locale}/{**,} r,
     @{system_share_dirs}/xml/iso-codes/** r,

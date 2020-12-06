@@ -13,3 +13,4 @@
   /{usr/,}bin/xclip rPux,
   /{usr/,}lib/libreoffice/program/soffice rPux,
   /{usr/,}bin/spacefm rPux,
+  /{usr/,}lib/firefox{-esr,}/firefox{-esr,} rPux,

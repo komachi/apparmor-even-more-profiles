@@ -11,8 +11,8 @@ profile inkscape /{usr/,}bin/inkscape {
     #include <abstractions/fonts>
     #include <abstractions/recent-deny>
 
-    owner @{HOME}/@{XDG_PICTURES_DIR}/ r,
-    owner @{HOME}/@{XDG_PICTURES_DIR}/** rw,
+    owner @{XDG_PICTURES_DIR}/ r,
+    owner @{XDG_PICTURES_DIR}/** rw,
 
     @{system_share_dirs}/{inkscape,mime,themes,icons,pixmaps}/{**,} r,
     /usr/lib/inkscape/** rix,

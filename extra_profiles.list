@@ -2,8 +2,6 @@ bin.netstat
 etc.cron.daily.logrotate
 etc.cron.daily.slocate.cron
 etc.cron.daily.tmpwatch
-sbin.dhclient
-sbin.dhclient-script
 sbin.dhcpcd
 sbin.portmap
 sbin.resmgrd
@@ -27,7 +25,5 @@ usr.sbin.nmbd
 usr.sbin.oidentd
 usr.sbin.popper
 usr.sbin.smbd
-usr.sbin.useradd
-usr.sbin.userdel
 usr.sbin.vsftpd
 usr.sbin.xinetd

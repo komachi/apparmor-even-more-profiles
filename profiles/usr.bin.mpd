@@ -11,7 +11,7 @@ profile mpd /{usr/,}bin/mpd {
 
     /{usr/,}bin/mpd mr,
 
-    owner @{HOME}/@{XDG_MUSIC_DIR}/{**,} r,
+    owner @{XDG_MUSIC_DIR}/{**,} r,
 
     owner @{HOME}/.cache/mpd.db rw,
     owner @{HOME}/.config/mpd/{**,} rwkl,

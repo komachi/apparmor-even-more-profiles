@@ -11,8 +11,8 @@ profile streamlink @{streamlink_exec_path} {
 
   signal send set=term peer=mpv,
 
-  owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
-  owner @{HOME}/@{XDG_VIDEOS_DIR}/** rw,
+  owner @{XDG_VIDEOS_DIR}/ r,
+  owner @{XDG_VIDEOS_DIR}/** rw,
 
   /{usr/,}bin/mpv mrPx,
   /{usr/,}bin/file rix,

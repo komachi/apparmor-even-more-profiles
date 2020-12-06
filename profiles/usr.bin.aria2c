@@ -7,10 +7,10 @@ profile aria2c /{usr/,}bin/aria2c {
   #include <abstractions/nameservice>
   #include <abstractions/user-download-strict>
 
-  owner @{HOME}/@{XDG_MUSIC_DIR}/ r,
-  owner @{HOME}/@{XDG_MUSIC_DIR}/** rw,
-  owner @{HOME}/@{XDG_VIDEOS_DIR}/ r,
-  owner @{HOME}/@{XDG_VIDEOS_DIR}/** rw,
+  owner @{XDG_MUSIC_DIR}/ r,
+  owner @{XDG_MUSIC_DIR}/** rw,
+  owner @{XDG_VIDEOS_DIR}/ r,
+  owner @{XDG_VIDEOS_DIR}/** rw,
 
   /{usr/,}bin/aria2c mr,
 

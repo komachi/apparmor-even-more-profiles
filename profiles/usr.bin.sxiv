@@ -11,9 +11,9 @@ profile sxiv /{usr/,}bin/sxiv {
   @{system_share_dirs}/icons/** r,
 
   owner @{HOME}/src/{**,} r,
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/{**,} r,
-  owner @{HOME}/@{XDG_DOCUMENTS_DIR}/{**,} r,
-  owner @{HOME}/@{XDG_PICTURES_DIR}/{**,} r,
+  owner @{XDG_DOWNLOAD_DIR}/{**,} r,
+  owner @{XDG_DOCUMENTS_DIR}/{**,} r,
+  owner @{XDG_PICTURES_DIR}/{**,} r,
 
   owner @{HOME}/.config/sxiv/{**,} r,
   owner @{HOME}/.cache/sxiv/{**,} rw,

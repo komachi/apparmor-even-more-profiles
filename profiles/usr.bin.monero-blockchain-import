@@ -6,7 +6,7 @@
 profile monero-blockchain-import @{moneroblockchainimport_exec_path} {
   #include <abstractions/base>
 
-  owner @{HOME}/@{XDG_DOWNLOAD_DIR}/** r,
+  owner @{XDG_DOWNLOAD_DIR}/** r,
   owner @{HOME}/.bitmonero/{**,} rwl,
 
   #include if exists <local/usr.bin.monero-blockchain-import>
