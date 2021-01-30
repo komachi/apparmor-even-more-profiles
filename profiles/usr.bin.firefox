@@ -33,6 +33,8 @@ profile firefox @{firefox_exec_path} {
   dbus (receive, send)
        bus=accessibility,
 
+  ptrace trace peer=firefox,
+
   @{firefox_exec_path} rix,
 
   # for networking
@@ -116,6 +118,7 @@ profile firefox @{firefox_exec_path} {
   /{usr/,}sbin/killall5 ixr,
   /{usr/,}bin/which ixr,
   /{usr/,}bin/tr ixr,
+  /{usr/,}bin/mv ix,
   @{PROC}/ r,
   @{PROC}/@{pid}/cmdline r,
   @{PROC}/@{pid}/mountinfo r,
@@ -134,6 +137,9 @@ profile firefox @{firefox_exec_path} {
   @{sys}/devices/pci*/**/{,subsystem_}vendor r,
   @{sys}/devices/system/node/node[0-9]*/meminfo r,
   @{sys}/devices/system/node/ r,
+  @{sys}/devices/virtual/input/mice/uevent r,
+  @{sys}/devices/virtual/input/input*/event*/uevent r,
+  @{sys}/devices/*/LNXSYBUS:*/PNP0C0C:*/input/input*/uevent r,
   owner @{HOME}/.cache/thumbnails/** rw,
   owner @{HOME}/.cache/mozilla/firefox/default/adb/adb rix,
 
@@ -148,6 +154,7 @@ profile firefox @{firefox_exec_path} {
   @{sys}/devices/system/cpu/ r,
   @{sys}/devices/system/cpu/** r,
   /{usr/,}lib/firefox{-esr,}/crashreporter ix,
+  /{usr/,}lib/firefox{-esr,}/minidump-analyzer ix,
 
   # about:memory
   owner @{PROC}/@{pid}/statm r,
@@ -286,7 +293,13 @@ profile firefox @{firefox_exec_path} {
   @{sys}/bus/ r,
   @{sys}/bus/pci/devices r,
   @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
+  @{sys}/devices/pci*/**/drm/ r,
   @{system_share_dirs}/hunspell/{**,} r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
+  /etc/glvnd/egl_vendor.d/ r,
+  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
+  owner /dev/tty1 rw,
+
   /dev/shm/ r,
   owner @{HOME}/.cache/fontconfig/** rw,
   owner @{user_share_dirs}/gvfs-metadata/* r,

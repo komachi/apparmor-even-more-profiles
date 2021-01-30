@@ -11,7 +11,6 @@ profile uget-gtk /{usr/,}bin/uget-gtk {
   #include <abstractions/gstreamer>
   #include <abstractions/nameservice>
   #include <abstractions/openssl>
-  #include <abstractions/recent-deny>
 
   @{system_share_dirs}/{themes,icons,pixmaps,mime}/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
@@ -24,8 +23,8 @@ profile uget-gtk /{usr/,}bin/uget-gtk {
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/gtk-3.0/bookmarks r,
   owner @{HOME}/.config/gtk-3.0/user-dirs.dirs r,
-  owner @{HOME}/.local/share/icons/{**,} r,
-  
+  owner @{user_share_dirs}/icons/{**,} r,
+  owner @{user_share_dirs}/mime/** r,
 
   deny /run/udev/data/** r,
 }

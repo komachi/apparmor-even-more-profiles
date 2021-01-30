@@ -2,7 +2,7 @@
 
 #include <tunables/global>
 
-profile psd-overlay-helper /{usr/,}bin/psd-overlay-helper flags=(complain) {
+profile psd-overlay-helper /{usr/,}bin/psd-overlay-helper {
     #include <abstractions/base>
 
     capability dac_read_search,

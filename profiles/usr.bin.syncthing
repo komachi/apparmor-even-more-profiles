@@ -12,9 +12,7 @@ profile syncthing /{usr/,}bin/syncthing {
   /etc/mime.types r,
 
   owner @{HOME}/.config/syncthing/{**,} rwk,
-  @{HOME}/src/{**,} r,
-  owner @{HOME}/src/** rw,
-  @{HOME}/Sync/{**,} r,
+  owner @{HOME}/Sync/ r,
   owner @{HOME}/Sync/** rw,
 
   @{PROC}/sys/net/core/somaxconn r,

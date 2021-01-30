@@ -1,0 +1,4 @@
+  deny /etc/gai.conf r,
+  deny /etc/resolv.conf r,
+  deny /etc/host.conf r,
+  deny /etc/nsswitch.conf r,

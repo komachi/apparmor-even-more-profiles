@@ -1,0 +1,5 @@
+  #include <abstractions/user-tmp>
+
+  owner /dev/tty1 rw,
+  owner @{PROC}/@{pid}/fd/ r,
+  /usr/sbin/ldconfig rix,

@@ -18,7 +18,8 @@ profile zathura /{usr/,}bin/zathura {
 
   owner @{user_share_dirs}/zathura/{**,} rwk,
   owner @{user_share_dirs}/icons/{**,} r,
-  owner @{HOME}/.config/zathura/** r,
+  owner @{user_share_dirs}/mime/{**,} r,
+  owner @{HOME}/.config/zathura/{**,} rw,
 
   deny /etc/passwd r,
   deny /etc/nsswitch.conf r,

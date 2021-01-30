@@ -19,6 +19,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   owner @{HOME}/ r,
 
   owner @{user_share_dirs}/TelegramDesktop/{**,} rwlk,
+  owner @{user_share_dirs}/mime/** r,
   owner @{HOME}/.config/QtProject.conf r,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
@@ -28,6 +29,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   /dev/dri/ r,
   @{sys}/devices/system/node/ r,
   @{sys}/devices/system/node/*/meminfo r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
   /{usr/,usr/local/,}bin/{xdg-open,jaro} rCx -> open,
 
   profile open {
@@ -36,12 +38,15 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   }
 
   owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/fd/ r,
   owner /{var/,}run/user/@{uid}/* w,
   owner /dev/shm/* rw,
+  owner /dev/tty1 rw,
 
   deny /usr/bin/fc-list x,
   deny /usr/bin/uname x,
   deny @{HOME}/.config/QtProject.conf w,
+  
 
   #include if exists <local/usr.bin.telegram-desktop>
 }

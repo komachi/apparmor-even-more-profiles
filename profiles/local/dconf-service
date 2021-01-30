@@ -1,2 +1,3 @@
   @{PROC}/cmdline r,
-  /{var/,}run/user/1000/dconf/user rw,
+  owner @{run}/user/[0-9]*/dconf/ rwl,
+  owner @{run}/user/[0-9]*/dconf/user rwl,

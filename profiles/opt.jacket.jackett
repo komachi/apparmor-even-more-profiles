@@ -2,8 +2,8 @@
 
 #include <tunables/global>
 
-@{jackett_exec_path} = /opt/jackett/jackett
-profile jackett @{jackett_exec_path} flags=(complain) {
+@{jackett_exec_path} = /opt/jackett/Jackett/jackett
+profile jackett @{jackett_exec_path} {
   #include <abstractions/base>
   #include <abstractions/nameservice>
   #include <abstractions/user-tmp>
@@ -11,9 +11,11 @@ profile jackett @{jackett_exec_path} flags=(complain) {
 
   capability sys_nice,
 
+  /etc/issue r,
   /opt/jackett/ r,
   /opt/jackett/** mrk,
   /var/lib/jackett/** rk,
+  /var/lib/jackett/Jackett/log.txt rw,
   @{sys}/fs/cgroup/cpu,cpuacct/{user,system}.slice/cpu.cfs_quota_us r,
   @{sys}/fs/cgroup/cpu,cpuacct/{user,system}.slice/jackett.service/cpu.cfs_quota_us r,
   @{sys}/fs/cgroup/memory/system.slice/jackett.service/memory.limit_in_bytes r,
@@ -27,7 +29,7 @@ profile jackett @{jackett_exec_path} flags=(complain) {
   deny /usr/lib/terminfo/** k,
   deny /etc/localtime k,
   deny @{system_share_dirs}/zoneinfo/{**,} k,
-  deny /etc/issue r,
+  
   deny @{PROC}/stat k,
   deny @{PROC}/@{pid}/stat k,
 

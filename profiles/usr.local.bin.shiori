@@ -2,7 +2,7 @@
 
 #include <tunables/global>
 
-profile shiori /{usr/,usr/local/,}bin/shiori flags=(complain) {
+profile shiori /{usr/,usr/local/,}bin/shiori {
   #include <abstractions/base>
   #include <abstractions/nameservice>
 

@@ -9,7 +9,6 @@ profile inkscape /{usr/,}bin/inkscape {
     #include <abstractions/wayland>
     #include <abstractions/user-download-strict>
     #include <abstractions/fonts>
-    #include <abstractions/recent-deny>
 
     owner @{XDG_PICTURES_DIR}/ r,
     owner @{XDG_PICTURES_DIR}/** rw,
@@ -22,6 +21,7 @@ profile inkscape /{usr/,}bin/inkscape {
     owner @{HOME}/.config/inkscape/{**,} rw,
     owner @{HOME}/.cache/inkscape/{**,} rw,
     owner @{user_share_dirs}/icons/{**,} r,
+    owner @{user_share_dirs}/mime/** r,
     owner @{HOME}/.config/gtk-3.0/bookmarks r,
     owner @{HOME}/.config/user-dirs.dirs r,
     owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* w,

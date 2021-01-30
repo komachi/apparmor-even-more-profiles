@@ -1,0 +1,15 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile siad /{usr/,}bin/siad {
+    #include <abstractions/base>
+    #include <abstractions/openssl>
+    #include <abstractions/nameservice-strict>
+
+    /var/log/sia/** rw,
+    /var/lib/sia/** rwk,
+    @{PROC}/sys/net/core/somaxconn r,
+
+    #include if exists <local/usr.bin.siad>
+}

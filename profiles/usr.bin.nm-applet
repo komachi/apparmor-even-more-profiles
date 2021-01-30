@@ -11,6 +11,7 @@ profile nm-applet /{usr/,}bin/nm-applet {
 
   @{system_share_dirs}/{themes,poppler,icons,pixmaps,mime}/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
   /{usr/,}bin/nm-connection-editor ix,
   /etc/passwd r,
   /etc/nsswitch.conf r,
@@ -21,6 +22,7 @@ profile nm-applet /{usr/,}bin/nm-applet {
   owner /{,var/}run/user/@{uid}/dconf/{*,} rw,
   owner @{user_share_dirs}/icons/{**,} r,
   owner @{PROC}/@{pid}/fd/ r,
+  owner @{user_share_dirs}/mime/{**,} r,
 
   deny /dev/tty* rw,
 

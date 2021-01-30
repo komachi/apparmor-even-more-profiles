@@ -10,10 +10,8 @@ sbin.rpc.statd
 usr.bin.apropos
 usr.bin.fam
 usr.bin.gaim
-usr.bin.man
 usr.bin.passwd
 usr.bin.procmail
-usr.bin.wireshark
 usr.bin.xfs
 usr.lib.GConf.2.gconfd-2
 usr.lib.bonobo.bonobo-activation-server

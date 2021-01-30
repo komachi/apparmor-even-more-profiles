@@ -4,5 +4,6 @@
   /{usr/,}bin/ip mrix,
   /{usr/,}bin/run-parts rix,
   /{usr/,}bin/logger rix,
+  /{usr/,}bin/hostname rix,
   /{usr/,}{s,}bin/resolvconf rPux,
   /etc/dhcp/{**,} r,

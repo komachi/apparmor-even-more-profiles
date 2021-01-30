@@ -1,0 +1,6 @@
+  /{var/,}run/needrestart/{,**} w,
+  /{usr/,}lib/needrestart/dpkg-status rix,
+  /{usr/,}bin/cat rix,
+  /{usr/,}bin/touch rix,
+  /var/cache/tb-updater/{,**} rwl,
+  

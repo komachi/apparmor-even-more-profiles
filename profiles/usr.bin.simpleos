@@ -113,11 +113,14 @@ profile simpleos @{simpleos_exec_path} {
   owner @{HOME}/.config/{simpleos,simpleos-config,simpleosAutosave}/{**,} rwk,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{user_share_dirs}/mime/** r,
+  
   
   deny /dev/pts/* rw,
   deny /dev/tty* rw,
   deny /{usr/,}bin/xdg-settings rx,
   deny @{HOME}/.pki/nssdb/* rwk,
+  deny @{HOME}/.config/autostart/simpleos.desktop w,
 
   #include if exists <local/usr.bin.simpleos>
 }

@@ -10,10 +10,10 @@ profile monerogui @{monerogui_exec_path} {
   #include <abstractions/user-tmp>
   #include <abstractions/fonts>
   #include <abstractions/nameservice>
+  #include <abstractions/openssl>
   #include <abstractions/mesa>
   #include <abstractions/dri-enumerate>
 
-  /etc/ssl/openssl.cnf r,
   owner @{HOME}/#* rwm,
   owner @{HOME}/.cache/qtshadercache/** r,
   owner @{HOME}/.config/monero-project/{**,} rwl,
@@ -23,6 +23,7 @@ profile monerogui @{monerogui_exec_path} {
   owner @{HOME}/.bitmonero/{**,} rwk,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{user_share_dirs}/applications/monero-gui.desktop rw,
+  owner @{user_share_dirs}/mime/** r,
 
   @{system_share_dirs}/{icons,mime}/** r,
   /{usr/,usr/local/,}bin/monerod mrPix,
@@ -32,6 +33,7 @@ profile monerogui @{monerogui_exec_path} {
   @{sys}/devices/pci*/**/usb*/**/{manufacturer,product,bcdDevice,bInterfaceNumber,bConfigurationValue} r,
   @{sys}/devices/pci*/**/usb*/bConfigurationValue r,
   /dev/hidraw* rw,
+  /etc/timezone r,
 
   #include if exists <local/usr.bin.monero-wallet-gui>
 }

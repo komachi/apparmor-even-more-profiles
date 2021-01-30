@@ -1,0 +1,2 @@
+  @{sys}/devices/virtual/hwmon/hwmon[0-9]*/in[0-9]_label r,
+  @{sys}/devices/virtual/hwmon/hwmon[0-9]*/power[0-9]_{cap,average} r,

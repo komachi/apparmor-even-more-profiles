@@ -1,0 +1,13 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile psd /{usr/,}bin/psd {
+  #include <abstractions/base>
+
+  @{system_share_dirs}/psd/** r,
+  owner @{HOME}/.config/psd/{**,} rw,
+  owner /run/user/1000/psd.pid rw,
+
+  #include if exists <local/usr.bin.psd>
+}

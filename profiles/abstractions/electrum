@@ -12,7 +12,7 @@
   owner @{PROC}/@{pid}/{mounts,fd/} r,
 
   /{usr/,}sbin/ldconfig ix,
-  /{usr/,}bin/{file,dash,dirname} rix,
+  /{usr/,}bin/{file,dash,dirname,uname} rix,
   /{usr/,}bin/@{multiarch}-gcc-8 ix,
   /{usr/,}bin/@{multiarch}-ld.bfd ix,
   /etc/mime.types r,
@@ -28,5 +28,6 @@
   /{var/,}run/udev/data/* r,
   @{sys}/bus/usb/devices/ r,
   /{usr/,}/bin/uname rix,
+  owner @{user_share_dirs}/mime/** r,
 
   deny /etc/ r,

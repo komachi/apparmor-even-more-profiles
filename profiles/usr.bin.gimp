@@ -9,7 +9,6 @@ profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
     #include <abstractions/wayland>
     #include <abstractions/user-download-strict>
     #include <abstractions/fonts>
-    #include <abstractions/recent-deny>
 
     owner @{XDG_PICTURES_DIR}/ r,
     owner @{XDG_PICTURES_DIR}/** rw,
@@ -29,14 +28,13 @@ profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
     owner @{HOME}/.config/gtk-3.0/bookmarks r,
     owner @{HOME}/.config/user-dirs.dirs r,
     owner @{HOME}/.config/gtk-2.0/** r,
-    owner @{HOME}/.cache/{gegl-*,babl}/** rw,
+    owner @{HOME}/.cache/{gegl-*,babl}/{**,} rw,
     owner @{HOME}/.cache/thumbnails/** rw,
     owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* w,
     owner @{HOME}/.local/share/icons/** r,
-    owner @{user_share_dirs}/gegl-*/** r,
-    owner @{user_share_dirs}/icons/{**,} r,
-    
-    
+    owner @{user_share_dirs}/gegl-*/{**,} rw,
+    owner @{user_share_dirs}/mime/** r,
+    owner @{user_share_dirs}/icons/{**,} r,    
 
     #include if exists <local/usr.bin.gimp>
 

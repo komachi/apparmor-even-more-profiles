@@ -20,6 +20,7 @@ profile mycrypto @{mycrypto_exec_path} {
 
   /{usr/,}sbin/killall5 rix,
   /{usr/,}bin/which rix,
+  /{usr/,}bin/zenity rix,
 
   @{PROC}/ r,
   @{PROC}/vmstat r,
@@ -43,7 +44,7 @@ profile mycrypto @{mycrypto_exec_path} {
 
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
-  owner @{HOME}/.config/MyCrypto rw,
+  owner @{HOME}/.config/MyCrypto/ rw,
   owner @{HOME}/.config/MyCrypto/** rwk,
   owner /tmp/.org.chromium.Chromium.* mr,
 

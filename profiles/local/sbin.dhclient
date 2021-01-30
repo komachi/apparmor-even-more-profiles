@@ -6,6 +6,6 @@
   /etc/dhcp/dhclient.conf r,
   /{usr/,}lib/NetworkManager/nm-dhcp-helper mrix,
   /{var/,}lib/NetworkManager/dhclient{6,}-* rw,
-  /{var/,}run/dhclient{6,}-enp5s0.pid rw,
+  /{var/,}run/dhclient{6,}-*.pid rw,
   signal (receive) set=(term) peer=NetworkManager,
   

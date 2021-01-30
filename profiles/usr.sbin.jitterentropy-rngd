@@ -1,0 +1,9 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile jitterentropy-rngd /{usr/,}{s,}bin/jitterentropy-rngd flags=(complain) {
+    #include <abstractions/base>
+
+    #include if exists <local/usr.sbin.jitterentropy-rngd>
+}

@@ -1,0 +1,44 @@
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2005 Novell/SUSE
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+# vim:syntax=apparmor
+#
+# Updated by: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+profile man /usr/bin/man {
+  #include <abstractions/base>
+
+  #capability setgid,
+  #capability setuid,
+
+  /{usr/,}bin/man r,
+  /{usr/,}bin/less ix,
+  /{usr/,}bin/preconv ix,
+  /{usr/,}bin/tbl ix,
+  /{usr/,}bin/locale ix,
+  /{usr/,}bin/groff rix,
+  /{usr/,}bin/nroff rix,
+  /{usr/,}bin/grotty rix,
+  /{usr/,}bin/troff rix,
+  /usr/lib/man-db/man Px,
+  /etc/manpath.config r,
+  /etc/groff/man.local r,
+  @{system_share_dirs}/man/{**,} r,
+  @{system_share_dirs}/groff/{**,} r,
+  /usr/X11R6/man/{**,} r,
+  /opt/man/{**,} r,
+  /var/cache/man/** r,
+  /var/cache/man/index.db rk,
+
+  owner @{HOME}/.lesshst r,
+
+  #include if exists <local/usr.bin.man>
+}

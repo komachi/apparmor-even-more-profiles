@@ -13,4 +13,4 @@
   @{PROC}/sys/kernel/random/boot_id r,
   owner /dev/tty[0-9] rw,
   @{system_share_dirs}/defaults/at-spi2/accessibility.conf r,
-  
+  /dev/snd/control* r,
