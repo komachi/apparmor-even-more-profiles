@@ -3,5 +3,6 @@
   owner /mnt/hdd/src/ r,
   owner /mnt/hdd/src/** rw,
   owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/ r,
-  owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/{.stignore,.stfolder,subscriptions.db,history.db,profiles.db} rw,
+  owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/{.stignore,.stfolder,.syncthing.history.db.tmp} rw,
+  owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/{subscriptions.db,history.db,profiles.db} rw,
   deny @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/*/ r,

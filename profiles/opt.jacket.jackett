@@ -28,10 +28,12 @@ profile jackett @{jackett_exec_path} {
 
   deny /usr/lib/terminfo/** k,
   deny /etc/localtime k,
+  deny /etc/issue k,
   deny @{system_share_dirs}/zoneinfo/{**,} k,
   
   deny @{PROC}/stat k,
   deny @{PROC}/@{pid}/stat k,
+  deny @{PROC}/1/cgroup r,
 
   #include if exists <local/opt.jackett.jackett>
 }

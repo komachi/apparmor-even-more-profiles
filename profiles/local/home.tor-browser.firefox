@@ -1,0 +1,4 @@
+  /{var/,}run/tor/control.authcookie r,
+  /etc/glvnd/egl_vendor.d/ r,
+  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
+  owner @{PROC}/@{pid}/cgroup r,

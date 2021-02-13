@@ -1,1 +1,2 @@
   @{system_share_dirs}/icons/** r,
+  @{system_share_dirs}/X11/XErrorDB r,
