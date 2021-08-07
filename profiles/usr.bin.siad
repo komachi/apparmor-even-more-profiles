@@ -10,6 +10,7 @@ profile siad /{usr/,}bin/siad {
     /var/log/sia/** rw,
     /var/lib/sia/** rwk,
     @{PROC}/sys/net/core/somaxconn r,
+    @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
 
     #include if exists <local/usr.bin.siad>
 }

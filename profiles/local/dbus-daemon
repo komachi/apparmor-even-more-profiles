@@ -1,1 +1,4 @@
   /{usr/,}lib/dconf/dconf-service rPux,
+  /{var/,}lib/flatpak/exports/share/dbus-*/services/ r,
+  /{var/,}lib/flatpak/app/**/share/dbus-*/services/* r,
+  /usr/bin/scp-dbus-service rPux,

@@ -2,3 +2,5 @@
   /etc/apt/* rwl,
   /etc/apt/trusted.gpg.d/* rwl,
   /usr/share/keyrings/{**,} r,
+  owner @{HOME}/.repoconfig/gnupg/{**,} rwl,
+  owner /tmp/.git_vtag_* r,

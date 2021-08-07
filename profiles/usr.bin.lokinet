@@ -15,6 +15,7 @@ profile lokinet /{usr/,}bin/lokinet {
   /etc/loki/lokinet.ini r,
   /dev/net/tun rw,
   /{usr/,}bin/lokinet mr,
+  @{sys}/kernel/mm/transparent_hugepage/enabled r,
 
   owner /{var/,}lib/lokinet/ rw,
   owner /{var/,}lib/lokinet/** rwk,

@@ -20,6 +20,7 @@ profile keepassxc /{usr/,}bin/keepassxc {
 
   owner /tmp/keepassxc-user.lock rw,
   owner @{HOME}/.config/keepassxc/{**,} rwkl,
+  owner @{HOME}/.cache/keepassxc/{**,} rw,
   owner @{HOME}/.config/qt5ct/** r,
   owner @{HOME}/.config/fontconfig/fonts.conf r,  
   owner @{HOME}/.cache/icon-cache.kcache rw,
@@ -27,6 +28,7 @@ profile keepassxc /{usr/,}bin/keepassxc {
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json rw,
   owner /dev/shm/* rw,
+  owner /dev/tty1 rw,
   owner /{var/,}run/user/@{uid}/** rw,
   owner @{user_share_dirs}/mime/** r,
 
@@ -41,13 +43,11 @@ profile keepassxc /{usr/,}bin/keepassxc {
   deny @{sys}/bus/ r,
   deny @{sys}/bus/usb/devices/ r,
   deny @{sys}/class/ r,
-  deny @{sys}/devices/pci*/*/usb*/** r,
+  deny @{sys}/devices/** r,
   deny /{usr/,}bin/ r,
   deny @{HOME}/.config/QtProject.conf w,
 
   deny network,
-
-  owner /dev/tty1 rw,
 
   #include if exists <local/usr.bin.keepassxc>
 }

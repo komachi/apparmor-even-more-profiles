@@ -4,6 +4,7 @@
   /{usr/,}bin/dash rix,
   /{usr/,}bin/python* rix,
   owner @{HOME}/bin/youtube-dl-supports.py rPix,
+  owner @{HOME}/.config/associations r,
 
   /{usr/,}bin/mpv rPux,
   /{usr/,}bin/firefox rPux,

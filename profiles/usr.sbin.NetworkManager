@@ -19,6 +19,7 @@ profile NetworkManager /{usr/,}{s,}bin/NetworkManager {
   /{var/,}run/dhclient{6,}{-*,}.pid rw,
   /etc/NetworkManager/** r,
   /etc/NetworkManager/system-connections/{**,} rw,
+  /{var/,}lib/NetworkManager/ r,
   /{var/,}lib/NetworkManager/** rw,
   @{sys}/devices/pci*/**/net/** r,
   @{sys}/bus/ r,

@@ -24,6 +24,9 @@ profile firefox @{firefox_exec_path} {
   #include <abstractions/dri-enumerate>
   #include <abstractions/user-download-strict>
   #include <abstractions/dbus-accessibility-strict>
+
+  capability sys_admin,
+
   dbus (send)
        bus=session
        peer=(name=org.a11y.Bus),
@@ -276,9 +279,9 @@ profile firefox @{firefox_exec_path} {
     @{system_share_dirs}/distro-info/*.csv r,
     /var/lib/dpkg/** r,
 
-    /usr/local/lib/python3.[0-8]/dist-packages/ r,
+    /usr/local/lib/python3.[0-9]/dist-packages/ r,
     /{usr/,}bin/ r,
-    /{usr/,}bin/python3.[0-8] mr,
+    /{usr/,}bin/python3.[0-9] mr,
 
     # file_inherit
     deny /tmp/gtalkplugin.log w,

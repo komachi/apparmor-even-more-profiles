@@ -3,4 +3,5 @@
   /{usr/,}bin/cat rix,
   /{usr/,}bin/touch rix,
   /var/cache/tb-updater/{,**} rwl,
-  
+  /{var/,}opt/*/ rw,
+  /{var/,}opt/cprocsp/** rw,

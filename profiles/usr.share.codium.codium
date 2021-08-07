@@ -2,6 +2,7 @@
 
 #include <tunables/global>
 profile codium /usr/share/codium/codium {
+  
   #include <abstractions/base>
   #include <abstractions/fonts>
   #include <abstractions/user-tmp>
@@ -19,6 +20,13 @@ profile codium /usr/share/codium/codium {
 
   ptrace (read) peer=lsb_release,
   ptrace trace peer=codium,
+
+  # for sandbox
+  capability sys_admin,
+  capability setgid,
+  capability setuid,
+  capability sys_chroot,
+  capability sys_ptrace,
 
   owner @{HOME}/.vscode-oss/{**,} rw,
   owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live Cix -> languagetool_languageserver,
@@ -40,11 +48,16 @@ profile codium /usr/share/codium/codium {
   /etc/timezone r,
   @{PROC}/ r,
   @{PROC}/version r,
+  @{PROC}/loadavg r,
   @{PROC}/sys/kernel/yama/ptrace_scope r,
   @{PROC}/sys/fs/inotify/max_user_watches r,
+  owner @{PROC}/@{pid}/ r,
   owner @{PROC}/@{pid}/coredump_filter rw,
   owner @{PROC}/@{pid}/{stat,statm,fd/,task/,mountinfo,mounts,cgroup,cmdline} r,
   owner @{PROC}/@{pid}/oom_score_adj rw,
+  owner @{PROC}/@{pid}/setgroups w,
+  owner @{PROC}/@{pid}/gid_map w,
+  owner @{PROC}/@{pid}/uid_map w,
   @{PROC}/@{pid}/stat r,
   owner @{PROC}/@{pid}/{comm,clear_refs} w,
   owner @{PROC}/@{pid}/task/@{tid}/status r,
@@ -73,7 +86,11 @@ profile codium /usr/share/codium/codium {
   /{usr/,}bin/getconf rix,
   /{usr/,}lib/go-*.*/bin/go ix,
   /{usr/,}lib/node_modules/npm/** r,
-  /{usr/,}include/python*/{**,} r,  
+  /{usr/,}include/python*/{**,} r,
+
+  owner /dev/pts/{*,} rw,
+  owner /dev/tty* rw,
+  @{sys}/devices/virtual/tty/** r,
 
   profile languagetool_languageserver {
     #include <abstractions/base>
@@ -102,14 +119,10 @@ profile codium /usr/share/codium/codium {
     deny /etc/timezone r,
   }
 
-  deny /dev/pts/ r,
   deny @{HOME}/.local/bin/ r,
   deny /{usr/,}{local/,}{bin,sbin,games}/ r,
   deny /opt/ r,
   deny @{system_share_dirs} r,
-  deny /dev/pts/** r,
-  deny /dev/tty* wr,
-  deny @{sys}/devices/virtual/tty/** r,
   deny /etc/profile r,
   deny @{HOME}/.profile r,
   deny @{HOME}/.pki/** rw,

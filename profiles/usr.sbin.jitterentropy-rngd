@@ -5,5 +5,7 @@
 profile jitterentropy-rngd /{usr/,}{s,}bin/jitterentropy-rngd flags=(complain) {
     #include <abstractions/base>
 
+    capability sys_admin,
+
     #include if exists <local/usr.sbin.jitterentropy-rngd>
 }
