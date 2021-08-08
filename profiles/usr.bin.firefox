@@ -26,6 +26,7 @@ profile firefox @{firefox_exec_path} {
   #include <abstractions/dbus-accessibility-strict>
 
   capability sys_admin,
+  capability sys_chroot,
 
   dbus (send)
        bus=session
@@ -302,7 +303,9 @@ profile firefox @{firefox_exec_path} {
   /etc/glvnd/egl_vendor.d/ r,
   @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
   owner /dev/tty1 rw,
-
+  owner @{PROC}/@{pid}/uid_map w,
+  owner @{PROC}/@{pid}/gid_map w,
+  owner @{PROC}/@{pid}/setgroups w,
   /dev/shm/ r,
   owner @{HOME}/.cache/fontconfig/** rw,
   owner @{user_share_dirs}/gvfs-metadata/* r,
