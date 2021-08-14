@@ -1,0 +1,7 @@
+#include <tunables/global>
+
+profile pinentry-curses /{usr/,}bin/pinentry-curses flags=(complain) {
+  #include <abstractions/base>
+
+  #include if exists <local/pinentry-curses>
+} 

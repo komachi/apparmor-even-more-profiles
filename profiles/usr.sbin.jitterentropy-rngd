@@ -2,10 +2,13 @@
 
 #include <tunables/global>
 
-profile jitterentropy-rngd /{usr/,}{s,}bin/jitterentropy-rngd flags=(complain) {
+profile jitterentropy-rngd /{usr/,}{s,}bin/jitterentropy-rngd {
     #include <abstractions/base>
 
     capability sys_admin,
+
+    /dev/random rw,
+    @{PROC}/sys/kernel/random/entropy_avail r,
 
     #include if exists <local/usr.sbin.jitterentropy-rngd>
 }

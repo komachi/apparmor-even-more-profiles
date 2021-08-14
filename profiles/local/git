@@ -1,0 +1,6 @@
+  owner @{HOME}/.gitconfig r,
+  owner /mnt/hdd/src/** rwkl,
+
+  /{usr/,}bin/nano rix,
+  /etc/nanorc r,
+  @{system_share_dirs}/nano/{**,} r,

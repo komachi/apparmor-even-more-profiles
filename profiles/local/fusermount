@@ -1,1 +1,13 @@
   #include <abstractions/user-tmp>
+
+  capability dac_read_search,
+  capability dac_override,
+
+  /run/user/1000/doc/ r,
+  mount fstype={fuse,fuse.*} -> /run/user/1000/doc/,
+  umount /run/user/1000/doc/,
+
+  # Flatpak related
+  /{var/,}tmp/flatpak-cache-*/** r,
+  mount fstype={fuse,fuse.*} -> /{var/,}tmp/flatpak-cache-*/**,
+  umount /{var/,}tmp/flatpak-cache-*/**,

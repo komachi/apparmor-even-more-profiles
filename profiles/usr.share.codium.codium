@@ -49,6 +49,7 @@ profile codium /usr/share/codium/codium {
   @{PROC}/ r,
   @{PROC}/version r,
   @{PROC}/loadavg r,
+  @{PROC}/uptime r,
   @{PROC}/sys/kernel/yama/ptrace_scope r,
   @{PROC}/sys/fs/inotify/max_user_watches r,
   owner @{PROC}/@{pid}/ r,
@@ -137,7 +138,6 @@ profile codium /usr/share/codium/codium {
   # https://gitlab.freedesktop.org/fontconfig/fontconfig/issues/121
   deny /usr/local/share/fonts/** w,
   deny /usr/share/ r,
-  deny @{PROC}/uptime r,
 
   #include if exists <local/usr.share.codium.codium>
 }

@@ -3,3 +3,5 @@
   owner /dev/tty1 rw,
   owner @{PROC}/@{pid}/fd/ r,
   /usr/sbin/ldconfig rix,
+
+  owner ${HOME}/.local/lib/python3.[0-9]/site-packages/ r,
