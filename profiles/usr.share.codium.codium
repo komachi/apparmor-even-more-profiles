@@ -44,6 +44,7 @@ profile codium /usr/share/codium/codium {
   @{system_share_dirs}/codium/ r,
   @{system_share_dirs}/codium/** rmix,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
   owner /dev/shm/.org.chromium.Chromium.* rw,
   /etc/timezone r,
   /etc/debian_version r,

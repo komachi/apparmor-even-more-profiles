@@ -1,3 +1,4 @@
   #include <abstractions/user-tmp>
 
   /{usr/,}bin/dash rix,
+  /{usr/,}bin/true rix,

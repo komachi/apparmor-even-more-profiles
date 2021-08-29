@@ -1,3 +1,5 @@
+  capability dac_override,
+  capability dac_read_search,
   /etc/network/if-{up,down,pre-up,post-down}.d/ r,
   /etc/network/if-{up,down,pre-up,post-down}.d/** rix,
   /etc/wpa_supplicant/ifupdown.sh rix,
@@ -5,4 +7,5 @@
   /etc/kernel/{postinst,postrm,prerm}.d/ r,
   /etc/kernel/{postinst,postrm,prerm}.d/* rPux,
   /usr/lib/security-misc/* rPux,
+  /usr/lib/bridge-utils/if-{up,down,pre-up,post-down}.d/** rix,
   /{usr/,}bin/touch rix,

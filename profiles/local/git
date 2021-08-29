@@ -1,3 +1,5 @@
+  include <abstractions/user-tmp>
+
   owner @{HOME}/.gitconfig r,
   owner /mnt/hdd/src/** rwkl,
 

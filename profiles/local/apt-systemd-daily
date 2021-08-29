@@ -2,3 +2,6 @@
   /usr/bin/unattended-upgrade ix,
 
   /{var/,}lib/apt/periodic/*-stamp rw,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /usr/bin/unattended-upgrade r,
