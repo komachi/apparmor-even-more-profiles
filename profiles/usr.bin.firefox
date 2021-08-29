@@ -307,13 +307,13 @@ profile firefox @{firefox_exec_path} {
   owner @{PROC}/@{pid}/gid_map w,
   owner @{PROC}/@{pid}/setgroups w,
   /dev/shm/ r,
-  /dev/shm/wayland.mozilla.ipc.0 rw, 
+  /dev/shm/wayland.mozilla.ipc.* rw, 
   owner @{HOME}/.cache/fontconfig/** rw,
   owner @{user_share_dirs}/gvfs-metadata/* r,
 
   # psd
-  owner /run/user/1000/*-firefox-*/ r,
-  owner /run/user/1000/*-firefox-*/** rwk,
+  owner /run/user/@{uid}/*-firefox-*/ r,
+  owner /run/user/@{uid}/*-firefox-*/** rwk,
 
   # Site-specific additions and overrides. See local/README for details.
   #include if exists <local/usr.bin.firefox>
