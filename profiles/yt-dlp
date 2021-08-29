@@ -1,0 +1,29 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+@{yt_dlp_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/yt-dlp/,}bin/yt-dlp
+profile yt-dlp @{yt_dlp_exec_path} {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/user-download-strict>
+  #include <abstractions/pipx>
+
+  signal (receive) set=(term, kill) peer=mpv,
+
+  owner @{XDG_VIDEOS_DIR}/ r,
+  owner @{XDG_VIDEOS_DIR}/** rw,
+
+  owner @{HOME}/.cache/yt-dlp/{**,} rw,
+  owner @{HOME}/.config/yt-dlp/* r,
+
+  /{usr/,}bin/ffmpeg rPUx,
+  /{usr/,}bin/ffprobe rPUx,
+  /etc/mime.types r,
+
+  owner @{PROC}/@{pid}/mounts r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  #include if exists <local/yt-dlp>
+}

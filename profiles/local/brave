@@ -1,0 +1,8 @@
+  /opt/brave.com/brave/crashpad_handler ix,
+  /opt/brave.com/brave/libGLESv2.so mr,
+  /opt/brave.com/brave/libEGL.so mr,
+  @{HOME}/.config/BraveSoftware/ r,
+  @{sys}/devices/virtual/dmi/id/{sys_vendor,product_name} r,
+  deny /etc/brave/ w,
+  /dev/ r,
+  /dev/video[0-9] rw,

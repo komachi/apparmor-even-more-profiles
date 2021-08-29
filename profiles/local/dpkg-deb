@@ -1,1 +1,5 @@
-  @{HOME}/.tmp/HelpKontur/**/*.deb r,
+  capability chown,
+  capability fowner,
+  capability fsetid,
+  /tmp/dpkg-deb.*/{*,} rw,
+  /var/lib/dpkg/tmp.ci/{*,} w,

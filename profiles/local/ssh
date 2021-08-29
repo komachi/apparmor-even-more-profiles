@@ -1,1 +1,2 @@
   owner @{HOME}/.ssh/id_*{,.pub} r,
+  owner @{HOME}/.ansible/cp/* rwl,

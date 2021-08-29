@@ -1,0 +1,2 @@
+  /etc/nsswitch.conf r,
+  /etc/passwd r,

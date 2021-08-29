@@ -28,6 +28,7 @@ profile man /usr/bin/man {
   /{usr/,}bin/nroff rix,
   /{usr/,}bin/grotty rix,
   /{usr/,}bin/troff rix,
+  /{usr/,}bin/col rix,
   /usr/lib/man-db/man Px,
   /etc/manpath.config r,
   /etc/groff/man.local r,
@@ -35,7 +36,7 @@ profile man /usr/bin/man {
   @{system_share_dirs}/groff/{**,} r,
   /usr/X11R6/man/{**,} r,
   /opt/man/{**,} r,
-  /var/cache/man/** r,
+  /var/cache/man/** rw,
   /var/cache/man/index.db rk,
 
   owner @{HOME}/.lesshst r,

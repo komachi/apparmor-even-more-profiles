@@ -1,0 +1,4 @@
+  /usr/bin/env ix,
+  /usr/bin/unattended-upgrade ix,
+
+  /{var/,}lib/apt/periodic/*-stamp rw,

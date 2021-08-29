@@ -46,6 +46,9 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   deny /usr/bin/fc-list x,
   deny /usr/bin/uname x,
   deny @{HOME}/.config/QtProject.conf w,
+  deny @{HOME}/.local/share/applications/{**,} r,
+  deny /var/lib/flatpak/exports/share/applications/{**,} r,
+  deny @{system_share_dirs}/applications/{**,} r,
   
 
   #include if exists <local/usr.bin.telegram-desktop>

@@ -46,6 +46,7 @@ profile codium /usr/share/codium/codium {
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
   owner /dev/shm/.org.chromium.Chromium.* rw,
   /etc/timezone r,
+  /etc/debian_version r,
   @{PROC}/ r,
   @{PROC}/version r,
   @{PROC}/loadavg r,

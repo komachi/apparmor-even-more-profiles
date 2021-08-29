@@ -1,0 +1,2 @@
+  capability bpf,
+  capability perfmon,

@@ -1,0 +1,3 @@
+  owner @{HOME}/.config/dconf/user r,
+  /run/user/1000/dconf/user rw,
+  /etc/ssl/certs/ca-certificates.crt r,
