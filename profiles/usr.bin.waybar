@@ -23,12 +23,12 @@ profile waybar /{usr/,}bin/waybar {
   /{usr/,}bin/wc rix,
   /{usr/,}bin/gawk rix,
   
-  /{usr/,}bin/journalctl rPux,
-  /{usr/,}bin/wg rPux,
-  /{usr/,}bin/pacmd rPux,
-  /{usr/,}bin/pactl rPux,
-  /{usr/,}bin/gsimplecal rPux,
-  /{usr/,}bin/systemctl rPx -> child-systemctl,
+  /{usr/,}bin/journalctl rpux,
+  /{usr/,}bin/wg rpux,
+  /{usr/,}bin/pacmd rpux,
+  /{usr/,}bin/pactl rpux,
+  /{usr/,}bin/gsimplecal rpux,
+  /{usr/,}bin/systemctl rpx -> child-systemctl,
 
   owner @{HOME}/.config/waybar/{**,} r,
   owner @{HOME}/.config/waybar/*.sh rix,

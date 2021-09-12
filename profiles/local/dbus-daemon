@@ -1,8 +1,8 @@
   include <abstractions/user-tmp>
 
-  /{usr/,}lib/dconf/dconf-service rPux,
+  /{usr/,}lib/dconf/dconf-service rpux,
   /{var/,}lib/flatpak/exports/share/dbus-*/services/{**,} r,
   /{var/,}lib/flatpak/app/**/share/dbus-*/services/{**,} r,
-  /{usr/,}bin/scp-dbus-service rPux,
-  /{usr/,}bin/mako rPux,
-  /{usr/,}lib/mate-notification-daemon/mate-notification-daemon rPux,
+  /{usr/,}bin/scp-dbus-service rpux,
+  /{usr/,}bin/mako rpux,
+  /{usr/,}lib/mate-notification-daemon/mate-notification-daemon rpux,

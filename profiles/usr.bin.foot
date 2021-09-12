@@ -7,24 +7,19 @@ profile foot /{usr/,}bin/foot {
   include <abstractions/base>
   include <abstractions/fonts>
   
-  audit deny @{HOME}/.{gnupg,ssh}/** mrwkl,
-  audit deny @{HOME}/.config/{**,} mwkl,
-  audit deny @{run}/user/[0-9]*/keyring** mrwkl,
-  audit deny @{HOME}/.mozilla/{,**} mrwkl,
-  audit deny @{HOME}/.{,mozilla-}thunderbird/{,**} mrwkl,
 
   /{**,} r,
   owner @{HOME}/{**,} r,
 
-  /usr/libexec/** rPux,
-  /usr{/local,}/{s,}bin/* rPux,
-  /{s,}bin/* rPux,
-  @{system_share_dirs}/command-not-found/command-not-found rPux,
-  /usr/lib/firefox{-esr,}/firefox{-esr,} rPux,
-  @{system_share_dirs}/codium/codium rPux,
-  /opt/** rPux,
-  owner @{HOME}/.local/bin/* rPux,
-  owner @{HOME}/.local/pipx/venvs/*/bin/* rPux,
+  /usr/libexec/** rpux,
+  /usr{/local,}/{s,}bin/* rpux,
+  /{s,}bin/* rpux,
+  @{system_share_dirs}/command-not-found/command-not-found rpux,
+  /usr/lib/firefox{-esr,}/firefox{-esr,} rpux,
+  @{system_share_dirs}/codium/codium rpux,
+  /opt/** rpux,
+  owner @{HOME}/.local/bin/* rpux,
+  owner @{HOME}/.local/pipx/venvs/*/bin/* rpux,
 
   /etc/shells r,
   /etc/group r,
@@ -50,6 +45,11 @@ profile foot /{usr/,}bin/foot {
   
   deny /etc/init.d/ r,
   deny network,
+  audit deny @{HOME}/.{gnupg,ssh}/** mrwkl,
+  audit deny @{HOME}/.config/{**,} mwkl,
+  audit deny @{run}/user/@{uid}/keyring** mrwkl,
+  audit deny @{HOME}/.mozilla/{,**} mrwkl,
+  audit deny @{HOME}/.thunderbird/{,**} mrwkl,
   
   include if exists <local/usr.bin.foot>
 }

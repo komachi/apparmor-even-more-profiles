@@ -5,8 +5,8 @@ profile swayidle /{usr/,}bin/swayidle flags=(complain) {
   include <abstractions/base>
 
   /{usr/,}bin/dash rix,
-  /{usr/,}bin/swaylock rPux,
-  /{usr/,}bin/swaymsg rPux,
+  /{usr/,}bin/swaylock rpux,
+  /{usr/,}bin/swaymsg rpux,
   
   include if exists <local/usr.bin.swayidle>
 }
