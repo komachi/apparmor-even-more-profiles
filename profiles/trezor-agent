@@ -8,6 +8,10 @@ profile trezor-agent @{trezor_agent_exec_path} flags=(complain) {
   include <abstractions/pipx>
   include <abstractions/devices-usb>
 
+  /{usr/,}bin/git rPux,
+  /{usr/,}bin/ssh rPux,
+  /{usr/,}bin/scp rPux,
+
   deny network,
   
   include if exists <local/trezor-agent>

@@ -14,6 +14,10 @@ profile onlykey-agent @{onlykey_agent_exec_path} flags=(complain) {
   /dev/pts/[0-9] rw,
   /{usr/,}{s,}bin/ldconfig rix,
 
+  /{usr/,}bin/git rPux,
+  /{usr/,}bin/ssh rPux,
+  /{usr/,}bin/scp rPux,
+
   deny network,
   
   include if exists <local/onlykey-agent>
