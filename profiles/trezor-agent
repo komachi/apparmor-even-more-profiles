@@ -1,0 +1,14 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+@{trezor_agent_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/trezor-agent/,}bin/trezor-agent
+profile trezor-agent @{trezor_agent_exec_path} flags=(complain) {
+  include <abstractions/base>
+  include <abstractions/pipx>
+  include <abstractions/devices-usb>
+
+  deny network,
+  
+  include if exists <local/trezor-agent>
+}

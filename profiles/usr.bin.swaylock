@@ -1,0 +1,29 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+include <tunables/global>
+
+profile swaylock /{usr/,}bin/swaylock {
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/wayland>
+
+  /{usr/,}bin/swaylock rix,
+  /{usr/,}{s,}bin/unix_chkpwd rix,
+  /{usr/,}bin/dash rix,
+  /etc/login.defs r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/shadow r,
+  /etc/group r,
+  /etc/pam.d/{**,} r,
+
+  /dev/pts/[0-9] rw,
+
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{HOME}/.config/swaylock/{**,} r,
+  owner @{run}/user/@{uid}/sway-client-* rwk,
+
+  deny network,
+  
+  include if exists <local/usr.bin.swaylock>
+}

@@ -7,7 +7,7 @@ profile psd /{usr/,}bin/psd {
 
   @{system_share_dirs}/psd/** r,
   owner @{HOME}/.config/psd/{**,} rw,
-  owner /run/user/1000/psd.pid rw,
+  owner /run/user/@{uid}/psd.pid rw,
 
   #include if exists <local/usr.bin.psd>
 }

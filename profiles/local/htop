@@ -1,1 +1,2 @@
   /{usr/,}bin/lsof rix,
+  /dev/pts/[0-9] rw,

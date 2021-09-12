@@ -1,0 +1,12 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile swaymsg /{usr/,}bin/swaymsg flags=(complain) {
+  include <abstractions/base>
+
+  /{usr/,}bin/swaymsg rix,
+  
+  include if exists <local/usr.bin.swaymsg>
+}

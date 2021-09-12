@@ -3,9 +3,9 @@
   capability dac_read_search,
   capability dac_override,
 
-  /run/user/1000/doc/ r,
-  mount fstype={fuse,fuse.*} -> /run/user/1000/doc/,
-  umount /run/user/1000/doc/,
+  /run/user/@{uid}/doc/ r,
+  mount fstype={fuse,fuse.*} -> /run/user/@{uid}/doc/,
+  umount /run/user/@{uid}/doc/,
 
   # Flatpak related
   /{var/,}tmp/flatpak-cache-*/** r,

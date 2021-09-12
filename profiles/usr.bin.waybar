@@ -1,0 +1,40 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile waybar /{usr/,}bin/waybar {
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/dconf>
+  include <abstractions/X>
+  include <abstractions/wayland>
+
+  owner @{run}/user/@{uid}/dconf/user rw,
+  /dev/shm/ r,
+  /etc/pulse/client.conf r,
+  /etc/pulse/client.conf.d/{**,} r,
+  @{run}/user/@{uid}/pulse/ r,
+  owner @{HOME}/.config/pulse/cookie rk,
+  @{PROC}/loadavg r,
+
+  /{usr/,}bin/dash rix,
+  /{usr/,}bin/date rix,
+  /{usr/,}bin/wc rix,
+  /{usr/,}bin/gawk rix,
+  
+  /{usr/,}bin/journalctl rPux,
+  /{usr/,}bin/wg rPux,
+  /{usr/,}bin/pacmd rPux,
+  /{usr/,}bin/pactl rPux,
+  /{usr/,}bin/gsimplecal rPux,
+  /{usr/,}bin/systemctl rPx -> child-systemctl,
+
+  owner @{HOME}/.config/waybar/{**,} r,
+  owner @{HOME}/.config/waybar/*.sh rix,
+  @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+
+  deny network,
+  
+  include if exists <local/usr.bin.waybar>
+}

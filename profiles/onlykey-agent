@@ -1,0 +1,20 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+
+#include <tunables/global>
+
+@{onlykey_agent_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/onlykey-agent/,}bin/onlykey-agent
+profile onlykey-agent @{onlykey_agent_exec_path} flags=(complain) {
+  include <abstractions/base>
+  include <abstractions/pipx>
+  include <abstractions/devices-usb>
+  include <abstractions/user-tmp>
+
+  owner @{PROC}/@{pid}/fd/ r,
+  /etc/udev/udev.conf r,
+  /dev/pts/[0-9] rw,
+  /{usr/,}{s,}bin/ldconfig rix,
+
+  deny network,
+  
+  include if exists <local/onlykey-agent>
+}

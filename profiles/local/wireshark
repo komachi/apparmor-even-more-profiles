@@ -1,0 +1,4 @@
+  owner @{HOME}/.config/qt5ct/qt5ct.conf r,
+  owner @{HOME}/.config/wireshark/profiles/ rw,
+  /etc/glvnd/egl_vendor.d/{**,} r,
+  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,

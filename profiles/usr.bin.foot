@@ -1,0 +1,55 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile foot /{usr/,}bin/foot {
+  include <abstractions/base>
+  include <abstractions/fonts>
+  
+  audit deny @{HOME}/.{gnupg,ssh}/** mrwkl,
+  audit deny @{HOME}/.config/{**,} mwkl,
+  audit deny @{run}/user/[0-9]*/keyring** mrwkl,
+  audit deny @{HOME}/.mozilla/{,**} mrwkl,
+  audit deny @{HOME}/.{,mozilla-}thunderbird/{,**} mrwkl,
+
+  /{**,} r,
+  owner @{HOME}/{**,} r,
+
+  /usr/libexec/** rPux,
+  /usr{/local,}/{s,}bin/* rPux,
+  /{s,}bin/* rPux,
+  @{system_share_dirs}/command-not-found/command-not-found rPux,
+  /usr/lib/firefox{-esr,}/firefox{-esr,} rPux,
+  @{system_share_dirs}/codium/codium rPux,
+  /opt/** rPux,
+  owner @{HOME}/.local/bin/* rPux,
+  owner @{HOME}/.local/pipx/venvs/*/bin/* rPux,
+
+  /etc/shells r,
+  /etc/group r,
+  /etc/passwd r,
+  /etc/inputrc r,
+  /etc/bash.bashrc r,
+  /etc/nsswitch.conf r,
+  /etc/bash_completion.d/{**,} r,
+  @{system_share_dirs}/bash-completion/{**,} r,
+  @{system_share_dirs}/icons/{**,} r,
+  @{system_share_dirs}/terminfo/f/foot r,
+  /dev/ptmx rw,
+  /dev/pts/[0-9] rw,
+  @{run}/systemd/userdb/ r,
+  @{PROC}/sys/kernel/random/boot_id r,
+  owner @{HOME}/.bashrc r,
+  owner @{HOME}/.bash_history r,
+  owner @{HOME}/.bash_aliases r,
+  owner @{HOME}/ r,
+  owner @{HOME}/.config/ r,
+  owner @{HOME}/.config/foot/{**,} r,
+  owner @{run}/user/@{uid}/foot-wayland-*.sock rw,
+  
+  deny /etc/init.d/ r,
+  deny network,
+  
+  include if exists <local/usr.bin.foot>
+}

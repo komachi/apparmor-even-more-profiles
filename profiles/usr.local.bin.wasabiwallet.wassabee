@@ -20,7 +20,7 @@ profile wasabiwallet /usr/local/bin/wasabiwallet/wassabee {
   /usr/local/bin/wasabiwallet/{**,} mrixk,
   @{system_share_dirs}/icons/** r,
   @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
-  @{sys}/fs/cgroup/memory/user.slice/user-1000.slice/session-1.scope/memory.limit_in_bytes r,
+  @{sys}/fs/cgroup/memory/user.slice/user-@{uid}.slice/session-1.scope/memory.limit_in_bytes r,
   @{sys}/devices/pci*/**/usb*/**/{manufacturer,product,bcdDevice,bInterfaceNumber,bConfigurationValue} r,
   @{sys}/devices/pci*/**/usb*/bConfigurationValue r,
   @{sys}/bus/pci/devices/ r,

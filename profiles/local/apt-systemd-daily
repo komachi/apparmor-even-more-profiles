@@ -5,3 +5,7 @@
   /etc/nsswitch.conf r,
   /etc/passwd r,
   /usr/bin/unattended-upgrade r,
+  /usr/bin/ r,
+  /etc/apt/apt.conf.d/{**,} r,
+  /usr/local/lib/python3.*/dist-packages/ r,
+  @{system_share_dirs}/dpkg/cputable r,

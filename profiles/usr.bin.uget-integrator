@@ -11,8 +11,8 @@ profile uget-integrator /{usr/,}bin/uget-integrator {
   owner @{HOME}/.cache/mozilla/** r,
   owner @{HOME}/.mozilla/firefox/*/.parentlock rw,
   owner @{HOME}/.mozilla/firefox/** r,
-  owner /run/user/1000/*-firefox-*/** r,
-  owner /run/user/1000/*-firefox-*/.parentlock rw,
+  owner /run/user/@{uid}/*-firefox-*/** r,
+  owner /run/user/@{uid}/*-firefox-*/.parentlock rw,
   
 
   /{usr/,}bin/python3* rix,

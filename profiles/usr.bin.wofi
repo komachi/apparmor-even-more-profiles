@@ -1,0 +1,45 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+include <tunables/global>
+
+profile wofi /{usr/,}bin/wofi {
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/dconf>
+  include <abstractions/private-files-strict>
+  
+  /{usr/,}bin/dash rix,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  owner @{run}/user/@{uid}/dconf/user rw,
+  owner @{HOME}/.config/wofi/{**,} r,
+  owner @{HOME}/.cache/wofi-{run,drun,dmenu} rw,
+
+  /usr/libexec/** rPux,
+  /usr/lib/firefox{-esr,}/firefox{-esr,} rPux,
+  @{system_share_dirs}/codium/codium rPux,
+  /usr{/local,}/{s,}bin/* rPux,
+  /{s,}bin/* rPux,
+  /opt/** rPux,
+  owner @{HOME}/.local/bin/ r,
+  owner @{HOME}/.local/bin/* rPux,
+  owner @{HOME}/.local/pipx/venvs/*/bin/* rPux,
+
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{user_share_dirs}/applications/ r,
+  owner @{user_share_dirs}/applications/*.desktop r,
+  owner @{user_share_dirs}/applications/{mimeinfo.cache,mimeapps.list} r,
+  owner @{user_share_dirs}/{icons,pixmaps,themes}/{**,} r,
+  owner @{user_share_dirs}/mime/mime.cache r,
+  @{system_share_dirs}/X11/** r,
+  @{system_share_dirs}/mime/mime.cache r,
+  @{system_share_dirs}/applications/ r,
+  @{system_share_dirs}/applications/*.desktop r,
+  @{system_share_dirs}/applications/{mimeinfo.cache,mimeapps.list} r,
+  @{system_share_dirs}/{icons,pixmaps,themes}/{**,} r,
+  @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+
+  deny network,
+  
+  include if exists <local/usr.bin.wofi>
+}

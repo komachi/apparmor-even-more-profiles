@@ -1,23 +1,25 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+
+abi <abi/3.0>,
+include <tunables/global>
 
 profile telegram-desktop /{usr/,}bin/telegram-desktop {
-  #include <abstractions/base>
-  #include <abstractions/audio>
-  #include <abstractions/fonts>
-  #include <abstractions/user-tmp>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/ssl_keys>
-  #include <abstractions/nameservice>
-  #include <abstractions/X>
-  #include <abstractions/mesa>
-  #include <abstractions/wayland>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/user-download-strict>
-  #include <abstractions/qt5-compose-cache-write>
+  include <abstractions/base>
+  include <abstractions/audio>
+  include <abstractions/fonts>
+  include <abstractions/user-tmp>
+  include <abstractions/ssl_certs>
+  include <abstractions/ssl_keys>
+  include <abstractions/nameservice>
+  include <abstractions/X>
+  include <abstractions/mesa>
+  include <abstractions/wayland>
+  include <abstractions/dri-enumerate>
+  include <abstractions/user-download-strict>
+  include <abstractions/qt5-compose-cache-write>
+  include <abstractions/dconf>  
 
-  owner @{HOME}/ r,
-
+  owner @{run}/user/@{uid}/dconf/user rw,
   owner @{user_share_dirs}/TelegramDesktop/{**,} rwlk,
   owner @{user_share_dirs}/mime/** r,
   owner @{HOME}/.config/QtProject.conf r,
@@ -30,6 +32,10 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   @{sys}/devices/system/node/ r,
   @{sys}/devices/system/node/*/meminfo r,
   @{system_share_dirs}/libdrm/amdgpu.ids r,
+  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
+  @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  /etc/glvnd/egl_vendor.d/{**,} r,
+
   /{usr/,usr/local/,}bin/{xdg-open,jaro} rCx -> open,
 
   profile open {
@@ -46,10 +52,9 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   deny /usr/bin/fc-list x,
   deny /usr/bin/uname x,
   deny @{HOME}/.config/QtProject.conf w,
-  deny @{HOME}/.local/share/applications/{**,} r,
-  deny /var/lib/flatpak/exports/share/applications/{**,} r,
+  deny @{user_share_dirs}/applications/{**,} r,
   deny @{system_share_dirs}/applications/{**,} r,
+  deny @{HOME}/ r,
   
-
-  #include if exists <local/usr.bin.telegram-desktop>
+  include if exists <local/usr.bin.telegram-desktop>
 }

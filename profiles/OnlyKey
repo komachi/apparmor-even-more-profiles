@@ -1,0 +1,89 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+include <tunables/global>
+
+profile OnlyKey /opt/OnlyKey/nw {
+  include <abstractions/base>
+  include <abstractions/user-tmp>
+  include <abstractions/fonts>
+  include <abstractions/wayland>
+  include <abstractions/X>
+  include <abstractions/devices-usb>
+
+  ptrace trace peer=OnlyKey,
+  ptrace (read) peer=child-lsb_release,
+  ptrace (read) peer=xdg-settings,
+
+  /opt/OnlyKey/{**,} r,
+  /opt/OnlyKey/nw rix,
+  /opt/OnlyKey/lib/{libffmpeg,libnode,libnw}.so rm,
+  /opt/OnlyKey/swiftshader/{libEGL,libGLESv2}.so rm,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
+  @{system_share_dirs}/icons/** r,
+  @{system_share_dirs}/themes/** r,
+  @{system_share_dirs}/mime/** r,
+  /etc/pulse/client.conf r,
+  /etc/pulse/client.conf.d/{**,} r,
+  @{sys}/class r,
+  @{sys}/class/*/ r,
+  @{sys}/bus/*/devices/ r,
+  @{sys}/devices/**/uevent r,
+  @{sys}/devices/pci*/**/{device,class,vendor} r,
+  @{sys}/devices/virtual/tty/tty[0-9]/active r,
+  @{sys}/devices/pci*/**/subsystem_{device,vendor} r,
+
+  @{run}/udev/data/c*:* r,
+  @{run}/udev/data/b*:* r,
+  @{run}/udev/data/n[0-9] r,
+  @{run}/udev/data/+input:input* r,
+  @{run}/udev/data/+acpi:* r,
+  @{run}/udev/data/+leds:* r,
+  @{run}/udev/data/+platform:* r,
+  @{run}/udev/data/+pci:* r,
+  @{run}/udev/data/+hid:* r,
+  @{run}/udev/data/+drm:* r,
+  @{run}/udev/data/+sound:* r,
+
+  @{PROC}/sys/kernel/yama/ptrace_scope r,
+  @{PROC}/sys/kernel/random/boot_id r,
+  @{PROC}/@{pid}/stat r,
+  owner @{PROC}/@{pid}/task/ r,
+  owner @{PROC}/@{pid}/task/@{pid}/syscall r,
+  owner @{PROC}/@{pid}/task/@{pid}/status r,
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/environ r,
+  owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/mem r,
+  owner @{PROC}/@{pid}/oom_score_adj rw,
+
+  owner /dev/shm/.io.nwjs.* rw,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/user-dirs.dirs r,
+  owner @{HOME}/.config/OnlyKey/{**,} rwkl,
+  owner @{HOME}/.cache/OnlyKey/{**,} rw,
+  owner @{HOME}/.config/pulse/cookie rk,
+  owner @{user_share_dirs}/mime/** r,
+  owner @{run}/user/@{uid}/pulse/ r,
+  
+  
+  /dev/shm/ r,
+  /dev/urandom/ r,
+  owner /dev/tty[0-9] rw,
+  /dev/hidraw[0-9] rw,
+
+  /{usr/,}bin/xdg-settings rPx,
+  /{usr/,}bin/lsb_release rPx -> child-lsb_release,
+
+  deny network,
+  deny @{PROC}/ r,
+  deny @{system_share_dirs}/** w,
+  deny /etc/host.conf r,
+  deny /etc/hosts r,
+  deny /etc/resolv.conf r,
+  deny /etc/passwd r,
+  deny /etc/nsswitch.conf r,
+  deny /etc/gai.conf r,
+  deny @{HOME}/.pki/nssdb/* rwl,
+  deny /etc/ssl/openssl.cnf r,
+
+  include if exists <local/OnlyKey>
+}

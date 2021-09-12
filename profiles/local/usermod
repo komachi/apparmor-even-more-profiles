@@ -1,0 +1,4 @@
+  /etc/subuid{*,} rw,
+  /etc/subgid{*,} rw,
+  /etc/subgid.lock rwl,
+  /etc/subuid.lock rwl,

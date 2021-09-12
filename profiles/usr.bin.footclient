@@ -1,0 +1,16 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+include <tunables/global>
+
+profile footclient /{usr/,}bin/footclient {
+  include <abstractions/base>
+  include <abstractions/fonts>
+
+  owner @{HOME}/.config/foot/{**,} r,
+
+  /{usr/,}bin/footclient rix,
+  /dev/pts/[0-9] rw,
+
+  deny network,
+  
+  include if exists <local/usr.bin.footclient>
+}

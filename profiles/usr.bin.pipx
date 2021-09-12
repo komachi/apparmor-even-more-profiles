@@ -1,0 +1,32 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+include <tunables/global>
+
+profile pipx /{usr/,}bin/pipx {
+  include <abstractions/base>
+  include <abstractions/python>
+  include <abstractions/user-tmp>
+  include <abstractions/nameservice>
+  include <abstractions/openssl>
+
+  /{usr/,}bin/pipx rix,
+  /{usr/,}bin/uname rix,
+  /{usr/,}bin/rustc rix,
+  /{usr/,}bin/lsb_release rPx -> child-lsb_release,
+  /{usr/,}bin/python3.* rix,
+  /dev/pts/[0-9] rw,
+  /etc/pip.conf r,
+  /etc/mime.types r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  owner @{HOME}/.cache/pip/{**,} rw,
+  owner @{HOME}/.local/pipx/{**,} rw,
+  owner @{HOME}/.local/lib/python3.*/site-packages/{**,} r,
+  owner @{HOME}/.local/bin/ r,
+  owner @{HOME}/.local/bin/* rw,
+
+  deny /{usr/,}bin/ r,
+  deny /etc/ r,
+  deny @{HOME}/ r,
+
+  include if exists <local/usr.bin.pipx>
+}

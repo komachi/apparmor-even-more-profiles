@@ -1,0 +1,12 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+include <tunables/global>
+
+profile kanshi /{usr/,}bin/kanshi {
+  include <abstractions/base>
+
+  owner @{HOME}/.config/kanshi/{**,} r,
+
+  deny network,
+  
+  include if exists <local/usr.bin.kanshi>
+}

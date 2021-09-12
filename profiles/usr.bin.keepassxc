@@ -16,7 +16,14 @@ profile keepassxc /{usr/,}bin/keepassxc {
   @{system_share_dirs}/qt5ct/qss/*.qss r,
   @{system_share_dirs}/libdrm/amdgpu.ids r,
   @{PROC}/sys/kernel/random/boot_id r,
+  /dev/bus/usb/ r,
+  @{sys}/bus/ r,
+  @{sys}/bus/usb/devices/ r,
+  @{sys}/class/ r,
+  @{sys}/devices/** r,
+  /{var/,}run/udev/** r,
   owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/comm r,
 
   owner /tmp/keepassxc-user.lock rw,
   owner @{HOME}/.config/keepassxc/{**,} rwkl,
@@ -32,18 +39,11 @@ profile keepassxc /{usr/,}bin/keepassxc {
   owner /{var/,}run/user/@{uid}/** rw,
   owner @{user_share_dirs}/mime/** r,
 
-  # some of this about hardware tokens and should be allowed
-  # some of this appears i dont know why
-  # but deny for now
   deny /dev/ r,
-  deny /dev/bus/usb/ r,
+  
   deny /etc/nsswitch.conf r,
   deny /etc/passwd r,
-  deny /{var/,}run/udev/** r,
-  deny @{sys}/bus/ r,
-  deny @{sys}/bus/usb/devices/ r,
-  deny @{sys}/class/ r,
-  deny @{sys}/devices/** r,
+
   deny /{usr/,}bin/ r,
   deny @{HOME}/.config/QtProject.conf w,
 

@@ -1,27 +1,23 @@
 # Original author: Jamie Strandboge <jamie@canonical.com>
 # Tuned for debian buster by <anton@nesterov.cc>
 
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 @{chromium} = chromium{,-browser}
 
 # We need 'flags=(attach_disconnected)' in newer chromium versions
 profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconnected) {
-  #include <abstractions/audio>
-  #include <abstractions/cups-client>
-  #include <abstractions/dbus-session>
-  #include <abstractions/dbus-strict>
-  #include <abstractions/dconf>
-  #include <abstractions/gnome>
-  #include <abstractions/ibus>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-tmp>
-  #include <abstractions/mesa>
-
-  # This include specifies which ubuntu-browsers.d abstractions to use. Eg, if
-  # you want access to productivity applications, adjust the following file
-  # accordingly.
-  #include <abstractions/ubuntu-browsers.d/chromium-browser>
+  include <abstractions/audio>
+  include <abstractions/cups-client>
+  include <abstractions/dbus-session>
+  include <abstractions/dbus-strict>
+  include <abstractions/dconf>
+  include <abstractions/gnome>
+  include <abstractions/ibus>
+  include <abstractions/nameservice>
+  include <abstractions/user-tmp>
+  include <abstractions/mesa>
 
   capability sys_admin,
   capability sys_chroot,
@@ -205,8 +201,8 @@ profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconne
   /usr/bin/lsb_release Pxr -> lsb_release,
 
   # GSettings
-  owner /{,var/}run/user/*/dconf/     rw,
-  owner /{,var/}run/user/*/dconf/user rw,
+  owner @{run}/user/@{uid}/dconf/     rw,
+  owner @{run}/user/@{uid}/dconf/user rw,
   owner @{HOME}/.config/dconf/user r,
 
   # Magnet links
@@ -333,5 +329,5 @@ profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconne
     owner /tmp/** rw,
   }
 
-  #include <local/usr.bin.chromium-browser>
+  include <local/usr.bin.chromium-browser>
 }
