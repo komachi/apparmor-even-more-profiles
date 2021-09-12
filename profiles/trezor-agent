@@ -1,12 +1,17 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 
-#include <tunables/global>
+include <tunables/global>
 
 @{trezor_agent_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/trezor-agent/,}bin/trezor-agent
-profile trezor-agent @{trezor_agent_exec_path} flags=(complain) {
+profile trezor-agent @{trezor_agent_exec_path} {
   include <abstractions/base>
   include <abstractions/pipx>
   include <abstractions/devices-usb>
+  include <abstractions/user-tmp>
+
+  owner @{PROC}/@{pid}/fd/ r,
+  /{usr/,}bin/tty rix,
 
   /{usr/,}bin/git rPux,
   /{usr/,}bin/ssh rPux,

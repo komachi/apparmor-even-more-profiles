@@ -10,6 +10,7 @@ profile waybar /{usr/,}bin/waybar {
   include <abstractions/X>
   include <abstractions/wayland>
 
+  owner @{run}/user/@{uid}/dconf rw,
   owner @{run}/user/@{uid}/dconf/user rw,
   /dev/shm/ r,
   /etc/pulse/client.conf r,
@@ -31,8 +32,10 @@ profile waybar /{usr/,}bin/waybar {
   /{usr/,}bin/systemctl rpx -> child-systemctl,
 
   owner @{HOME}/.config/waybar/{**,} r,
+  owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/waybar/*.sh rix,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  @{system_share_dirs}/{themes,icons}/{**,} r,
 
   deny network,
   

@@ -1,9 +1,10 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 
-#include <tunables/global>
+include <tunables/global>
 
 @{onlykey_agent_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/onlykey-agent/,}bin/onlykey-agent
-profile onlykey-agent @{onlykey_agent_exec_path} flags=(complain) {
+profile onlykey-agent @{onlykey_agent_exec_path} {
   include <abstractions/base>
   include <abstractions/pipx>
   include <abstractions/devices-usb>
@@ -13,6 +14,9 @@ profile onlykey-agent @{onlykey_agent_exec_path} flags=(complain) {
   /etc/udev/udev.conf r,
   /dev/pts/[0-9] rw,
   /{usr/,}{s,}bin/ldconfig rix,
+  /{usr/,}bin/@{multiarch}-gcc-[0-9][0-9] rix,
+  /{usr/,}lib/gcc/@{multiarch}/[0-9][0-9]/collect2 rix,
+  /{usr/,}bin/@{multiarch}-ld.bfd rix,
 
   /{usr/,}bin/git rPux,
   /{usr/,}bin/ssh rPux,
