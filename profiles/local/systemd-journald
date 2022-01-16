@@ -1,0 +1,3 @@
+  @{run}/udev/data/+platform:+platform:sp5100-tco r,
+  /etc/systemd/journald.conf.d/{**,} r,
+  /run/udev/data/c244:0 r,

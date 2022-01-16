@@ -1,22 +1,22 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 
-#include <tunables/global>
+include <tunables/global>
 profile codium /usr/share/codium/codium {
   
-  #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/user-tmp>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/nameservice-strict>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/mesa>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/dconf>
-  #include <abstractions/openfile>
-  #include <abstractions/private-files-strict>
-  #include <abstractions/python>
-  #include <abstractions/openssl>
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/user-tmp>
+  include <abstractions/ssl_certs>
+  include <abstractions/nameservice-strict>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
+  include <abstractions/dconf>
+  include <abstractions/openfile>
+  include <abstractions/private-files-strict>
+  include <abstractions/python>
+  include <abstractions/openssl>
 
   ptrace (read) peer=lsb_release,
   ptrace trace peer=codium,
@@ -31,6 +31,7 @@ profile codium /usr/share/codium/codium {
   owner @{run}/user/@{uid}/dconf/user rw,
   owner @{HOME}/.vscode-oss/{**,} rw,
   owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live Cix -> languagetool_languageserver,
+  owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine Cix -> tabnine,
   owner @{HOME}/.config/VSCodium/{**,} rwk,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/gtk-3.0/bookmarks r,
@@ -78,8 +79,14 @@ profile codium /usr/share/codium/codium {
   @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
   @{sys}/fs/cgroup/memory/memory.limit_in_bytes r,
   @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
+  @{sys}/devices/system/cpu/kernel_max r,
+  @{sys}/devices/system/cpu/possible r,
 
   /{usr/,}bin/{dirname,git,dash,shellcheck,uname,gio,which,sed,getcap,env,find} rix,
+  /{usr/,}bin/hostname rix,
+  /{usr/,}bin/cat rix,
+  /{usr/,}bin/lscpu rix,
+  /{usr/,}{s,}bin/dmidecode rix,
   /{usr/,}lib/git-core/git rix,
   /{usr/,}bin/python* rix,
   /{usr/,}bin/lsb_release Px -> lsb_release,
@@ -97,8 +104,8 @@ profile codium /usr/share/codium/codium {
   @{sys}/devices/virtual/tty/** r,
 
   profile languagetool_languageserver {
-    #include <abstractions/base>
-    #include <abstractions/nameservice>
+    include <abstractions/base>
+    include <abstractions/nameservice>
 
     owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live r,
     owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/{**,} r,
@@ -123,6 +130,62 @@ profile codium /usr/share/codium/codium {
     deny /etc/timezone r,
   }
 
+  profile tabnine {
+    include <abstractions/base>
+    include <abstractions/nameservice>
+    include <abstractions/ssl_certs>
+
+    ptrace (read) peer=codium,
+
+    owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/** r,
+    owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine rix,
+    owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/WD-TabNine rix,
+    owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine-deep-local rix,
+    owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine-deep-cloud rix,
+    owner @{HOME}/.config/TabNine/{**,} rwk,
+    owner @{user_share_dirs}/TabNine/{**,} rwk,
+    owner @{HOME}/.config/VSCodium/Dictionaries/** r,
+    owner /tmp/migrate_db rwk,
+    owner /dev/shm/.org.chromium.Chromium.* rw,
+    
+
+    owner @{PROC}/@{pid}/task/@{tid}/stat r,
+    owner @{PROC}/@{pid}/task/@{tid}/status r,
+    owner @{PROC}/@{pid}/environ r,
+    owner @{PROC}/@{pid}/stat r,
+    owner @{PROC}/@{pid}/status r,
+    owner @{PROC}/@{pid}/cmdline r,
+    owner @{PROC}/@{pid}/task/ r,
+    owner @{PROC}/@{pid}/cgroup r,
+    @{PROC}/uptime r,
+    @{PROC}/stat r,
+    @{PROC}/cpuinfo r,
+    @{PROC}/sys/kernel/ostype r,
+    @{PROC}/sys/kernel/osrelease r,
+    @{sys}/devices/system/cpu/kernel_max r,
+    @{sys}/devices/system/cpu/possible r,
+    @{sys}/devices/system/cpu/cpufreq/policy[0-9]/scaling_cur_freq r,
+    @{sys}/devices/system/cpu/cpufreq/policy[0-9]/scaling_governor r,
+    @{sys}/kernel/mm/transparent_hugepage/enabled r,
+    @{sys}/class/power_supply/ r,
+    @{system_share_dirs}/codium/** r,
+
+    owner @{HOME}/.gitconfig r,
+    owner @{HOME}/.config/VSCodium/logs/** w,
+    owner "@{HOME}/.config/VSCodium/Local Storage/leveldb/LOG" w,
+    owner "@{HOME}/.config/VSCodium/Local Storage/leveldb/*.log" w,
+    owner "@{HOME}/.config/VSCodium/Local Storage/leveldb/MANIFEST-*" w,
+    owner "@{HOME}/.config/VSCodium/Local Storage/leveldb/LOCK" rw,
+    owner "@{HOME}/.config/VSCodium/Service Worker/Database/LOCK" rw,
+    owner "@{HOME}/.config/VSCodium/Service Worker/Database/LOG" w,
+    owner "@{HOME}/.config/VSCodium/Service Worker/Database/MANIFEST-*" w,
+    owner "@{HOME}/.config/VSCodium/Service Worker/Database/*.log" w,
+
+    deny @{PROC}/ r,
+
+    include if exists <local/tabnine>
+  }
+
   deny @{HOME}/.local/bin/ r,
   deny /{usr/,}{local/,}{bin,sbin,games}/ r,
   deny /opt/ r,
@@ -141,6 +204,7 @@ profile codium /usr/share/codium/codium {
   # https://gitlab.freedesktop.org/fontconfig/fontconfig/issues/121
   deny /usr/local/share/fonts/** w,
   deny /usr/share/ r,
+  deny /etc/ r,
 
-  #include if exists <local/usr.share.codium.codium>
+  include if exists <local/usr.share.codium.codium>
 }

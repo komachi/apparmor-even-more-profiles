@@ -10,7 +10,7 @@ profile waybar /{usr/,}bin/waybar {
   include <abstractions/X>
   include <abstractions/wayland>
 
-  owner @{run}/user/@{uid}/dconf rw,
+  owner @{run}/user/@{uid}/dconf/ rw,
   owner @{run}/user/@{uid}/dconf/user rw,
   /dev/shm/ r,
   /etc/pulse/client.conf r,

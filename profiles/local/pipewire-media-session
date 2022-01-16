@@ -1,0 +1,3 @@
+  @{sys}/devices/virtual/video4linux/video[0-9]/uevent r,
+  @{run}/udev/data/* r,
+  /dev/video[0-9] rw,

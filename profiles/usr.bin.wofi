@@ -6,10 +6,12 @@ profile wofi /{usr/,}bin/wofi {
   include <abstractions/base>
   include <abstractions/fonts>
   include <abstractions/dconf>
+  include <abstractions/user-tmp>
   include <abstractions/private-files-strict>
   
   /{usr/,}bin/dash rix,
   owner @{PROC}/@{pid}/fd/ r,
+  owner @{PROC}/@{pid}/cgroup r,
 
   owner @{run}/user/@{uid}/dconf/user rw,
   owner @{HOME}/.config/wofi/{**,} r,
@@ -37,6 +39,7 @@ profile wofi /{usr/,}bin/wofi {
   @{system_share_dirs}/applications/*.desktop r,
   @{system_share_dirs}/applications/{mimeinfo.cache,mimeapps.list} r,
   @{system_share_dirs}/{icons,pixmaps,themes}/{**,} r,
+  @{system_share_dirs}/firefox{-esr,}/browser/chrome/icons/** r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
 
   deny network,

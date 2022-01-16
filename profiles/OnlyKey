@@ -67,6 +67,7 @@ profile OnlyKey /opt/OnlyKey/nw {
   
   /dev/shm/ r,
   /dev/urandom/ r,
+  /dev/input/event[0-9] rw,
   owner /dev/tty[0-9] rw,
   /dev/hidraw[0-9] rw,
 

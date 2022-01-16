@@ -1,2 +1,2 @@
-  /{var/,}lib/flatpak/exports/share/applications/{,**/} r,
-/{var/,}lib/flatpak/app/**/*.desktop r,
+  /{var/,}lib/flatpak/exports/share/applications/{,**} r,
+  /{var/,}lib/flatpak/app/**/*.desktop r,

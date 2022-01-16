@@ -1,1 +1,2 @@
   owner /dev/tty[0-9] rw,
+  ptrace (read) peer=pipewire-pulse,

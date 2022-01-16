@@ -10,17 +10,18 @@
 # vim:syntax=apparmor
 #
 # Updated by: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 
-#include <tunables/global>
+include <tunables/global>
 
 profile man /usr/bin/man {
-  #include <abstractions/base>
+  include <abstractions/base>
 
   #capability setgid,
   #capability setuid,
 
+  /{usr/,}bin/less rPx -> child-pager,
   /{usr/,}bin/man r,
-  /{usr/,}bin/less ix,
   /{usr/,}bin/preconv ix,
   /{usr/,}bin/tbl ix,
   /{usr/,}bin/locale ix,
@@ -39,7 +40,7 @@ profile man /usr/bin/man {
   /var/cache/man/** rw,
   /var/cache/man/index.db rk,
 
-  owner @{HOME}/.lesshst r,
+  owner /dev/pts/[0-9] rw,
 
-  #include if exists <local/usr.bin.man>
+  include if exists <local/usr.bin.man>
 }

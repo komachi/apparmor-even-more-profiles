@@ -1,0 +1,2 @@
+  /{usr/,}bin/pipewire-media-session rpux,
+  @{system_share_dirs}/pipewire/** r,

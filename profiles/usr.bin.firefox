@@ -27,6 +27,7 @@ profile firefox @{firefox_exec_path} {
 
   capability sys_admin,
   capability sys_chroot,
+  capability sys_ptrace,
 
   dbus (send)
        bus=session
@@ -250,6 +251,7 @@ profile firefox @{firefox_exec_path} {
   # /usr/share/.../extensions/... is already covered by '/usr/** r', above.
   # Allow 'x' for downloaded extensions, but inherit policy for safety
   owner @{HOME}/.mozilla/**/extensions/** mixr,
+  /usr/share/mozilla/extensions/** r,
 
   deny /usr/lib/mozilla/extensions/**/ w,
   deny /usr/lib/xulrunner-addons/extensions/**/ w,
@@ -295,7 +297,7 @@ profile firefox @{firefox_exec_path} {
   @{sys}/class/ r,
   @{sys}/class/input/ r,
   @{sys}/bus/ r,
-  @{sys}/bus/pci/devices r,
+  @{sys}/bus/pci/devices/ r,
   @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
   @{sys}/devices/pci*/**/drm/ r,
   @{system_share_dirs}/hunspell/{**,} r,

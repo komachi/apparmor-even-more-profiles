@@ -9,3 +9,4 @@
   /etc/apt/apt.conf.d/{**,} r,
   /usr/local/lib/python3.*/dist-packages/ r,
   @{system_share_dirs}/dpkg/cputable r,
+  @{system_share_dirs}/dpkg/tupletable r,

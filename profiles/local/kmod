@@ -2,3 +2,5 @@
 
   /{usr/,}bin/dash rix,
   /{usr/,}bin/true rix,
+
+  /run/tmpfiles.d/{**,} rw,

@@ -15,6 +15,7 @@ profile foot /{usr/,}bin/foot {
   /usr{/local,}/{s,}bin/* rpux,
   /{s,}bin/* rpux,
   @{system_share_dirs}/command-not-found/command-not-found rpux,
+  /usr/lib/node_modules/npm/bin/{npm,npx}-cli.js rpux,
   /usr/lib/firefox{-esr,}/firefox{-esr,} rpux,
   @{system_share_dirs}/codium/codium rpux,
   /opt/** rpux,

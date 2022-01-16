@@ -17,12 +17,17 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   include <abstractions/dri-enumerate>
   include <abstractions/user-download-strict>
   include <abstractions/qt5-compose-cache-write>
-  include <abstractions/dconf>  
+  include <abstractions/dconf>
+
+  /{usr/,}bin/telegram-desktop rix,
+  /{usr/,}bin/fc-list rix,
+  /{usr/,}bin/uname rix,
 
   owner @{run}/user/@{uid}/dconf/user rw,
   owner @{user_share_dirs}/TelegramDesktop/{**,} rwlk,
   owner @{user_share_dirs}/mime/** r,
   owner @{HOME}/.config/QtProject.conf r,
+  owner @{HOME}/.config/qt5ct/qt5ct.conf r,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
 
@@ -48,9 +53,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   owner /{var/,}run/user/@{uid}/* w,
   owner /dev/shm/* rw,
   owner /dev/tty1 rw,
-
-  deny /usr/bin/fc-list x,
-  deny /usr/bin/uname x,
+  
   deny @{HOME}/.config/QtProject.conf w,
   deny @{user_share_dirs}/applications/{**,} r,
   deny @{system_share_dirs}/applications/{**,} r,
