@@ -1,1 +1,187 @@
-../apparmemall/apparmor.d/git
+# vim:syntax=apparmor
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2020-2022 Mikhail Morfikov
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+abi <abi/3.0>,
+
+include <tunables/global>
+
+@{BUILD_DIR}  = /media/debuilder/
+@{BUILD_DIR} += /media/Android/
+
+@{exec_path}  = /{usr/,}bin/git
+@{exec_path} += /{usr/,}bin/git-*
+@{exec_path} += /{usr/,}lib/git-core/git
+@{exec_path} += /{usr/,}lib/git-core/git-*
+@{exec_path} += /usr/libexec/git-core/git
+@{exec_path} += /usr/libexec/git-core/git-*
+@{exec_path} += /usr/libexec/git-core/mergetools/*
+
+profile git @{exec_path} {
+  include <abstractions/base>
+  include <abstractions/consoles>
+  include <abstractions/ssl_certs>
+  include <abstractions/nameservice-strict>
+
+  network inet dgram,
+  network inet6 dgram,
+  network inet stream,
+  network inet6 stream,
+
+  @{exec_path} mrix,
+
+  # When you mistype a command, git checks the $PATH variable and search its exec dirs to give you
+  # the most similar commands, which it thinks can be used instead. Git binaries are all under
+  # /usr/bin/ , so allow only this location.
+  /{usr/,}bin/ r,
+  deny /{usr/,}sbin/ r,
+  deny /usr/local/bin/ r,
+  deny /usr/games/ r,
+  deny /usr/local/games/ r,
+
+  # These are needed for "git submodule update"
+  /{usr/,}bin/basename    rix,
+  /{usr/,}bin/sed         rix,
+  /{usr/,}bin/gettext.sh  rix,
+  /{usr/,}bin/uname       rix,
+  /{usr/,}bin/envsubst    rix,
+  /{usr/,}bin/gettext     rix,
+
+  /{usr/,}bin/{,ba,da}sh  rix,
+  /{usr/,}bin/{,e}grep    rix,
+
+  owner @{BUILD_DIR}/*/.repo/repo/hooks/* rwix,
+  /{usr/,}bin/mv          rix,
+  /{usr/,}bin/whoami      rix,
+  /{usr/,}bin/hostname    rix,
+  /{usr/,}bin/rm          rix,
+  /{usr/,}bin/cat         rix,
+  /{usr/,}bin/date        rix,
+
+  /{usr/,}bin/pager       rPx -> child-pager,
+  /{usr/,}bin/less        rPx -> child-pager,
+  /{usr/,}bin/more        rPx -> child-pager,
+
+  /{usr/,}bin/man         rPx,
+
+  # For signing commits
+  /{usr/,}bin/gpg         rCx -> gpg,
+
+  # For SSH support
+  /{usr/,}bin/ssh         rCx -> ssh,
+
+  # Difftools
+  /{usr/,}bin/meld       rPUx,
+
+  /{usr/,}bin/sensible-editor rCx -> editor,
+  /{usr/,}bin/vim.*           rCx -> editor,
+
+  owner @{HOME}/.config/git/ rw,
+  owner @{HOME}/.config/git/config rw,
+  owner @{HOME}/.gitconfig r,
+
+  /usr/share/git-core/{,**} r,
+
+  # For diffs
+  owner /tmp/git-difftool.*/ rw,
+  owner /tmp/git-difftool.*/right/{,**} rw,
+  owner /tmp/git-difftool.*/left/{,**} rw,
+  owner /tmp/* rw,
+  # For TWRP-device-tree-generator
+  owner /tmp/tmp*/ rw,
+  owner /tmp/tmp*/** rwkl -> /tmp/tmp*/**,
+
+  # For git log --show-signature
+  owner /tmp/.git_vtag_tmp* rw,
+
+  # For android studio
+  owner /tmp/git-commit-msg-.txt rw,
+
+  # For package building
+  owner @{HOME}/*/            rw,
+  owner @{HOME}/*/**          rwkl -> @{HOME}/*/**,
+  owner @{BUILD_DIR}/**       rwkl -> @{BUILD_DIR}/**,
+  owner @{BUILD_DIR}/**/bin/*  rCx -> exec,
+
+  /etc/mailname r,
+
+
+  profile gpg {
+    include <abstractions/base>
+    include <abstractions/consoles>
+
+    /{usr/,}bin/gpg mr,
+
+    owner @{HOME}/.gnupg/ rw,
+    owner @{HOME}/.gnupg/** rwkl -> @{HOME}/.gnupg/**,
+
+    owner /tmp/.git_vtag_tmp* r,
+
+  }
+
+  profile ssh {
+    include <abstractions/base>
+    include <abstractions/nameservice-strict>
+    include <abstractions/openssl>
+
+    network inet dgram,
+    network inet6 dgram,
+    network inet stream,
+    network inet6 stream,
+
+    /{usr/,}bin/ssh mr,
+
+    /etc/ssh/ssh_config.d/{,*} r,
+    /etc/ssh/ssh_config r,
+
+    owner @{HOME}/.ssh/* r,
+    owner @{HOME}/.ssh/known_hosts rw,
+
+    owner @{PROC}/@{pid}/fd/ r,
+
+    owner /tmp/git@*:[0-9]* rwl -> /tmp/git@*:[0-9]*.*,
+
+    /dev/pts/[0-9] rw,
+
+  }
+
+  profile exec {
+    include <abstractions/base>
+
+    owner @{BUILD_DIR}/**/bin/* mr,
+
+  }
+
+  profile editor {
+    include <abstractions/base>
+    include <abstractions/nameservice-strict>
+
+    /{usr/,}bin/sensible-editor mr,
+    /{usr/,}bin/vim.*           mrix,
+    /{usr/,}bin/{,ba,da}sh       rix,
+    /{usr/,}bin/which{,.debianutils}            rix,
+
+    owner @{HOME}/.selected_editor r,
+
+    /usr/share/vim/{,**} r,
+    /etc/vim/{,**} r,
+    owner @{HOME}/.viminfo{,.tmp} rw,
+
+    owner @{HOME}/.fzf/plugin/ r,
+    owner @{HOME}/.fzf/plugin/fzf.vim r,
+
+    # The git repository files
+    owner @{BUILD_DIR}/ r,
+    owner @{BUILD_DIR}/** rw,
+
+  }
+
+  include if exists <local/git>
+}
