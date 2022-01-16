@@ -81,6 +81,11 @@ profile codium /usr/share/codium/codium {
   @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
   @{sys}/devices/system/cpu/kernel_max r,
   @{sys}/devices/system/cpu/possible r,
+  @{sys}/devices/system/cpu/present r,
+  @{sys}/devices/system/cpu/cpufreq/boost r,
+  @{sys}/devices/system/cpu/vulnerabilities/ r,
+  @{sys}/devices/system/cpu/cpu[0-9]/topology/{thread_siblings,core_siblings,core_id,physical_package_id} r,
+  @{sys}/devices/system/cpu/cpufreq/policy[0-9]/scaling_governor r,
 
   /{usr/,}bin/{dirname,git,dash,shellcheck,uname,gio,which,sed,getcap,env,find} rix,
   /{usr/,}bin/hostname rix,

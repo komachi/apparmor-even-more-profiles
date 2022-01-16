@@ -34,8 +34,10 @@ profile waybar /{usr/,}bin/waybar {
   owner @{HOME}/.config/waybar/{**,} r,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
   owner @{HOME}/.config/waybar/*.sh rix,
+  owner @{user_share_dirs}/{themes,icons,pixmaps,mime}/{**,} rix,
+  @{system_share_dirs}/{themes,icons,pixmaps,mime}/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
-  @{system_share_dirs}/{themes,icons}/{**,} r,
+  
 
   deny network,
   

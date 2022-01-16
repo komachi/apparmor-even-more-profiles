@@ -1,1 +1,4 @@
   /etc/nftables.conf r,
+  /etc/iproute2/rt_realms r,
+  /etc/iproute2/group r,
+  /dev/pts/[0-9] rw,

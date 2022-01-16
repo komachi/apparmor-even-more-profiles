@@ -32,6 +32,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
 
   @{system_share_dirs}/{TelegramDesktop,icons,mime,themes}/** r,
+  @{system_share_dirs}qt5ct/** r,
 
   /dev/dri/ r,
   @{sys}/devices/system/node/ r,

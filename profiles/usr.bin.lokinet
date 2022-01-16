@@ -17,8 +17,8 @@ profile lokinet /{usr/,}bin/lokinet {
   /{usr/,}bin/lokinet mr,
   @{sys}/kernel/mm/transparent_hugepage/enabled r,
 
-  owner /{var/,}lib/lokinet/ rw,
-  owner /{var/,}lib/lokinet/** rwk,
+  /{var/,}lib/lokinet/ rw,
+  /{var/,}lib/lokinet/** rwk,
   owner @{HOME}/.lokinet/ rw,
   owner @{HOME}/.lokinet/** rwk,
   owner @{PROC}/@{pid}/task/@{pid}/comm rw,
