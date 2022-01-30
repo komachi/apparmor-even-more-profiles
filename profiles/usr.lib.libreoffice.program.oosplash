@@ -11,12 +11,12 @@
 #            Rene Engelhard <rene@debian.org>
 #
 # ------------------------------------------------------------------
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile libreoffice-oopslash /usr/lib/libreoffice/program/oosplash {
-  #include <abstractions/base>
-  #include <abstractions/X>
+  include <abstractions/base>
+  include <abstractions/X>
 
   /etc/libreoffice/                     r,
   /etc/libreoffice/**                   r,
@@ -34,5 +34,5 @@ profile libreoffice-oopslash /usr/lib/libreoffice/program/oosplash {
   unix peer=(addr=@/tmp/.ICE-unix/* label=unconfined),
   unix peer=(addr=@/tmp/.X11-unix/* label=unconfined),
 
-  #include if exists <local/usr.lib.libreoffice.program.oosplash>
+  include if exists <local/usr.lib.libreoffice.program.oosplash>
 }

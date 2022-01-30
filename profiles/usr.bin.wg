@@ -1,14 +1,17 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile wg /{usr/,}bin/wg {
-  #include <abstractions/base>
+  include <abstractions/base>
 
   capability net_admin,
 
   /{usr/,}bin/wg r,
 
+  @{PROC}/loadavg r,
+
   /dev/tty[0-9] rw,
   
-  #include if exists <local/usr.bin.wg>
+  include if exists <local/usr.bin.wg>
 }

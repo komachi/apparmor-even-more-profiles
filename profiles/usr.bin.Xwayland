@@ -1,0 +1,27 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile Xwayland /{usr/,}bin/Xwayland {
+  include <abstractions/base>
+  include <abstractions/dri-common>
+  include <abstractions/dri-enumerate>
+  include <abstractions/vulkan>
+  include <abstractions/mesa>
+  include <abstractions/nameservice>
+
+  /{usr/,}bin/dash rix,
+  /{usr/,}bin/xkbcomp rix,
+
+  owner /tmp/server-0.xkm rw,
+  owner @{run}/user/@{uid}/xwayland-shared-* rw,
+
+  owner @{PROC}/@{pid}/cmdline r,
+
+  @{system_share_dirs}/X11/** r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
+  /usr/lib/xorg/** r,
+
+  include if exists <local/usr.bin.Xwayland>
+}

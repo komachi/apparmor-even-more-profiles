@@ -1,12 +1,12 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile syncthing /{usr/,}bin/syncthing {
-  #include <abstractions/base>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/ssl_keys>
-  #include <abstractions/nameservice>
+  include <abstractions/base>
+  include <abstractions/ssl_certs>
+  include <abstractions/ssl_keys>
+  include <abstractions/nameservice>
 
   /{usr/,}bin/syncthing rix,
   /etc/mime.types r,
@@ -20,5 +20,5 @@ profile syncthing /{usr/,}bin/syncthing {
 
   deny @{HOME} r,
 
-  #include if exists <local/usr.bin.syncthing>
+  include if exists <local/usr.bin.syncthing>
 }

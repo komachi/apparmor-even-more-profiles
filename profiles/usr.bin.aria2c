@@ -1,11 +1,13 @@
-#include <tunables/global>
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile aria2c /{usr/,}bin/aria2c {
-  #include <abstractions/base>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/ssl_keys>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-download-strict>
+  include <abstractions/base>
+  include <abstractions/ssl_certs>
+  include <abstractions/ssl_keys>
+  include <abstractions/nameservice>
+  include <abstractions/user-download-strict>
 
   owner @{XDG_MUSIC_DIR}/ r,
   owner @{XDG_MUSIC_DIR}/** rw,
@@ -17,5 +19,5 @@ profile aria2c /{usr/,}bin/aria2c {
   owner @{HOME}/.cache/aria2/{**,} wr,
   owner @{HOME}/.config/aria2/aria2.conf r,
 
-  #include if exists <local/usr.bin.aria2c>
+  include if exists <local/usr.bin.aria2c>
 }

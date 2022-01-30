@@ -1,4 +1,5 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 include <tunables/global>
 
 profile OnlyKey /opt/OnlyKey/nw {
@@ -7,7 +8,10 @@ profile OnlyKey /opt/OnlyKey/nw {
   include <abstractions/fonts>
   include <abstractions/wayland>
   include <abstractions/X>
+  include <abstractions/nameservice>
+  include <abstractions/openssl>
   include <abstractions/devices-usb>
+  include <abstractions/mesa>
 
   ptrace trace peer=OnlyKey,
   ptrace (read) peer=child-lsb_release,
@@ -21,6 +25,8 @@ profile OnlyKey /opt/OnlyKey/nw {
   @{system_share_dirs}/icons/** r,
   @{system_share_dirs}/themes/** r,
   @{system_share_dirs}/mime/** r,
+  @{system_share_dirs}/fonts/** r,
+  @{system_share_dirs}/poppler/** r,
   /etc/pulse/client.conf r,
   /etc/pulse/client.conf.d/{**,} r,
   @{sys}/class r,
@@ -43,9 +49,12 @@ profile OnlyKey /opt/OnlyKey/nw {
   @{run}/udev/data/+drm:* r,
   @{run}/udev/data/+sound:* r,
 
+  @{PROC}/sys/fs/inotify/max_user_watches r,
   @{PROC}/sys/kernel/yama/ptrace_scope r,
   @{PROC}/sys/kernel/random/boot_id r,
   @{PROC}/@{pid}/stat r,
+  @{PROC}/vmstat r,
+  @{PROC}/ r,
   owner @{PROC}/@{pid}/task/ r,
   owner @{PROC}/@{pid}/task/@{pid}/syscall r,
   owner @{PROC}/@{pid}/task/@{pid}/status r,
@@ -54,6 +63,7 @@ profile OnlyKey /opt/OnlyKey/nw {
   owner @{PROC}/@{pid}/fd/ r,
   owner @{PROC}/@{pid}/mem r,
   owner @{PROC}/@{pid}/oom_score_adj rw,
+  owner @{PROC}/@{pid}/setgroups rw,
 
   owner /dev/shm/.io.nwjs.* rw,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
@@ -68,23 +78,16 @@ profile OnlyKey /opt/OnlyKey/nw {
   /dev/shm/ r,
   /dev/urandom/ r,
   /dev/input/event[0-9] rw,
+  /dev/input/js[0-9] r,
+
   owner /dev/tty[0-9] rw,
+  
   /dev/hidraw[0-9] rw,
 
   /{usr/,}bin/xdg-settings rPx,
   /{usr/,}bin/lsb_release rPx -> child-lsb_release,
 
-  deny network,
-  deny @{PROC}/ r,
-  deny @{system_share_dirs}/** w,
-  deny /etc/host.conf r,
-  deny /etc/hosts r,
-  deny /etc/resolv.conf r,
-  deny /etc/passwd r,
-  deny /etc/nsswitch.conf r,
-  deny /etc/gai.conf r,
-  deny @{HOME}/.pki/nssdb/* rwl,
-  deny /etc/ssl/openssl.cnf r,
+   deny @{system_share_dirs}/** w,
 
   include if exists <local/OnlyKey>
 }

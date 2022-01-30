@@ -1,9 +1,10 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile lokinet /{usr/,}bin/lokinet {
-  #include <abstractions/base>
-  #include <abstractions/nameservice>
+  include <abstractions/base>
+  include <abstractions/nameservice>
 
   capability net_admin,
   capability net_bind_service,
@@ -24,5 +25,5 @@ profile lokinet /{usr/,}bin/lokinet {
   owner @{PROC}/@{pid}/task/@{pid}/comm rw,
   owner /tmp/lokinet.*/{**,} rw,
 
-  #include if exists <local/usr.bin.lokinet>
+  include if exists <local/usr.bin.lokinet>
 }

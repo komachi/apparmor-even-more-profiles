@@ -1,21 +1,21 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 @{monerogui_exec_path} = /{usr/,usr/local/,}bin/monero-wallet-gui
 profile monerogui @{monerogui_exec_path} {
-  #include <abstractions/base>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/user-tmp>
-  #include <abstractions/fonts>
-  #include <abstractions/nameservice>
-  #include <abstractions/openssl>
-  #include <abstractions/mesa>
-  #include <abstractions/dri-enumerate>
+  include <abstractions/base>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/user-tmp>
+  include <abstractions/fonts>
+  include <abstractions/nameservice>
+  include <abstractions/openssl>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
+  include <abstractions/qt5-shader-cache>
 
   owner @{HOME}/#* rwm,
-  owner @{HOME}/.cache/qtshadercache/** r,
   owner @{HOME}/.config/monero-project/{**,} rwl,
   owner @{HOME}/.cache/monero-project/{**,} rwm,
   owner @{HOME}/.shared-ringdb/{**,} rwk,
@@ -35,5 +35,5 @@ profile monerogui @{monerogui_exec_path} {
   /dev/hidraw* rw,
   /etc/timezone r,
 
-  #include if exists <local/usr.bin.monero-wallet-gui>
+  include if exists <local/usr.bin.monero-wallet-gui>
 }

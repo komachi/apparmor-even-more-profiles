@@ -1,22 +1,22 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile mpv /{usr/,}bin/mpv {
-    #include <abstractions/base>
-    #include <abstractions/consoles>
-    #include <abstractions/audio>
-    #include <abstractions/gstreamer>
-    #include <abstractions/user-tmp> 
-    #include <abstractions/nameservice>
-    #include <abstractions/X>
-    #include <abstractions/wayland>
-    #include <abstractions/gstreamer>
-    #include <abstractions/mesa>
-    #include <abstractions/dri-enumerate>
-    #include <abstractions/opencl>
-    #include <abstractions/vulkan>
-    #include <abstractions/fonts>
+    include <abstractions/base>
+    include <abstractions/consoles>
+    include <abstractions/audio>
+    include <abstractions/gstreamer>
+    include <abstractions/user-tmp> 
+    include <abstractions/nameservice>
+    include <abstractions/X>
+    include <abstractions/wayland>
+    include <abstractions/gstreamer>
+    include <abstractions/mesa>
+    include <abstractions/dri-enumerate>
+    include <abstractions/opencl>
+    include <abstractions/vulkan>
+    include <abstractions/fonts>
 
     signal (send) set=(term, kill) peer=youtube-dl,
   
@@ -40,6 +40,6 @@ profile mpv /{usr/,}bin/mpv {
     /{usr/,usr/local/,}bin/youtube-dl rPUx,
     owner @{HOME}/.local/{pipx/venvs/youtube-dl/,}bin/youtube-dl rPUx,
 
-    #include if exists <local/usr.bin.mpv>
+    include if exists <local/usr.bin.mpv>
 }
 

@@ -1,9 +1,10 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile xss-lock /{usr/,}bin/xss-lock {
-  #include <abstractions/base>
-  #include <abstractions/X>
+  include <abstractions/base>
+  include <abstractions/X>
 
   /{usr/,}bin/i3lock Pux,
 
@@ -11,5 +12,5 @@ profile xss-lock /{usr/,}bin/xss-lock {
 
   owner /dev/tty* rw,
 
-  #include if exists <local/usr.bin.xss-lock>
+  include if exists <local/usr.bin.xss-lock>
 }

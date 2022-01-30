@@ -1,14 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 @{dashelectrum_exec_path} = /{usr/,usr/local/,}bin/dashelectrum
 profile dashelectrum @{dashelectrum_exec_path} {
-  #include <abstractions/electrum>
-  #include <abstractions/appimage>
+  include <abstractions/electrum>
+  include <abstractions/appimage>
 
   @{dashelectrum_exec_path} mr,
 
   owner @{HOME}/.electrum-dash/{**,} rw,
 
-  #include if exists <local/usr.local.bin.electrum>
+  include if exists <local/usr.local.bin.electrum>
 }

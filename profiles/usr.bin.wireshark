@@ -9,23 +9,23 @@
 #    License published by the Free Software Foundation.
 #
 # ------------------------------------------------------------------
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile wireshark /usr/bin/wireshark {
-  #include <abstractions/base>
-  #include <abstractions/bash>
-  #include <abstractions/consoles>
-  #include <abstractions/dconf>
-  #include <abstractions/dbus-session-strict>
-  #include <abstractions/ibus>
-  #include <abstractions/kde>
-  #include <abstractions/nameservice>
-  #include <abstractions/gnome>
-  #include <abstractions/user-write>
-  #include <abstractions/X>
+  include <abstractions/base>
+  include <abstractions/bash>
+  include <abstractions/consoles>
+  include <abstractions/dconf>
+  include <abstractions/dbus-session-strict>
+  include <abstractions/ibus>
+  include <abstractions/kde>
+  include <abstractions/nameservice>
+  include <abstractions/gnome>
+  include <abstractions/user-write>
+  include <abstractions/X>
 
-  #include <abstractions/dbus-accessibility-strict>
+  include <abstractions/dbus-accessibility-strict>
   dbus (send)
        bus=session
        peer=(name=org.a11y.Bus),
@@ -82,5 +82,5 @@ profile wireshark /usr/bin/wireshark {
   # for reading pcaps
   /**.pcap r,
 
-  #include if exists <local/usr.bin.wireshark>
+  include if exists <local/usr.bin.wireshark>
 }

@@ -1,9 +1,0 @@
-# Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
-
-profile libreoffice /{usr/,}bin/libreoffice flags=(complain) {
-    #include <abstractions/base>
-
-    #include if exists <local/usr.bin.libreoffice>
-}

@@ -12,12 +12,9 @@
 #             Rene Engelhard <rene@debian.org>
 #
 # ------------------------------------------------------------------
+# Tuned for debian buster by <anton@nesterov.cc>
+abi <abi/3.0>,
 
-# This profile should enable the average LibreOffice user to get their 
-# work done while blocking some advanced usage
-# Namely not tested and likely not working : embedded plugins,
-# Using the LibreOffice SDK and other development tasks
-# Everything else should be working
 
 #Defines all common supported file formats
 #Some obscure ones we're excluded (mostly input)
@@ -71,38 +68,31 @@
 #Math
 @{libreoffice_ext} += [mM][mM][lL]
 
-@{libo_user_dirs} = @{HOME} /mnt /media
+@{libo_user_dirs} = @{HOME}/Documents /mnt /media
 
-#include <tunables/global>
+include <tunables/global>
 
-profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
-  #include <abstractions/private-files>
+profile libreoffice-soffice /usr/lib/libreoffice/program/soffice{.bin,} {
+  include <abstractions/private-files>
 
-  #include <abstractions/audio>
-  #include <abstractions/bash>
-  #include <abstractions/cups-client>
-  #include <abstractions/dbus>
-  #include <abstractions/dbus-session>
-  #include <abstractions/dbus-accessibility>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/mesa>
-  #include <abstractions/ibus>
-  #include <abstractions/nameservice>
-  #include <abstractions/gnome>
-# GnuPG1 only...
-# #include <abstractions/gnupg>
-  #include <abstractions/python>
-  #include <abstractions/p11-kit>
-
-  #include <abstractions/user-tmp>
-
-  #include <abstractions/opencl-intel>
-  #include <abstractions/opencl-mesa>
-  #include <abstractions/opencl-nvidia>
-
-  #List directories for file browser
-  /                                     r,
-  /**/                                  r,
+  include <abstractions/audio>
+  include <abstractions/bash>
+  include <abstractions/cups-client>
+  include <abstractions/dbus>
+  include <abstractions/dbus-session>
+  include <abstractions/dbus-accessibility>
+  include <abstractions/dri-enumerate>
+  include <abstractions/mesa>
+  include <abstractions/ibus>
+  include <abstractions/nameservice>
+  include <abstractions/gnome>
+  include <abstractions/python>
+  include <abstractions/p11-kit>
+  include <abstractions/user-tmp>
+  include <abstractions/opencl-intel>
+  include <abstractions/opencl-mesa>
+  include <abstractions/opencl-nvidia>
+  include <abstractions/qt5-compose-cache-write>
 
   owner @{libo_user_dirs}/**/           rw,  #allow creating directories that we own
   owner @{libo_user_dirs}/**~lock.*     rw,  #lock file support
@@ -111,12 +101,12 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   owner @{libo_user_dirs}/{,**/}.directory r, #Read directory settings on KDE
 
   # Settings
-  /etc/libreoffice/                     r,
-  /etc/libreoffice/**                   r,
+  /etc/libreoffice/{**,}                r,
 
   /etc/cups/ppd/*.ppd                   r,
   /etc/xml/catalog                      r, #exporting to .xhtml, for libxml2
-  /proc/*/status                        r,
+  owner @{PROC}/@{pid}/status           r,
+  owner @{PROC}/@{pid}/mountinfo        r,
 
   owner @{HOME}/.config/libreoffice{,dev}/** rwk,
   owner @{HOME}/.config/soffice.binrc rwl -> @{HOME}/.config/#[0-9]*,
@@ -129,8 +119,9 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   owner @{HOME}/.config/dconf/user      r,
 
   # allow schema to be read
-  /usr/share/glib-*/schemas/            r,
-  /usr/share/glib-*/schemas/**          r,
+  @{system_share_dirs}/glib-*/schemas/            r,
+  @{system_share_dirs}/glib-*/schemas/**          r,
+  
 
   # bluetooth send to
   network bluetooth,
@@ -139,16 +130,19 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   /{usr/,}bin/bash                      rmix,
   /{usr/,}bin/dash                      rmix,
   /{usr/,}bin/rm                        rmix, #deleting /tmp/psp1534203998 (printing to file)
-  /usr/bin/bluetooth-sendto             rmPUx,
-  /usr/bin/lpr                          rmPUx,
-  /usr/bin/paperconf                    rmix,
-  /usr/bin/gpgconf                      rmix,
-  /usr/bin/gpg                          rmCx -> gpg,
-  /usr/bin/gpgsm                        rmCx -> gpg,
-  /usr/bin/gpa                          rix,
-  /usr/bin/seahorse                     rix,
-  /usr/bin/kgpg                         rix,
-  /usr/bin/kleopatra                    rix,
+  /{usr/,}bin/bluetooth-sendto          rmPUx,
+  /{usr/,}bin/lpr                       rmPUx,
+  /{usr/,}bin/paperconf                 rmix,
+  /{usr/,}bin/gpgconf                   rmix,
+  /{usr/,}bin/gpg                       rmCx -> gpg,
+  /{usr/,}bin/gpgsm                     rmCx -> gpg,
+  /{usr/,}bin/gpa                       rix,
+  /{usr/,}bin/seahorse                  rix,
+  /{usr/,}bin/kgpg                      rix,
+  /{usr/,}bin/kleopatra                 rix,
+  /{usr/,}bin/dirname                   rix,
+  /{usr/,}bin/uname                     rix,
+  /{usr/,}bin/sed                       rix,
 
   /dev/tty                              rw,
 
@@ -165,26 +159,26 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   /etc/java-??-openjdk/security/java.security   r,
   /usr/lib/libreoffice/**                        rw,
   /usr/lib/libreoffice/**.so                     m,
-  /usr/lib/libreoffice/program/soffice.bin       mix,
+  /usr/lib/libreoffice/program/soffice{.bin,}    mix,
   /usr/lib/libreoffice/program/xpdfimport        px,
   /usr/lib/libreoffice/program/senddoc           px,
-  /usr/bin/xdg-open                 rPUx,
+  /{usr/,}bin/xdg-open                 rPUx,
 
-  /usr/share/java/**.jar                r,
-  /usr/share/hunspell/                  r,
-  /usr/share/hunspell/**                r,
-  /usr/share/hyphen/                    r,
-  /usr/share/hyphen/**                  r,
-  /usr/share/mythes/                    r,
-  /usr/share/mythes/**                  r,
-  /usr/share/liblangtag/                r,
-  /usr/share/liblangtag/**              r,
-  /usr/share/libreoffice/               r,
-  /usr/share/libreoffice/**             r,
-  /usr/share/yelp-xsl/xslt/mallard/**   r,
-  /usr/share/libexttextcat/*            r,
-  /usr/share/icu/**                     r,
-  /usr/share/locale-bundle/*            r,
+  @{system_share_dirs}/java/**.jar                r,
+  @{system_share_dirs}/hunspell/                  r,
+  @{system_share_dirs}/hunspell/**                r,
+  @{system_share_dirs}/hyphen/                    r,
+  @{system_share_dirs}/hyphen/**                  r,
+  @{system_share_dirs}/mythes/                    r,
+  @{system_share_dirs}/mythes/**                  r,
+  @{system_share_dirs}/liblangtag/                r,
+  @{system_share_dirs}/liblangtag/**              r,
+  @{system_share_dirs}/libreoffice/               r,
+  @{system_share_dirs}/libreoffice/**             r,
+  @{system_share_dirs}/yelp-xsl/xslt/mallard/**   r,
+  @{system_share_dirs}/libexttextcat/*            r,
+  @{system_share_dirs}/icu/**                     r,
+  @{system_share_dirs}/locale-bundle/*            r,
 
   /var/spool/libreoffice/               r,
   /var/spool/libreoffice/**             rw,
@@ -193,8 +187,8 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   #Likely moving to abstractions in the future
   owner @{HOME}/.icons/*/cursors/*      r,
   /etc/fstab r, # Solid::DeviceNotifier::instance() TODO: deny?
-  /usr/share/*-fonts/conf.avail/*.conf  r,
-  /usr/share/fonts-config/conf.avail/*.conf r,
+  @{system_share_dirs}/*-fonts/conf.avail/*.conf  r,
+  @{system_share_dirs}/fonts-config/conf.avail/*.conf r,
   /{,var/}run/udev/data/+usb:* r, # Solid::Device::listFromQuery()
   /{,var/}run/udev/data/{c,b}*:* r, # Solid::Device::description(), Solid::Device::listFromQuery()
   @{PROC}/sys/kernel/random/boot_id r, # KRecentDocument::add() -> QSysInfo::bootUniqueId()
@@ -211,15 +205,15 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   # firefox >= 58
   owner @{HOME}/.mozilla/firefox/*/cert9.db r,
 
-  owner @{HOME}/.local/share/user-places.xbel r,
+  owner @{user_share_dirs}/user-places.xbel r,
 
   # there is abstractions/gnupg but that's just for gpg1...
   profile gpg {
-    #include <abstractions/base>
+    include <abstractions/base>
 
-   /usr/bin/gpgconf rm,
-   /usr/bin/gpg rm,
-   /usr/bin/gpgsm rm,
+   /{usr/,}bin/gpgconf rm,
+   /{usr/,}bin/gpg rm,
+   /{usr/,}bin/gpgsm rm,
 
     owner @{HOME}/.gnupg/* r,
     owner @{HOME}/.gnupg/random_seed rk,
@@ -229,9 +223,9 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   # work either as it tries to access stuff only allowed above...
   owner @{HOME}/.config/kdeglobals r,
   /usr/lib/libreoffice/program/lo_kde5filepicker rPUx,
-  /usr/share/qt5/translations/* r,
+  @{system_share_dirs}/qt5/translations/* r,
   /usr/lib/*/qt5/plugins/** rm,
-  /usr/share/plasma/look-and-feel/**/contents/defaults r,
+  @{system_share_dirs}/plasma/look-and-feel/**/contents/defaults r,
 
   # TODO: remove when rules are available in abstractions/kde
   owner @{HOME}/.cache/ksycoca5_??_* r, # KDE System Configuration Cache
@@ -240,13 +234,7 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   owner @{HOME}/.config/kde.org/libphonon.conf r, # for KNotifications::sendEvent()
   owner @{HOME}/.config/klanguageoverridesrc r, # per-application languages, for KDEPrivate::initializeLanguages() from libKF5XmlGui.so
   owner @{HOME}/.config/trashrc r, # user by KFileWidget
-  /usr/share/knotifications5/*.notifyrc r, # KNotification::sendEvent
-
-  # TODO: remove when rules are available in abstractions/kde-write-icon-cache or similar
-  owner @{HOME}/.cache/icon-cache.kcache rw, # for KIconLoader
-
-  # TODO: remove when rules are available in abstractions/kdeframeworks5 or similar
-  /usr/share/kservices5/*.protocol r,
+  @{system_share_dirs}/knotifications5/*.notifyrc r, # KNotification::sendEvent
 
   # TODO: use qt5-settings-write abstraction when it is available
   owner @{HOME}/.config/#[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9] rw,
@@ -255,19 +243,20 @@ profile libreoffice-soffice /usr/lib/libreoffice/program/soffice.bin {
   owner @{HOME}/.config/QtProject.conf.?????? rw, # for temporary files like QtProject.conf.Aqrgeb
   owner @{HOME}/.config/QtProject.conf.lock rwk,
 
-  # TODO: use qt5-compose-cache-write abstraction when it is available
-  owner @{HOME}/.cache/qt_compose_cache_{little,big}_endian_* r,
-
   # TODO: use recent-documents-write abstraction when it is available
-  owner @{HOME}/.local/share/RecentDocuments/** r,
-  owner @{HOME}/.local/share/RecentDocuments/*.desktop rwl -> @{HOME}/.local/share/RecentDocuments/#[0-9]*,
-  owner @{HOME}/.local/share/RecentDocuments/#[0-9]* rw,
-  owner @{HOME}/.local/share/RecentDocuments/*.lock rwk,
+  owner @{user_share_dirs}/RecentDocuments/** r,
+  owner @{user_share_dirs}/RecentDocuments/*.desktop rwl -> @{user_share_dirs}/RecentDocuments/#[0-9]*,
+  owner @{user_share_dirs}/RecentDocuments/#[0-9]* rw,
+  owner @{user_share_dirs}/RecentDocuments/*.lock rwk,
 
   # TODO: use kde-globals-write abstraction when it is available
   owner @{HOME}/.config/kdeglobals rw,
   owner @{HOME}/.config/kdeglobals.* rwl -> @{HOME}/.config/#[0-9]*,
   owner @{HOME}/.config/kdeglobals.lock rwk,
 
-  #include if exists <local/usr.lib.libreoffice.program.soffice.bin>
+  /usr/lib/libreoffice/program/oosplash rPux,
+
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
+
+  include if exists <local/usr.lib.libreoffice.program.soffice>
 }

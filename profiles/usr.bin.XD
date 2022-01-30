@@ -1,11 +1,11 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile XD /{usr/,usr/local/,}bin/{XD,XD-cli} {
-  #include <abstractions/base>
-  #include <abstractions/nameservice>
-  #include <abstractions/user-download-strict>
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/user-download-strict>
 
   @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
   @{PROC}/sys/net/core/somaxconn r,
@@ -15,5 +15,5 @@ profile XD /{usr/,usr/local/,}bin/{XD,XD-cli} {
   owner @{HOME}/.config/XD/** r,
   owner @{HOME}/.config/XD/metadata/{**,} rw,
 
-  #include if exists <local/usr.bin.XD>
+  include if exists <local/usr.bin.XD>
 }

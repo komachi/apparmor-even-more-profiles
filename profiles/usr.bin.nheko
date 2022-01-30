@@ -1,0 +1,31 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile nheko /{usr/,}bin/nheko {
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/openssl>
+  include <abstractions/mesa>
+  include <abstractions/vulkan>
+  include <abstractions/dri-common>
+  include <abstractions/fonts>
+  include <abstractions/qt5-shader-cache>
+  include <abstractions/user-tmp>
+
+  ptrace read peer=waybar,
+
+  /{usr/,}bin/nheko rix,
+
+  @{system_share_dirs}/icons/** r,
+  @{system_share_dirs}/qt5ct/** r,
+
+  @{sys}/devices/pci*/**/{uevent,vendor} r,
+
+  owner @{HOME}/.cache/nheko/{**,} rwk,
+  owner @{HOME}/.config/nheko/{**,} rwlk,
+  owner @{HOME}/.config/qt5ct/qt5ct.conf r,
+
+  include if exists <local/usr.bin.nheko>
+}

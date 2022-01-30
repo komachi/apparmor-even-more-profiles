@@ -1,10 +1,10 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile resolvconf /{usr/,}sbin/resolvconf  {
-  #include <abstractions/base>
-  #include <abstractions/nameservice>
+  include <abstractions/base>
+  include <abstractions/nameservice>
 
   capability dac_override,
   capability kill,
@@ -29,6 +29,6 @@ profile resolvconf /{usr/,}sbin/resolvconf  {
 
   deny / r,
 
-  #include if exists <local/usr.sbin.resolvconf>
+  include if exists <local/usr.sbin.resolvconf>
 }
   

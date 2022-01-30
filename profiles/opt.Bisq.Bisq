@@ -1,17 +1,17 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile bisq /opt/Bisq/Bisq {
-  #include <abstractions/base>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/fonts>
-  #include <abstractions/mesa>
-  #include <abstractions/user-tmp>
-  #include <abstractions/nameservice>
-  #include <abstractions/deny-dconf>
+  include <abstractions/base>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/dri-enumerate>
+  include <abstractions/fonts>
+  include <abstractions/mesa>
+  include <abstractions/user-tmp>
+  include <abstractions/nameservice>
+  include <abstractions/deny-dconf>
 
   /opt/Bisq/** r,
   /opt/Bisq/libpackager.so mr,
@@ -37,9 +37,9 @@ profile bisq /opt/Bisq/Bisq {
   /{var/,}run/tor/control.authcookie r,
 
   profile bisq_tor {
-    #include <abstractions/base>
-    #include <abstractions/nameservice>
-    #include <abstractions/openssl>
+    include <abstractions/base>
+    include <abstractions/nameservice>
+    include <abstractions/openssl>
 
     owner @{user_share_dirs}/Bisq/btc_mainnet/tor/{**,} mrwk,
     
@@ -53,5 +53,5 @@ profile bisq /opt/Bisq/Bisq {
   deny ptrace (read),
   deny @{PROC}/uptime r,
 
-  #include if exists <local/opt.Bisq.Bisq>
+  include if exists <local/opt.Bisq.Bisq>
 }

@@ -1,9 +1,9 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile xbindkeys /{usr/,}bin/xbindkeys {
-  #include <abstractions/base>
+  include <abstractions/base>
 
   owner @{HOME}/.Xauthority r,
   owner @{HOME}/.xbindkeysrc r,
@@ -19,6 +19,6 @@ profile xbindkeys /{usr/,}bin/xbindkeys {
   /{usr/,}bin/maim rPux,
   /{usr/,}bin/xclip rPux,
 
-  #include if exists <local/usr.bin.xbindkeys>
+  include if exists <local/usr.bin.xbindkeys>
 }
   

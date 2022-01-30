@@ -1,13 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 @{streamlink_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/streamlink/}bin/streamlink
 profile streamlink @{streamlink_exec_path} {
-  #include <abstractions/base>
-  #include <abstractions/nameservice>
-  #include <abstractions/pipx>
-  #include <abstractions/user-download-strict>
-  #include <abstractions/user-tmp>
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/pipx>
+  include <abstractions/user-download-strict>
+  include <abstractions/user-tmp>
 
   signal send set=term peer=mpv,
 
@@ -23,5 +24,5 @@ profile streamlink @{streamlink_exec_path} {
 
   owner @{HOME}/.config/streamlink/config r,
 
-  #include if exists <local/streamlink>
+  include if exists <local/streamlink>
 }

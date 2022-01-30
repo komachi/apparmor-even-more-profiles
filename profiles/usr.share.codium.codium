@@ -1,5 +1,5 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
+abi <abi/3.0>,
 include <tunables/global>
 profile codium /usr/share/codium/codium {
   
@@ -83,9 +83,10 @@ profile codium /usr/share/codium/codium {
   @{sys}/devices/system/cpu/possible r,
   @{sys}/devices/system/cpu/present r,
   @{sys}/devices/system/cpu/cpufreq/boost r,
-  @{sys}/devices/system/cpu/vulnerabilities/ r,
+  @{sys}/devices/system/cpu/vulnerabilities/{*,} r,
+  @{sys}/devices/system/cpu/cpu[0-9]/cache/index[0-9]/* r,
   @{sys}/devices/system/cpu/cpu[0-9]/topology/{thread_siblings,core_siblings,core_id,physical_package_id} r,
-  @{sys}/devices/system/cpu/cpufreq/policy[0-9]/scaling_governor r,
+  @{sys}/devices/system/cpu/cpufreq/policy[0-9]/{scaling_governor,cpuinfo_max_freq,cpuinfo_min_freq} r,
 
   /{usr/,}bin/{dirname,git,dash,shellcheck,uname,gio,which,sed,getcap,env,find} rix,
   /{usr/,}bin/hostname rix,
@@ -187,6 +188,7 @@ profile codium /usr/share/codium/codium {
     owner "@{HOME}/.config/VSCodium/Service Worker/Database/*.log" w,
 
     deny @{PROC}/ r,
+    deny @{PROC}/1/stat r,
 
     include if exists <local/tabnine>
   }

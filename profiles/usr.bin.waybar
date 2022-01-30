@@ -9,6 +9,7 @@ profile waybar /{usr/,}bin/waybar {
   include <abstractions/dconf>
   include <abstractions/X>
   include <abstractions/wayland>
+  include <abstractions/user-tmp>
 
   owner @{run}/user/@{uid}/dconf/ rw,
   owner @{run}/user/@{uid}/dconf/user rw,

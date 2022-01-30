@@ -23,6 +23,8 @@ profile wofi /{usr/,}bin/wofi {
   /usr{/local,}/{s,}bin/* rpux,
   /{s,}bin/* rpux,
   /opt/** rpux,
+  /usr/games/* rpux,
+  /usr/lib/libreoffice/program/soffice rpux,
   owner @{HOME}/.local/bin/ r,
   owner @{HOME}/.local/bin/* rpux,
   owner @{HOME}/.local/pipx/venvs/*/bin/* rpux,

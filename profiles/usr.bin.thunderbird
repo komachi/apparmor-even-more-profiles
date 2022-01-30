@@ -3,34 +3,34 @@
 # Author: Simon Deziel <simon.deziel at gmail_com>
 # This apparmor profile is derived from firefox profile
 # by Jamie Strandboge <jamie@canonical.com>
-
+abi <abi/3.0>,
 # Declare an apparmor variable to help with overrides
 @{MOZ_LIBDIR}=/usr/lib/thunderbird
 
-#include <tunables/global>
+include <tunables/global>
 
-profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
-  #include <abstractions/base>
-  #include <abstractions/audio>
-  #include <abstractions/aspell>
-  #include <abstractions/cups-client>
-  #include <abstractions/dbus-strict>
-  #include <abstractions/dbus-accessibility-strict>
-  #include <abstractions/dbus-session-strict>
-  #include <abstractions/dconf>
-  #include <abstractions/gnome>
-  #include <abstractions/ibus>
-  #include <abstractions/nameservice>
-  #include <abstractions/nvidia>
-  #include <abstractions/p11-kit>
-  #include <abstractions/private-files>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/mesa>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/user-download-strict>
-  #include <abstractions/openssl>
+profile thunderbird /usr/lib/thunderbird/thunderbird-bin {
+  include <abstractions/base>
+  include <abstractions/audio>
+  include <abstractions/aspell>
+  include <abstractions/cups-client>
+  include <abstractions/dbus-strict>
+  include <abstractions/dbus-accessibility-strict>
+  include <abstractions/dbus-session-strict>
+  include <abstractions/dconf>
+  include <abstractions/gnome>
+  include <abstractions/ibus>
+  include <abstractions/nameservice>
+  include <abstractions/nvidia>
+  include <abstractions/p11-kit>
+  include <abstractions/private-files>
+  include <abstractions/ssl_certs>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
+  include <abstractions/user-download-strict>
+  include <abstractions/openssl>
 
   /{usr/,}bin/{dash,bash} ixr,
   /{usr/,}bin/locale ix,
@@ -39,8 +39,8 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
   /{usr/,}lib/@{multiarch}/glib-2.0/gio-launch-desktop Pix -> open,
 
   profile open {
-    #include <abstractions/xdg-open>
-    #include <abstractions/jaro>
+    include <abstractions/xdg-open>
+    include <abstractions/jaro>
   }
 
   # for crash reports?
@@ -169,11 +169,11 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
   /dev/urandom r,
 
   profile gpg {
-    #include <abstractions/base>
+    include <abstractions/base>
 
     # Required to import keys from keyservers
-    #include <abstractions/nameservice-strict>
-    #include <abstractions/p11-kit>
+    include <abstractions/nameservice-strict>
+    include <abstractions/p11-kit>
 
     # noise from inherited files
     deny @{HOME}/.thunderbird/*/ImapMail/*/INBOX w,
@@ -252,6 +252,6 @@ profile thunderbird /usr/lib/thunderbird/thunderbird{,-bin} {
   }
 
   # Site-specific additions and overrides. See local/README for details.
-  #include if exists <local/usr.bin.thunderbird>
+  include if exists <local/usr.bin.thunderbird>
 }
 

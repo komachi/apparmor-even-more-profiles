@@ -1,14 +1,15 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 
-#include <tunables/global>
+include <tunables/global>
 
 @{yt_dlp_exec_path} = /{usr/,home/*/.local/,home/*/.local/pipx/venvs/yt-dlp/,}bin/yt-dlp
 profile yt-dlp @{yt_dlp_exec_path} {
-  #include <abstractions/base>
-  #include <abstractions/nameservice>
-  #include <abstractions/openssl>
-  #include <abstractions/user-download-strict>
-  #include <abstractions/pipx>
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/openssl>
+  include <abstractions/user-download-strict>
+  include <abstractions/pipx>
 
   signal (receive) set=(term, kill) peer=mpv,
 
@@ -25,5 +26,5 @@ profile yt-dlp @{yt_dlp_exec_path} {
   owner @{PROC}/@{pid}/mounts r,
   owner @{PROC}/@{pid}/fd/ r,
 
-  #include if exists <local/yt-dlp>
+  include if exists <local/yt-dlp>
 }

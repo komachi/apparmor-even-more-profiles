@@ -1,14 +1,15 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 
-#include <tunables/global>
+include <tunables/global>
 
 profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
-    #include <abstractions/base>
-    #include <abstractions/user-tmp>
-    #include <abstractions/X>
-    #include <abstractions/wayland>
-    #include <abstractions/user-download-strict>
-    #include <abstractions/fonts>
+    include <abstractions/base>
+    include <abstractions/user-tmp>
+    include <abstractions/X>
+    include <abstractions/wayland>
+    include <abstractions/user-download-strict>
+    include <abstractions/fonts>
 
     owner @{XDG_PICTURES_DIR}/ r,
     owner @{XDG_PICTURES_DIR}/** rw,
@@ -36,6 +37,6 @@ profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
     owner @{user_share_dirs}/mime/** r,
     owner @{user_share_dirs}/icons/{**,} r,    
 
-    #include if exists <local/usr.bin.gimp>
+    include if exists <local/usr.bin.gimp>
 
 }

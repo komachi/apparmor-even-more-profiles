@@ -1,14 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile inkscape /{usr/,}bin/inkscape {
-    #include <abstractions/base>
-    #include <abstractions/user-tmp>
-    #include <abstractions/X>
-    #include <abstractions/wayland>
-    #include <abstractions/user-download-strict>
-    #include <abstractions/fonts>
+    include <abstractions/base>
+    include <abstractions/user-tmp>
+    include <abstractions/X>
+    include <abstractions/wayland>
+    include <abstractions/user-download-strict>
+    include <abstractions/fonts>
 
     owner @{XDG_PICTURES_DIR}/ r,
     owner @{XDG_PICTURES_DIR}/** rw,
@@ -26,5 +26,5 @@ profile inkscape /{usr/,}bin/inkscape {
     owner @{HOME}/.config/user-dirs.dirs r,
     owner @{HOME}/.config/gtk-2.0/gtkfilechooser.ini* w,
 
-    #include if exists <local/usr.bin.inkscape>
+    include if exists <local/usr.bin.inkscape>
 }

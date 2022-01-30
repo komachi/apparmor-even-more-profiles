@@ -1,12 +1,13 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile FBReader /{usr/,}bin/FBReader {
-  #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/kde>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/kde>
+  include <abstractions/X>
+  include <abstractions/wayland>
 
   /{usr/,}bin/FBReader mr,
   @{system_share_dirs}/{zlibrary,pixmaps/FBReader,icons,FBReader}/{**,} r,
@@ -20,5 +21,5 @@ profile FBReader /{usr/,}bin/FBReader {
 
   deny network,
 
-  #include if exists <local/usr.bin.FBReader>
+  include if exists <local/usr.bin.FBReader>
 }

@@ -1,14 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile spacefm /{usr/,}bin/spacefm {
-  #include <abstractions/base>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/user-tmp>
-  #include <abstractions/fonts>
-  #include <abstractions/private-files-strict>
+  include <abstractions/base>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/user-tmp>
+  include <abstractions/fonts>
+  include <abstractions/private-files-strict>
 
   @{system_share_dirs}/{icons,mime,pixmaps,applications,themes}/{**,} r,
 
@@ -44,5 +44,5 @@ profile spacefm /{usr/,}bin/spacefm {
   deny / r,
   deny /home/ r,
 
-  #include if exists <local/usr.bin.spacefm>
+  include if exists <local/usr.bin.spacefm>
 }

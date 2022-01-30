@@ -1,4 +1,5 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
 include <tunables/global>
 
 profile swayidle /{usr/,}bin/swayidle flags=(complain) {

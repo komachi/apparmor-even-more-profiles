@@ -1,4 +1,4 @@
-  #include <abstractions/guile>
+  include <abstractions/guile>
 
   /{usr,usr/local,}/bin/jaro rix,
   /{usr/,}bin/dash rix,

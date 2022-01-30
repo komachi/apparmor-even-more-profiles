@@ -1,9 +1,9 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+include <tunables/global>
 
-#include <tunables/global>
+profile privoxy /{usr/,}bin/privoxy flags=(complain) {
+    include <abstractions/base>
 
-profile dictd /{usr/,}bin/privoxy flags=(complain) {
-    #include <abstractions/base>
-
-    #include if exists <local/usr.bin.privoxy>
+    include if exists <local/usr.bin.privoxy>
 }

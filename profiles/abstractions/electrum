@@ -1,13 +1,13 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 # this meant to work as abstraction for many electrum-based clients
-#include <abstractions/base>
-#include <abstractions/fonts>
-#include <abstractions/user-tmp>
-#include <abstractions/X>
-#include <abstractions/wayland>
-#include <abstractions/mesa>
-#include <abstractions/dri-enumerate>
-#include <abstractions/nameservice>
+include <abstractions/base>
+include <abstractions/fonts>
+include <abstractions/user-tmp>
+include <abstractions/X>
+include <abstractions/wayland>
+include <abstractions/mesa>
+include <abstractions/dri-enumerate>
+include <abstractions/nameservice>
 
   owner @{PROC}/@{pid}/{mounts,fd/} r,
 

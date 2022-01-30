@@ -1,10 +1,11 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile i3lock /{usr/,}bin/i3lock {
-  #include <abstractions/base>
-  #include <abstractions/X>
-  #include <abstractions/fonts>
+  include <abstractions/base>
+  include <abstractions/X>
+  include <abstractions/fonts>
 
   /{usr/,}bin/i3lock r,
   /etc/pam.d/** r,
@@ -18,5 +19,5 @@ profile i3lock /{usr/,}bin/i3lock {
 
   /{usr/,}sbin/unix_chkpwd Pux,  
 
-  #include if exists <local/usr.bin.i3lock>
+  include if exists <local/usr.bin.i3lock>
 }

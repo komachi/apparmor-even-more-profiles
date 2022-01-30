@@ -1,4 +1,4 @@
-  #include <abstractions/recent-deny>
+  include <abstractions/recent-deny>
   owner /mnt/hdd/src/ r,
   owner @{HOME}/src/ r,
   owner /mnt/hdd/src/** rw,

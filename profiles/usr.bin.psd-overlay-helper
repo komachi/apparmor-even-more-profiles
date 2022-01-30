@@ -1,14 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile psd-overlay-helper /{usr/,}bin/psd-overlay-helper {
-    #include <abstractions/base>
+    include <abstractions/base>
 
     capability dac_read_search,
     capability dac_override,
 
     /{usr/,}bin/{u,}mount ix,
 
-    #include if exists <local/usr.bin.psd-overlay-helper>
+    include if exists <local/usr.bin.psd-overlay-helper>
 }

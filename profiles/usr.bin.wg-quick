@@ -1,8 +1,9 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile wg-quick /{usr/,}bin/wg-quick {
-  #include <abstractions/base>
+  include <abstractions/base>
 
   capability net_admin,
 
@@ -19,5 +20,5 @@ profile wg-quick /{usr/,}bin/wg-quick {
   /{usr/,}sbin/xtables-nft-multi Pux,
   /{usr/,}sbin/sysctl Pux,
   
-  #include if exists <local/usr.bin.wg-quick>
+  include if exists <local/usr.bin.wg-quick>
 }

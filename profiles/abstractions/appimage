@@ -1,7 +1,7 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 # This abstraction meant to cover AppImage's needs
 
-#include <abstractions/base>
+  include <abstractions/base>
   mount fstype=fuse,
   mount fstype=fuse.*,
   umount fstype=fuse,
@@ -14,7 +14,7 @@
   /{usr/,}bin/fusermount Cx -> fusermount,
 
   profile fusermount {
-    #include <abstractions/base>
+    include <abstractions/base>
 
     capability dac_read_search,
     capability dac_override,

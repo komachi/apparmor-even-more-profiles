@@ -1,10 +1,11 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile uget-integrator /{usr/,}bin/uget-integrator {
-  #include <abstractions/base>
-  #include <abstractions/python>
-  #include <abstractions/user-tmp>
+  include <abstractions/base>
+  include <abstractions/python>
+  include <abstractions/user-tmp>
 
   owner @{PROC}/@{pid}/fd/ r,
   owner @{HOME}/.mozilla/* r,
@@ -24,5 +25,5 @@ profile uget-integrator /{usr/,}bin/uget-integrator {
   deny /{usr/,}bin/ r,
   deny @{HOME}/.local/lib/python** rw,
   
-  #include if exists <local/usr.bin.uget-integrator>
+  include if exists <local/usr.bin.uget-integrator>
 }

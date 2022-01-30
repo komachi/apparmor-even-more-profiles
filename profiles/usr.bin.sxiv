@@ -1,12 +1,12 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile sxiv /{usr/,}bin/sxiv {
-  #include <abstractions/base>
-  #include <abstractions/X>
-  #include <abstractions/fonts>
-  #include <abstractions/user-tmp>
+  include <abstractions/base>
+  include <abstractions/X>
+  include <abstractions/fonts>
+  include <abstractions/user-tmp>
 
   @{system_share_dirs}/icons/** r,
 
@@ -19,5 +19,5 @@ profile sxiv /{usr/,}bin/sxiv {
   owner @{HOME}/.cache/sxiv/{**,} rw,
   owner /dev/shm/#* rw,
 
-  #include if exists <local/usr.bin.sxiv>
+  include if exists <local/usr.bin.sxiv>
 }

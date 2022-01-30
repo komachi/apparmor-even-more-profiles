@@ -1,15 +1,16 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile keepassxc /{usr/,}bin/keepassxc {
-  #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/mesa>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/user-tmp>
-  #include <abstractions/qt5-compose-cache-write>
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
+  include <abstractions/user-tmp>
+  include <abstractions/qt5-compose-cache-write>
 
   /{usr/,}bin/keepassxc mr,
   @{system_share_dirs}/{icons,keepassxc,mime}/{**,} r,
@@ -51,5 +52,5 @@ profile keepassxc /{usr/,}bin/keepassxc {
 
   deny network,
 
-  #include if exists <local/usr.bin.keepassxc>
+  include if exists <local/usr.bin.keepassxc>
 }

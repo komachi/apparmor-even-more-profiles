@@ -30,13 +30,15 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  owner @{HOME}/.config/mimeapps.list r,
 
   @{system_share_dirs}/{TelegramDesktop,icons,mime,themes}/** r,
-  @{system_share_dirs}qt5ct/** r,
+  @{system_share_dirs}/qt5ct/** r,
 
   /dev/dri/ r,
   @{sys}/devices/system/node/ r,
   @{sys}/devices/system/node/*/meminfo r,
+  
   @{system_share_dirs}/libdrm/amdgpu.ids r,
   @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
@@ -45,8 +47,8 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   /{usr/,usr/local/,}bin/{xdg-open,jaro} rCx -> open,
 
   profile open {
-    #include <abstractions/xdg-open>
-    #include <abstractions/jaro>
+    include <abstractions/xdg-open>
+    include <abstractions/jaro>
   }
 
   owner @{PROC}/@{pid}/cmdline r,
@@ -59,6 +61,8 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   deny @{user_share_dirs}/applications/{**,} r,
   deny @{system_share_dirs}/applications/{**,} r,
   deny @{HOME}/ r,
+  deny @{sys}/devices/virtual/dmi/id/* r,
+  deny /{usr/,}bin/systemd-detect-virt rx,
   
   include if exists <local/usr.bin.telegram-desktop>
 }

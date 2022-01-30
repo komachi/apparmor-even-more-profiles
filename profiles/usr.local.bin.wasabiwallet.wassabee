@@ -1,19 +1,19 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 profile wasabiwallet /usr/local/bin/wasabiwallet/wassabee {
-  #include <abstractions/base>
-  #include <abstractions/gstreamer>
-  #include <abstractions/fonts>
-  #include <abstractions/openssl>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/nameservice>
-  #include <abstractions/ssl_keys>
-  #include <abstractions/user-tmp>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/mesa>
-  #include <abstractions/dri-enumerate>
+  include <abstractions/base>
+  include <abstractions/gstreamer>
+  include <abstractions/fonts>
+  include <abstractions/openssl>
+  include <abstractions/ssl_certs>
+  include <abstractions/nameservice>
+  include <abstractions/ssl_keys>
+  include <abstractions/user-tmp>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
 
   /{usr/,}bin/dash rix,
 
@@ -40,5 +40,5 @@ profile wasabiwallet /usr/local/bin/wasabiwallet/wassabee {
   owner @{HOME}/.walletwasabi/** rwkl,
   owner @{PROC}/@{pid}/{cgroup,stat,mountinfo,mounts,fd/} r,
   
-  #include if exists <local/usr.local.bin.wasabiwallet.wasssabee>
+  include if exists <local/usr.local.bin.wasabiwallet.wasssabee>
 }

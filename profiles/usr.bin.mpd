@@ -1,15 +1,17 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile mpd /{usr/,}bin/mpd {
-    #include <abstractions/base>
-    #include <abstractions/audio>
-    #include <abstractions/gstreamer>
-    #include <abstractions/user-tmp>
-    #include <abstractions/nameservice>
+    include <abstractions/base>
+    include <abstractions/audio>
+    include <abstractions/gstreamer>
+    include <abstractions/user-tmp>
+    include <abstractions/nameservice>
 
     /{usr/,}bin/mpd mr,
+
+    /etc/timidity/* r,
 
     owner @{XDG_MUSIC_DIR}/{**,} r,
 
@@ -20,5 +22,5 @@ profile mpd /{usr/,}bin/mpd {
 
     deny /dev/tty* rw,
 
-    #include if exists <local/usr.bin.mpd>
+    include if exists <local/usr.bin.mpd>
 }

@@ -1,14 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 @{electroncash_exec_path} = /{usr/,usr/local/,}bin/electroncash
 profile electroncash @{electroncash_exec_path} {
-  #include <abstractions/electrum>
-  #include <abstractions/appimage>
+  include <abstractions/electrum>
+  include <abstractions/appimage>
 
   @{electroncash_exec_path} mr,
 
   owner @{HOME}/.electron-cash/{**,} rw,
 
-  #include if exists <local/usr.local.bin.electroncash>
+  include if exists <local/usr.local.bin.electroncash>
 }

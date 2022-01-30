@@ -1,20 +1,20 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 @{mycrypto_exec_path} = /{usr/,usr/local/,}bin/mycrypto
 profile mycrypto @{mycrypto_exec_path} {
-  #include <abstractions/base>
-  #include <abstractions/fonts>
-  #include <abstractions/user-tmp>
-  #include <abstractions/ssl_certs>
-  #include <abstractions/ssl_keys>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/nameservice>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/mesa>
-  #include <abstractions/appimage>
-  #include <abstractions/user-tmp>
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/user-tmp>
+  include <abstractions/ssl_certs>
+  include <abstractions/ssl_keys>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/nameservice>
+  include <abstractions/dri-enumerate>
+  include <abstractions/mesa>
+  include <abstractions/appimage>
+  include <abstractions/user-tmp>
 
   @{mycrypto_exec_path} mr,
 
@@ -57,5 +57,5 @@ profile mycrypto @{mycrypto_exec_path} {
 
   deny ptrace read,
 
-  #include if exists <local/usr.local.bin.mycrypto>
+  include if exists <local/usr.local.bin.mycrypto>
 }

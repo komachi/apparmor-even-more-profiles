@@ -7,7 +7,7 @@ include <tunables/global>
 @{chromium} = chromium{,-browser}
 
 # We need 'flags=(attach_disconnected)' in newer chromium versions
-profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconnected) {
+profile chromium_browser /usr/lib/@{chromium}/chrome flags=(attach_disconnected) {
   include <abstractions/audio>
   include <abstractions/cups-client>
   include <abstractions/dbus-session>
@@ -189,7 +189,7 @@ profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconne
   owner @{HOME}/.config/chromium/**/Dictionaries/*.bdic mr,
 
   # Allow transitions to ourself and our sandbox
-  /usr/lib/@{chromium}/@{chromium} ix,
+  /usr/lib/@{chromium}/chrome ix,
   /usr/lib/@{chromium}/chrome-sandbox cx -> chromium_browser_sandbox,
 
   # Allow communicating with sandbox
@@ -218,8 +218,8 @@ profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconne
   deny @{HOME}/.config/chromium/WidevineCdm/{**,} mrw,
 
   profile xdgsettings {
-    #include <abstractions/bash>
-    #include <abstractions/gnome>
+    include <abstractions/bash>
+    include <abstractions/gnome>
 
     /{usr/,}bin/dash ixr,
 
@@ -257,7 +257,7 @@ profile chromium_browser /usr/lib/@{chromium}/@{chromium} flags=(attach_disconne
   }
 
   # Site-specific additions and overrides. See local/README for details.
-  #include <local/usr.bin.chromium-browser>
+  include <local/usr.bin.chromium-browser>
 
   profile chromium_browser_sandbox {
     # Be fanatical since it is setuid root and don't use an abstraction

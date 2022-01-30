@@ -1,13 +1,14 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile xsettingsd /{usr/,}bin/xsettingsd {
-  #include <abstractions/base>
+  include <abstractions/base>
 
   owner @{HOME}/.xsettingsd r,
   owner @{HOME}/.Xauthority r,
 
   owner /dev/tty* rw,
   
-  #include if exists <local/usr.bin.xsettingsd>
+  include if exists <local/usr.bin.xsettingsd>
 }

@@ -8,13 +8,13 @@
 #    License published by the Free Software Foundation.
 #
 # ------------------------------------------------------------------
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 @{exec_path} = /{usr/,}bin/dpkg-query
 profile dpkg-query @{exec_path} {
-  #include <abstractions/base>
-  #include <abstractions/consoles>
+  include <abstractions/base>
+  include <abstractions/consoles>
 
   @{exec_path} mr,
 
@@ -30,8 +30,8 @@ profile dpkg-query @{exec_path} {
   /tmp/#[0-9]*[0-9] rw,
 
   profile child_pager {
-    #include <abstractions/base>
-    #include <abstractions/consoles>
+    include <abstractions/base>
+    include <abstractions/consoles>
 
     signal (receive) set=(stop, cont, term, kill),
 
@@ -45,8 +45,8 @@ profile dpkg-query @{exec_path} {
     # For shell pwd
     /root/ r,
 
-    #include if exists <local/child-pager>
+    include if exists <local/child-pager>
   }
 
-  #include if exists <local/dpkg-query>
+  include if exists <local/dpkg-query>
 }

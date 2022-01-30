@@ -1,2 +1,2 @@
-  #include <abstractions/user-tmp>
+  include <abstractions/user-tmp>
   owner @{HOME}/.repoconfig/gnupg/private-keys-v1.d/{**,} rw,

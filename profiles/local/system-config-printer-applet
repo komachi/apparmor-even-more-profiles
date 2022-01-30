@@ -1,4 +1,4 @@
-  #include <abstractions/user-tmp>
+  include <abstractions/user-tmp>
 
   owner /dev/tty1 rw,
   owner @{PROC}/@{pid}/fd/ r,

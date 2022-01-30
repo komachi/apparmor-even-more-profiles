@@ -2,28 +2,28 @@
 # Original author: Jamie Strandboge <jamie@canonical.com>
 # Tuned for debian buster by <anton@nesterov.cc>
 # Upstream here https://bazaar.launchpad.net/~mozillateam/firefox/firefox.xenial/view/head:/debian/usr.bin.firefox.apparmor.14.10
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 @{firefox_exec_path} = /{usr/,}{bin/,lib/firefox*/}firefox*
 profile firefox @{firefox_exec_path} {
-  #include <abstractions/base>
-  #include <abstractions/cups-client>
-  #include <abstractions/dbus-strict>
-  #include <abstractions/dbus-session-strict>
-  #include <abstractions/dconf>
-  #include <abstractions/gnome>
-  #include <abstractions/ibus>
-  #include <abstractions/nameservice>
-  #include <abstractions/openssl>
-  #include <abstractions/p11-kit>
-  #include <abstractions/X>
-  #include <abstractions/wayland>
-  #include <abstractions/audio>
-  #include <abstractions/mesa>
-  #include <abstractions/dri-enumerate>
-  #include <abstractions/user-download-strict>
-  #include <abstractions/dbus-accessibility-strict>
+  include <abstractions/base>
+  include <abstractions/cups-client>
+  include <abstractions/dbus-strict>
+  include <abstractions/dbus-session-strict>
+  include <abstractions/dconf>
+  include <abstractions/gnome>
+  include <abstractions/ibus>
+  include <abstractions/nameservice>
+  include <abstractions/openssl>
+  include <abstractions/p11-kit>
+  include <abstractions/X>
+  include <abstractions/wayland>
+  include <abstractions/audio>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
+  include <abstractions/user-download-strict>
+  include <abstractions/dbus-accessibility-strict>
 
   capability sys_admin,
   capability sys_chroot,
@@ -100,8 +100,8 @@ profile firefox @{firefox_exec_path} {
   /{usr/,}lib/@{multiarch}/glib-2.0/gio-launch-desktop Cx -> open,
 
   profile open {
-    #include <abstractions/xdg-open>
-    #include <abstractions/jaro>
+    include <abstractions/xdg-open>
+    include <abstractions/jaro>
   }
 
   # noisy
@@ -140,6 +140,8 @@ profile firefox @{firefox_exec_path} {
   @{sys}/devices/pci*/**/{busnum,idVendor,idProduct} r,
   @{sys}/devices/pci*/**/{,subsystem_}device r,
   @{sys}/devices/pci*/**/{,subsystem_}vendor r,
+  @{sys}/devices/pci*/**/{,subsystem_}vendor r,
+  @{sys}/devices/pci*/**/class r,
   @{sys}/devices/system/node/node[0-9]*/meminfo r,
   @{sys}/devices/system/node/ r,
   @{sys}/devices/virtual/input/mice/uevent r,
@@ -271,8 +273,8 @@ profile firefox @{firefox_exec_path} {
 
   /{usr/,}bin/lsb_release Cxr -> lsb_release,
   profile lsb_release {
-    #include <abstractions/base>
-    #include <abstractions/python>
+    include <abstractions/base>
+    include <abstractions/python>
     /{usr/,}bin/lsb_release r,
     /{usr/,}bin/dash ixr,
     /{usr/,}bin/dpkg-query ixr,
@@ -318,5 +320,5 @@ profile firefox @{firefox_exec_path} {
   owner /run/user/@{uid}/*-firefox-*/** rwk,
 
   # Site-specific additions and overrides. See local/README for details.
-  #include if exists <local/usr.bin.firefox>
+  include if exists <local/usr.bin.firefox>
 }

@@ -1,9 +1,9 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
-
-#include <tunables/global>
+abi <abi/3.0>,
+include <tunables/global>
 
 profile dictd /{usr/,}bin/dictd flags=(complain) {
-    #include <abstractions/base>
+  include <abstractions/base>
 
-    #include if exists <local/usr.bin.dictd>
+  include if exists <local/usr.bin.dictd>
 }
