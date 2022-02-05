@@ -5,7 +5,11 @@ include <tunables/global>
 profile kanshi /{usr/,}bin/kanshi {
   include <abstractions/base>
 
+  /{usr/,}bin/kanshi rix,
+
   owner @{HOME}/.config/kanshi/{**,} r,
+
+  /dev/pts/[0-9] rw,
 
   deny network,
   

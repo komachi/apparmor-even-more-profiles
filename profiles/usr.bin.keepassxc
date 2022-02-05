@@ -6,6 +6,7 @@ profile keepassxc /{usr/,}bin/keepassxc {
   include <abstractions/base>
   include <abstractions/fonts>
   include <abstractions/X>
+  include <abstractions/vulkan>
   include <abstractions/wayland>
   include <abstractions/mesa>
   include <abstractions/dri-enumerate>
@@ -16,8 +17,6 @@ profile keepassxc /{usr/,}bin/keepassxc {
   @{system_share_dirs}/{icons,keepassxc,mime}/{**,} r,
   @{system_share_dirs}/qt5ct/qss/*.qss r,
   @{system_share_dirs}/libdrm/amdgpu.ids r,
-  /etc/glvnd/egl_vendor.d/ r,
-  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
   @{PROC}/sys/kernel/random/boot_id r,
   /dev/bus/usb/ r,
   @{sys}/bus/ r,

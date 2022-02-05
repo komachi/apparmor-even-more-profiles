@@ -2,7 +2,7 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile swayidle /{usr/,}bin/swayidle flags=(complain) {
+profile swayidle /{usr/,}bin/swayidle {
   include <abstractions/base>
 
   /{usr/,}bin/dash rix,

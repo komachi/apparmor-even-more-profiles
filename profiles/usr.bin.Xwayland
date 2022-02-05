@@ -11,6 +11,8 @@ profile Xwayland /{usr/,}bin/Xwayland {
   include <abstractions/mesa>
   include <abstractions/nameservice>
 
+  signal (send) set=(usr1) peer=unconfined,
+
   /{usr/,}bin/dash rix,
   /{usr/,}bin/xkbcomp rix,
 

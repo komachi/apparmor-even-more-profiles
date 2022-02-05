@@ -32,8 +32,6 @@ profile mpv /{usr/,}bin/mpv {
     owner @{HOME}/.config/mpv/{**,} rw,
 
     @{system_share_dirs}/icons/** r,
-    /etc/glvnd/egl_vendor.d/ r,
-    @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
     @{system_share_dirs}/libdrm/amdgpu.ids r,
 
     /{usr/,}bin/xdg-screensaver rPUx,

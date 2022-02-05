@@ -1,7 +1,7 @@
 # Author: Anton Nesterov <anton@nesterov.cc>
 include <tunables/global>
 abi <abi/3.0>,
-profile dconf-service /{usr/,}lib/dconf/dconf-service flags=(complain) {
+profile dconf-service /usr/libexec/dconf-service flags=(complain) {
   include <abstractions/base>
 
   owner @{HOME}/.config/dconf/{**,} rw,

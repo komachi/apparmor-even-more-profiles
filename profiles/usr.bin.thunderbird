@@ -7,9 +7,11 @@ abi <abi/3.0>,
 # Declare an apparmor variable to help with overrides
 @{MOZ_LIBDIR}=/usr/lib/thunderbird
 
-include <tunables/global>
+@{exec_path}  = @{MOZ_LIBDIR}/thunderbird{,-bin}
+@{exec_path} += /{usr/,}bin/thunderbird
 
-profile thunderbird /usr/lib/thunderbird/thunderbird-bin {
+include <tunables/global>
+profile thunderbird @{exec_path} {
   include <abstractions/base>
   include <abstractions/audio>
   include <abstractions/aspell>

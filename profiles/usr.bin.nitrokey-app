@@ -2,8 +2,37 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile nitrokey-app /{usr/,}bin/nitrokey-app flags=(complain) {
+profile nitrokey-app /{usr/,}bin/nitrokey-app {
   include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/X>
+  include <abstractions/mesa>
+  include <abstractions/vulkan>
+  include <abstractions/dri-enumerate>
+  include <abstractions/nameservice-strict>
+  include <abstractions/devices-usb>
+
+  /{usr/,}bin/nitrokey-app rix,
+  /{usr/,}bin/pgrep rCx -> pgrep,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
+  @{system_share_dirs}/qt5ct/** r,
+  @{sys}/devices/pci*/**/usb*/**{busnum,devnum,descriptors,speed,bConfigurationValue} r,
+
+  /dev/bus/usb/ r,
+
+  owner @{HOME}/.config/qt5ct/qt5ct.conf r,
+
+
+  profile pgrep {
+    include <abstractions/base>
+
+    /{usr/,}bin/pgrep mr,
+
+    @{PROC}/ r,
+    @{PROC}/uptime r,
+    @{PROC}/sys/kernel/osrelease r,
+    @{PROC}/@{pids}/cmdline r,
+  }
 
   include if exists <local/usr.bin.nitrokey-app>
 }

@@ -1,0 +1,35 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile xdg-document-portal /usr/libexec/xdg-document-portal {
+  include <abstractions/base>
+
+  /{usr/,}bin/fusermount rCx -> fusermount,
+
+  @{system_share_dirs}/mime/mime.cache r,
+  /run/user/@{uid}/doc/ rw,
+  owner @{HOME}/.config/user-dirs.dirs r,
+
+  profile fusermount {
+    include <abstractions/base>
+    include <abstractions/nameservice>
+
+    capability sys_admin,
+    capability dac_read_search,
+
+    /{usr/,}bin/fusermount mr,
+
+    /etc/fuse.conf r,
+
+    /dev/fuse rw,
+
+    @{PROC}/@{pids}/mounts r,
+
+    /run/usr/@{uid}/doc r,
+
+  }
+
+  include if exists <local/usr.libexec.xdg-document-portal>
+}

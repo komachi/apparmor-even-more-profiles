@@ -3,10 +3,12 @@ abi <abi/3.0>,
 
 include <tunables/global>
 
-profile swaymsg /{usr/,}bin/swaymsg flags=(complain) {
+profile swaymsg /{usr/,}bin/swaymsg {
   include <abstractions/base>
 
   /{usr/,}bin/swaymsg rix,
   
+  /dev/pts/[0-9] rw,
+
   include if exists <local/usr.bin.swaymsg>
 }

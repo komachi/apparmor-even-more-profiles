@@ -4,4 +4,4 @@
   owner @{PROC}/@{pid}/fd/ r,
   /usr/sbin/ldconfig rix,
 
-  owner ${HOME}/.local/lib/python3.[0-9]/site-packages/ r,
+  owner ${HOME}/.local/lib/python3.*/site-packages/ r,

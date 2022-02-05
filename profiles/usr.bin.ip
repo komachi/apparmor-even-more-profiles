@@ -2,11 +2,12 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile ip /{usr/,}bin/ip flags=(attach_disconnected,complain) {
+profile ip /{usr/,}bin/ip flags=(attach_disconnected) {
   include <abstractions/base>
 
   capability net_admin,
   capability sys_module,
+  capability sys_admin,
 
   /{usr/,}bin/ip r,
   /etc/iproute2/** r,

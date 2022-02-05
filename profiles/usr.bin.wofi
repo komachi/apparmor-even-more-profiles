@@ -19,6 +19,7 @@ profile wofi /{usr/,}bin/wofi {
 
   /usr/libexec/** rpux,
   /usr/lib/firefox{-esr,}/firefox{-esr,} rpux,
+  /usr/lib/freecad/bin/freecad-python3 rpux,
   @{system_share_dirs}/codium/codium rpux,
   /usr{/local,}/{s,}bin/* rpux,
   /{s,}bin/* rpux,
@@ -38,6 +39,8 @@ profile wofi /{usr/,}bin/wofi {
   @{system_share_dirs}/X11/** r,
   @{system_share_dirs}/mime/mime.cache r,
   @{system_share_dirs}/applications/ r,
+  /{var/,}lib/snapd/desktop/{applications,icons}/{**,} r,
+  /snap/*/*/meta/gui/icon.png r,
   @{system_share_dirs}/applications/*.desktop r,
   @{system_share_dirs}/applications/{mimeinfo.cache,mimeapps.list} r,
   @{system_share_dirs}/{icons,pixmaps,themes}/{**,} r,

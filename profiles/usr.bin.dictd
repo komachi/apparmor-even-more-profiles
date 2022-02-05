@@ -2,8 +2,21 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile dictd /{usr/,}bin/dictd flags=(complain) {
+profile dictd /{usr/,}{s,}bin/dictd {
   include <abstractions/base>
+  include <abstractions/nameservice>
+
+  capability setuid,
+  capability setgid,
+
+  /etc/dictd/** r,
+  /var/lib/dictd/** r,
+  @{system_share_dirs}/dictd/** r,
+
+  /run/dictd.pid rw,
+
+  /run/systemd/userdb/ r,
+  @{PROC}/sys/kernel/random/boot_id r,
 
   include if exists <local/usr.bin.dictd>
 }

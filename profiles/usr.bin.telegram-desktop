@@ -14,6 +14,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   include <abstractions/X>
   include <abstractions/mesa>
   include <abstractions/wayland>
+  include <abstractions/vulkan>
   include <abstractions/dri-enumerate>
   include <abstractions/user-download-strict>
   include <abstractions/qt5-compose-cache-write>
@@ -40,9 +41,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   @{sys}/devices/system/node/*/meminfo r,
   
   @{system_share_dirs}/libdrm/amdgpu.ids r,
-  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
-  /etc/glvnd/egl_vendor.d/{**,} r,
 
   /{usr/,usr/local/,}bin/{xdg-open,jaro} rCx -> open,
 

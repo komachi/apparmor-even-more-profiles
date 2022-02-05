@@ -2,8 +2,20 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile privoxy /{usr/,}bin/privoxy flags=(complain) {
-    include <abstractions/base>
+profile privoxy /{usr/,}{s,}bin/privoxy {
+  include <abstractions/base>
+  include <abstractions/nameservice>
 
-    include if exists <local/usr.bin.privoxy>
+  capability setgid,
+  capability setuid,
+
+  /etc/privoxy/** r,
+  
+  /run/systemd/userdb/ r,
+  @{PROC}/sys/kernel/random/boot_id r,
+  
+  /run/privoxy.pid rw,
+  /var/log/privoxy/logfile rw,
+
+  include if exists <local/usr.bin.privoxy>
 }

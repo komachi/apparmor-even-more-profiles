@@ -13,6 +13,7 @@ profile gimp /{usr/,}bin/gimp{-[0-9].*,} {
 
     owner @{XDG_PICTURES_DIR}/ r,
     owner @{XDG_PICTURES_DIR}/** rw,
+    owner @{XDG_DOWNLOAD_DIR}/{**,} r,
 
     @{system_share_dirs}/{icons,mime,themes,gimp,pixmaps,locale}/{**,} r,
     @{system_share_dirs}/xml/iso-codes/** r,

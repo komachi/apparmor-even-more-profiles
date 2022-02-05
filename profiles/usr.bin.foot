@@ -37,7 +37,7 @@ profile foot /{usr/,}bin/foot {
   @{run}/systemd/userdb/ r,
   @{PROC}/sys/kernel/random/boot_id r,
   owner @{HOME}/.bashrc r,
-  owner @{HOME}/.bash_history r,
+  owner @{HOME}/.bash_history rw,
   owner @{HOME}/.bash_aliases r,
   owner @{HOME}/ r,
   owner @{HOME}/.config/ r,

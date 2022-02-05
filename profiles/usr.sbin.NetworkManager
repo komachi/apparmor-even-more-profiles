@@ -2,7 +2,7 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile NetworkManager /{usr/,}{s,}bin/NetworkManager {
+profile NetworkManager /{usr/,}{s,}bin/NetworkManager flags=(attach_disconnected) {
   include <abstractions/base>
   include <abstractions/nameservice>
 
@@ -13,6 +13,8 @@ profile NetworkManager /{usr/,}{s,}bin/NetworkManager {
   capability dac_override,
   capability kill,
   capability audit_write,
+
+  / r,
 
   /{var/,}run/NetworkManager/{**,} rw,
   /{var/,}run/network/** r,

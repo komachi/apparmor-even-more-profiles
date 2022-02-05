@@ -12,6 +12,7 @@ profile inkscape /{usr/,}bin/inkscape {
 
     owner @{XDG_PICTURES_DIR}/ r,
     owner @{XDG_PICTURES_DIR}/** rw,
+    owner @{XDG_DOWNLOAD_DIR}/{**,} r,
 
     @{system_share_dirs}/{inkscape,mime,themes,icons,pixmaps}/{**,} r,
     /usr/lib/inkscape/** rix,

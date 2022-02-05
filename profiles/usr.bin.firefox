@@ -21,6 +21,7 @@ profile firefox @{firefox_exec_path} {
   include <abstractions/wayland>
   include <abstractions/audio>
   include <abstractions/mesa>
+  include <abstractions/vulkan>
   include <abstractions/dri-enumerate>
   include <abstractions/user-download-strict>
   include <abstractions/dbus-accessibility-strict>
@@ -304,8 +305,6 @@ profile firefox @{firefox_exec_path} {
   @{sys}/devices/pci*/**/drm/ r,
   @{system_share_dirs}/hunspell/{**,} r,
   @{system_share_dirs}/libdrm/amdgpu.ids r,
-  /etc/glvnd/egl_vendor.d/ r,
-  @{system_share_dirs}/glvnd/egl_vendor.d/{**,} r,
   owner /dev/tty1 rw,
   owner @{PROC}/@{pid}/uid_map w,
   owner @{PROC}/@{pid}/gid_map w,

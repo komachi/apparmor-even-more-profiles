@@ -20,6 +20,7 @@ profile codium /usr/share/codium/codium {
 
   ptrace (read) peer=lsb_release,
   ptrace trace peer=codium,
+  signal (send) set=(term) peer=codium//tabnine,
 
   # for sandbox
   capability sys_admin,
@@ -28,7 +29,8 @@ profile codium /usr/share/codium/codium {
   capability sys_chroot,
   capability sys_ptrace,
 
-  owner @{run}/user/@{uid}/dconf/user rw,
+
+  owner /run/user/@{uid}/dconf/user rw,
   owner @{HOME}/.vscode-oss/{**,} rw,
   owner @{HOME}/.vscode-oss/extensions/adamvoss.vscode-languagetool-*/lib/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver-live Cix -> languagetool_languageserver,
   owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine Cix -> tabnine,
@@ -55,6 +57,9 @@ profile codium /usr/share/codium/codium {
   @{PROC}/loadavg r,
   @{PROC}/uptime r,
   @{PROC}/sys/kernel/yama/ptrace_scope r,
+  @{PROC}/sys/kernel/ostype r,
+  @{PROC}/sys/kernel/osrelease r,
+  @{PROC}/bus/pci/devices r,
   @{PROC}/sys/fs/inotify/max_user_watches r,
   owner @{PROC}/@{pid}/ r,
   owner @{PROC}/@{pid}/coredump_filter rw,
@@ -79,6 +84,8 @@ profile codium /usr/share/codium/codium {
   @{sys}/fs/cgroup/cpu,cpuacct/user.slice/cpu.cfs_quota_us r,
   @{sys}/fs/cgroup/memory/memory.limit_in_bytes r,
   @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
+  @{sys}/devices/system/node/ r,
+  @{sys}/devices/system/node/node[0-9]/cpumap r,
   @{sys}/devices/system/cpu/kernel_max r,
   @{sys}/devices/system/cpu/possible r,
   @{sys}/devices/system/cpu/present r,
@@ -142,6 +149,8 @@ profile codium /usr/share/codium/codium {
     include <abstractions/ssl_certs>
 
     ptrace (read) peer=codium,
+    signal (receive) set=(term) peer=codium,
+    
 
     owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/** r,
     owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine rix,
@@ -189,6 +198,12 @@ profile codium /usr/share/codium/codium {
 
     deny @{PROC}/ r,
     deny @{PROC}/1/stat r,
+    deny /run/ r,
+    deny /run/user/ r,
+    deny /etc/ r,
+    deny /dev/ r,
+    deny /usr/ r,
+    deny ptrace read peer=unconfined,
 
     include if exists <local/tabnine>
   }

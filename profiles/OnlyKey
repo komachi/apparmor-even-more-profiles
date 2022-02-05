@@ -16,6 +16,7 @@ profile OnlyKey /opt/OnlyKey/nw {
   ptrace trace peer=OnlyKey,
   ptrace (read) peer=child-lsb_release,
   ptrace (read) peer=xdg-settings,
+  ptrace (read) peer=Xwayland,
 
   /opt/OnlyKey/{**,} r,
   /opt/OnlyKey/nw rix,
@@ -36,7 +37,8 @@ profile OnlyKey /opt/OnlyKey/nw {
   @{sys}/devices/pci*/**/{device,class,vendor} r,
   @{sys}/devices/virtual/tty/tty[0-9]/active r,
   @{sys}/devices/pci*/**/subsystem_{device,vendor} r,
-
+  @{sys}/devices/virtual/input/input*/id/{vendor,product,version} r,
+  @{sys}/devices/virtual/input/input*/name r,
   @{run}/udev/data/c*:* r,
   @{run}/udev/data/b*:* r,
   @{run}/udev/data/n[0-9] r,
@@ -79,6 +81,7 @@ profile OnlyKey /opt/OnlyKey/nw {
   /dev/urandom/ r,
   /dev/input/event[0-9] rw,
   /dev/input/js[0-9] r,
+  /dev/input/event* rw,
 
   owner /dev/tty[0-9] rw,
   

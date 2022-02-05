@@ -1,0 +1,41 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile freecad /usr/lib/freecad/bin/freecad-python3 {
+  include <abstractions/base>
+  include <abstractions/fonts>
+  include <abstractions/vulkan>
+  include <abstractions/X>
+  include <abstractions/mesa>
+  include <abstractions/dri-enumerate>
+  include <abstractions/nameservice>
+  include <abstractions/user-tmp>
+  include <abstractions/gstreamer>
+  include <abstractions/python>
+  include <abstractions/openssl>
+
+  @{system_share_dirs}/icons/** r,
+  @{system_share_dirs}/qt5ct/** r,
+  @{system_share_dirs}/mime/** r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
+
+  @{system_share_dirs}/freecad/** rw,
+
+  owner @{PROC}/@{pid}/cmdline r,
+  owner @{PROC}/@{pid}/fd/ r,
+
+  owner @{HOME}/.FreeCAD/{**,} rw,
+  owner @{HOME}/.config/FreeCAD/ rw,
+  owner @{HOME}/.config/FreeCAD/** rwlk,
+  owner @{HOME}/.config/qt5ct/qt5ct.conf r,
+  owner @{HOME}/.local/lib/python3.*/site-packages/{**,} r,
+  owner @{user_share_dirs}/mime/** r,
+
+  owner @{XDG_DOCUMENTS_DIR}/ r,
+  owner @{XDG_DOCUMENTS_DIR}/** rw,
+  owner @{XDG_DOWNLOAD_DIR}/{**,} r,
+
+  include if exists <local/freecad>
+}

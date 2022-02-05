@@ -1,0 +1,37 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile opensnitchd /{usr/,}bin/opensnitchd flags=(attach_disconnected) {
+  include <abstractions/base>
+
+  ptrace (read),
+
+  capability net_admin,
+  capability bpf,
+  capability sys_resource,
+  capability dac_override,
+  capability dac_read_search,
+  capability sys_admin,
+  capability sys_ptrace,
+  capability perfmon,
+
+  /{usr/,}bin/opensnitchd rix,
+
+  / r,
+  @{PROC}/ r,
+  @{PROC}/version r,
+  @{PROC}/sys/kernel/hostname r,
+  @{PROC}/@{pids}/fd/ r,
+  @{PROC}/@{pids}/stat r,
+  @{PROC}/@{pids}/cmdline r,
+  @{PROC}/@{pids}/environ r,
+
+  @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
+  /etc/opensnitchd/{**,} r,
+  /etc/opensnitchd/rules/*.json rw,
+  /var/log/opensnitchd.log w,
+
+  include if exists <local/usr.bin.opensnitchd>
+}

@@ -1,0 +1,24 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile xdg-desktop-portal /usr/libexec/xdg-desktop-portal {
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/dconf>
+
+  ptrace (read),
+
+  / r,
+  @{system_share_dirs}/xdg-desktop-portal/portals/{**,} r,
+  @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
+  @{system_share_dirs}/mime/mime.cache r,
+
+  owner @{user_share_dirs}/mime/mime.cache r,
+  owner @{HOME}/.config/user-dirs.dirs r,
+  owner /run/user/@{uid}/dconf/user rw,
+  owner @{PROC}/@{pid}/cgroup r,
+  
+  include if exists <local/usr.libexec.xdg-desktop-portal>
+}

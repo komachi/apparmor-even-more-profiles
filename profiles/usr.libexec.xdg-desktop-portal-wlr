@@ -1,0 +1,11 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile xdg-desktop-portal-wlr /usr/libexec/xdg-desktop-portal-wlr flags=(complain) {
+  include <abstractions/base>
+  include <abstractions/nameservice>
+
+  include if exists <local/usr.libexec.xdg-desktop-portal-wlr>
+}
