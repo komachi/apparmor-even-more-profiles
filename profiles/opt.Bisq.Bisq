@@ -11,7 +11,7 @@ profile bisq /opt/Bisq/Bisq {
   include <abstractions/mesa>
   include <abstractions/user-tmp>
   include <abstractions/nameservice>
-  include <abstractions/deny-dconf>
+  include <abstractions/dconf>
 
   /opt/Bisq/** r,
   /opt/Bisq/libpackager.so mr,
