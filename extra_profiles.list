@@ -19,9 +19,7 @@ usr.lib.evolution-data-server.evolution-data-server-1.10
 usr.lib.man-db.man
 usr.lib.RealPlayer10.realplay
 usr.NX.bin.nxclient
-usr.sbin.nmbd
 usr.sbin.oidentd
 usr.sbin.popper
-usr.sbin.smbd
 usr.sbin.vsftpd
 usr.sbin.xinetd

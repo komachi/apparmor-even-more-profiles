@@ -18,7 +18,7 @@ profile xdg-desktop-portal /usr/libexec/xdg-desktop-portal {
   owner @{user_share_dirs}/mime/mime.cache r,
   owner @{HOME}/.config/user-dirs.dirs r,
   owner /run/user/@{uid}/dconf/user rw,
-  owner @{PROC}/@{pid}/cgroup r,
+  @{PROC}/@{pid}/cgroup r,
   
   include if exists <local/usr.libexec.xdg-desktop-portal>
 }

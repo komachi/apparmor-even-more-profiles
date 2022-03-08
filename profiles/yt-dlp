@@ -26,5 +26,7 @@ profile yt-dlp @{yt_dlp_exec_path} {
   owner @{PROC}/@{pid}/mounts r,
   owner @{PROC}/@{pid}/fd/ r,
 
+  owner /dev/pts/[0-9] rw,
+
   include if exists <local/yt-dlp>
 }

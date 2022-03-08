@@ -6,4 +6,6 @@
 @{XDG_PICTURES_DIR}="{@{HOME},/mnt/hdd}/Pictures"
 @{XDG_DESKTOP_DIR}="{@{HOME},/mnt/hdd}/Desktop"
 @{XDG_VIDEOS_DIR}="{@{HOME},/mnt/hdd}/Videos"
+@{SOURCE_CODE_DIR}="{@{HOME},/mnt/hdd}/src"
+
 include <tunables/xdg-user-dirs.d>

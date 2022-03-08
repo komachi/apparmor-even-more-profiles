@@ -10,6 +10,7 @@ profile nheko /{usr/,}bin/nheko {
   include <abstractions/mesa>
   include <abstractions/vulkan>
   include <abstractions/dri-common>
+  include <abstractions/dri-enumerate>
   include <abstractions/fonts>
   include <abstractions/qt5-shader-cache>
   include <abstractions/user-tmp>
@@ -21,11 +22,13 @@ profile nheko /{usr/,}bin/nheko {
   @{system_share_dirs}/icons/** r,
   @{system_share_dirs}/qt5ct/** r,
 
-  @{sys}/devices/pci*/**/{uevent,vendor} r,
+  @{sys}/devices/pci*/**/{uevent,vendor,device} r,
 
   owner @{HOME}/.cache/nheko/{**,} rwk,
   owner @{HOME}/.config/nheko/{**,} rwlk,
   owner @{HOME}/.config/qt5ct/qt5ct.conf r,
+
+  deny @{HOME}/nheko-backtrace.dump rw,
 
   include if exists <local/usr.bin.nheko>
 }

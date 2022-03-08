@@ -1,2 +1,4 @@
-  /{var/,}lib/flatpak/exports/share/applications/{,**} r,
-  /{var/,}lib/flatpak/app/**/*.desktop r,
+  @{system_share_dirs}/applications/{,**/} r,
+  @{system_share_dirs}/**.desktop r,
+  @{system_share_dirs}/.mimeinfo.cache.* rw,
+  @{system_share_dirs}/mimeinfo.cache w,

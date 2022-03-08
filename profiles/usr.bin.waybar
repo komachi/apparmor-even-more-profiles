@@ -3,13 +3,14 @@ abi <abi/3.0>,
 
 include <tunables/global>
 
-profile waybar /{usr/,}bin/waybar {
+profile waybar /{usr/,}bin/waybar flags=(attach_disconnected) {
   include <abstractions/base>
   include <abstractions/fonts>
   include <abstractions/dconf>
   include <abstractions/X>
   include <abstractions/wayland>
   include <abstractions/user-tmp>
+  include <abstractions/nameservice>
 
   owner @{run}/user/@{uid}/dconf/ rw,
   owner @{run}/user/@{uid}/dconf/user rw,
@@ -39,9 +40,6 @@ profile waybar /{usr/,}bin/waybar {
   owner @{HOME}/.var/app/com.valvesoftware.Steam/.local/share/Steam/public/{**,} r,
   @{system_share_dirs}/{themes,icons,pixmaps,mime}/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
-  
-
-  deny network,
   
   include if exists <local/usr.bin.waybar>
 }

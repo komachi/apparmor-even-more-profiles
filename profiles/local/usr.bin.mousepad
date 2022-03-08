@@ -1,4 +1,4 @@
-  owner @{HOME}/src/ r,
-  owner @{HOME}/src/** rw,
+  owner @{SOURCE_CODE_DIR}/ r,
+  owner @{SOURCE_CODE_DIR}/** rw,
   owner @{HOME}/bin/ r,
   owner @{HOME}/bin/** rw,

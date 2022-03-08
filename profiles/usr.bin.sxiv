@@ -10,7 +10,7 @@ profile sxiv /{usr/,}bin/sxiv {
 
   @{system_share_dirs}/icons/** r,
 
-  owner @{HOME}/src/{**,} r,
+  owner @{SOURCE_CODE_DIR}/{**,} r,
   owner @{XDG_DOWNLOAD_DIR}/{**,} r,
   owner @{XDG_DOCUMENTS_DIR}/{**,} r,
   owner @{XDG_PICTURES_DIR}/{**,} r,

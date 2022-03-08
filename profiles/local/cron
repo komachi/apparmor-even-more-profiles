@@ -1,1 +1,2 @@
   /etc/security/limits.d/** r,
+  /{usr/,}bin/date rix,

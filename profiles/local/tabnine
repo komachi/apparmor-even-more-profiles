@@ -1,5 +1,0 @@
-
-  owner /mnt/hdd/src/{**,} r,
-  owner @{HOME}/src/{**,} r,
-  owner @{HOME}/bin/{**,} r,
-  

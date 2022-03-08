@@ -1,2 +1,3 @@
   include <abstractions/user-tmp>
   /dev/video[0-9] rw,
+  owner /dev/pts/[0-9] rw,

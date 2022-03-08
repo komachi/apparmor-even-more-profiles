@@ -1,2 +1,5 @@
 include <abstractions/user-tmp>
-@{HOME}/.vagrant.d/** w,
+
+owner @{HOME}/.vagrant.d/** w,
+owner @{HOME}/.cache/i2pb/temp/tbb_remote_folder w,
+owner @{HOME}/.cache/tb/temp/tbb_remote_folder w,

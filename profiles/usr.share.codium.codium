@@ -2,9 +2,9 @@
 abi <abi/3.0>,
 include <tunables/global>
 profile codium /usr/share/codium/codium {
-  
   include <abstractions/base>
   include <abstractions/fonts>
+  include <abstractions/fontconfig-cache-read>
   include <abstractions/user-tmp>
   include <abstractions/ssl_certs>
   include <abstractions/nameservice-strict>
@@ -52,6 +52,7 @@ profile codium /usr/share/codium/codium {
   owner /dev/shm/.org.chromium.Chromium.* rw,
   /etc/timezone r,
   /etc/debian_version r,
+  /etc/shells r,
   @{PROC}/ r,
   @{PROC}/version r,
   @{PROC}/loadavg r,
@@ -112,8 +113,8 @@ profile codium /usr/share/codium/codium {
   /{usr/,}lib/node_modules/npm/** r,
   /{usr/,}include/python*/{**,} r,
 
-  owner /dev/pts/{*,} rw,
-  owner /dev/tty* rw,
+  owner /dev/pts/[0-9] rw,
+  owner /dev/tty[0-9] rw,
   @{sys}/devices/virtual/tty/** r,
 
   profile languagetool_languageserver {
@@ -151,7 +152,6 @@ profile codium /usr/share/codium/codium {
     ptrace (read) peer=codium,
     signal (receive) set=(term) peer=codium,
     
-
     owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/** r,
     owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/TabNine rix,
     owner @{HOME}/.config/VSCodium/User/globalStorage/tabnine.tabnine-vscode/binaries/*/*/WD-TabNine rix,
@@ -196,6 +196,9 @@ profile codium /usr/share/codium/codium {
     owner "@{HOME}/.config/VSCodium/Service Worker/Database/MANIFEST-*" w,
     owner "@{HOME}/.config/VSCodium/Service Worker/Database/*.log" w,
 
+    owner @{SOURCE_CODE_DIR}/{**,} r,
+    owner @{HOME}/bin/{**,} r,
+
     deny @{PROC}/ r,
     deny @{PROC}/1/stat r,
     deny /run/ r,
@@ -207,6 +210,12 @@ profile codium /usr/share/codium/codium {
 
     include if exists <local/tabnine>
   }
+
+  owner @{SOURCE_CODE_DIR}/ r,
+  owner @{SOURCE_CODE_DIR}/** rw,
+  owner @{SOURCE_CODE_DIR}/**/node_modules/jest/bin/jest.js rix,
+  owner @{HOME}/bin/ r,
+  owner @{HOME}/bin/** rw,
 
   deny @{HOME}/.local/bin/ r,
   deny /{usr/,}{local/,}{bin,sbin,games}/ r,
@@ -225,7 +234,7 @@ profile codium /usr/share/codium/codium {
   deny /home/ r,
   # https://gitlab.freedesktop.org/fontconfig/fontconfig/issues/121
   deny /usr/local/share/fonts/** w,
-  deny /usr/share/ r,
+  deny @{system_share_dirs} r,
   deny /etc/ r,
 
   include if exists <local/usr.share.codium.codium>

@@ -3,10 +3,11 @@ abi <abi/3.0>,
 
 include <tunables/global>
 
-profile foot /{usr/,}bin/foot {
+profile foot /{usr/,}bin/foot flags=(attach_disconnected) {
   include <abstractions/base>
   include <abstractions/fonts>
-  
+
+  signal (send) set=(hup),
 
   /{**,} r,
   owner @{HOME}/{**,} r,
@@ -38,6 +39,7 @@ profile foot /{usr/,}bin/foot {
   @{PROC}/sys/kernel/random/boot_id r,
   owner @{HOME}/.bashrc r,
   owner @{HOME}/.bash_history rw,
+  owner @{HOME}/.bash_history*.tmp rw,
   owner @{HOME}/.bash_aliases r,
   owner @{HOME}/ r,
   owner @{HOME}/.config/ r,

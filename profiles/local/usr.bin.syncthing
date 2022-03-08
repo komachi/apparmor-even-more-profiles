@@ -1,7 +1,5 @@
   @{HOME}/src/ r,
-  owner @{HOME}/src/** rw,
-  owner /mnt/hdd/src/ r,
-  owner /mnt/hdd/src/** rw,
+  owner @{SOURCE_CODE_DIR}/{**,} rw,
   owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/ r,
   owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/{.stignore,.stfolder,.syncthing.history.db.tmp} rw,
   owner @{HOME}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/{subscriptions.db,history.db,profiles.db} rw,

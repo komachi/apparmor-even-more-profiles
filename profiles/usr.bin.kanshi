@@ -2,7 +2,7 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile kanshi /{usr/,}bin/kanshi {
+profile kanshi /{usr/,}bin/kanshi flags=(attach_disconnected) {
   include <abstractions/base>
 
   /{usr/,}bin/kanshi rix,

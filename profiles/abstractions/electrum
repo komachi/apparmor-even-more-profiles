@@ -8,6 +8,8 @@ include <abstractions/wayland>
 include <abstractions/mesa>
 include <abstractions/dri-enumerate>
 include <abstractions/nameservice>
+include <abstractions/openssl>
+include <abstractions/vulkan>
 
   owner @{PROC}/@{pid}/{mounts,fd/} r,
 

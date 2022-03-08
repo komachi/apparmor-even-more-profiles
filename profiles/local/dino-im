@@ -5,9 +5,11 @@
   include <abstractions/audio>
   include <abstractions/aspell>
   include <abstractions/enchant>
+  include <abstractions/mesa>
 
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
   @{system_share_dirs}/X11/xkb/** r,
 
   @{sys}/class/video4linux/ r,
   @{system_share_dirs}/xml/iso-codes/** r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,

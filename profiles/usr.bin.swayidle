@@ -2,7 +2,7 @@
 abi <abi/3.0>,
 include <tunables/global>
 
-profile swayidle /{usr/,}bin/swayidle {
+profile swayidle /{usr/,}bin/swayidle flags=(attach_disconnected) {
   include <abstractions/base>
 
   /{usr/,}bin/dash rix,

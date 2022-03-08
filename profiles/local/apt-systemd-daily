@@ -4,9 +4,11 @@
   /{var/,}lib/apt/periodic/*-stamp rw,
   /etc/nsswitch.conf r,
   /etc/passwd r,
-  /usr/bin/unattended-upgrade r,
+  /{usr/,}bin/lsb_release rPx -> child-lsb_release,
+  /{usr/,}bin/unattended-upgrade r,
   /usr/bin/ r,
   /etc/apt/apt.conf.d/{**,} r,
   /usr/local/lib/python3.*/dist-packages/ r,
   @{system_share_dirs}/dpkg/cputable r,
   @{system_share_dirs}/dpkg/tupletable r,
+  

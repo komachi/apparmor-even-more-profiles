@@ -5,6 +5,7 @@ include <tunables/global>
 
 profile xdg-document-portal /usr/libexec/xdg-document-portal {
   include <abstractions/base>
+  capability sys_ptrace,
 
   /{usr/,}bin/fusermount rCx -> fusermount,
 
@@ -25,9 +26,10 @@ profile xdg-document-portal /usr/libexec/xdg-document-portal {
 
     /dev/fuse rw,
 
-    @{PROC}/@{pids}/mounts r,
+    @{PROC}/@{pid}/mounts r,
 
-    /run/usr/@{uid}/doc r,
+
+    owner /run/user/@{uid}/doc/ r,
 
   }
 
