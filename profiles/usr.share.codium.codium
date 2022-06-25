@@ -17,6 +17,7 @@ profile codium /usr/share/codium/codium {
   include <abstractions/private-files-strict>
   include <abstractions/python>
   include <abstractions/openssl>
+  include <abstractions/vulkan>
 
   ptrace (read) peer=lsb_release,
   ptrace trace peer=codium,

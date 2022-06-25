@@ -9,4 +9,5 @@
   /usr/lib/security-misc/* rPux,
   /usr/bin/chronyc rPux,
   /usr/lib/bridge-utils/if-{up,down,pre-up,post-down}.d/** rix,
+  /usr/lib/bridge-utils/ifupdown.sh rix,
   /{usr/,}bin/touch rix,

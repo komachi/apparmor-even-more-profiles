@@ -1,0 +1,3 @@
+
+@{sys}/devices/virtual/block/*/uevent r,
+@{run}/udev/data/b9:0 r,

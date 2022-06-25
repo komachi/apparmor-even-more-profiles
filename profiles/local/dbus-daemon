@@ -1,5 +1,8 @@
   include <abstractions/user-tmp>
 
+  capability dac_override,
+  capability dac_read_search,
+
   /{usr/,}lib/dconf/dconf-service rpux,
   /{var/,}lib/flatpak/exports/share/dbus-*/services/{**,} r,
   /{var/,}lib/flatpak/app/**/share/dbus-*/services/{**,} r,

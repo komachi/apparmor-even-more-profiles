@@ -11,6 +11,7 @@ profile nm-applet /{usr/,}bin/nm-applet {
   include <abstractions/fonts>
   include <abstractions/dconf>
 
+  /{usr/,}bin/nm-applet r,
   @{system_share_dirs}/{themes,poppler,icons,pixmaps,mime}/{**,} r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
   @{system_share_dirs}/libdrm/amdgpu.ids r,
@@ -27,6 +28,7 @@ profile nm-applet /{usr/,}bin/nm-applet {
   owner @{user_share_dirs}/mime/{**,} r,
 
   deny /dev/tty* rw,
+  /dev/pts/[0-9] rw,
 
   include if exists <local/usr.bin.nm-applet>
 }

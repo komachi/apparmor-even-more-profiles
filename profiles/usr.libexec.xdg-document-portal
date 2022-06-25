@@ -7,7 +7,7 @@ profile xdg-document-portal /usr/libexec/xdg-document-portal {
   include <abstractions/base>
   capability sys_ptrace,
 
-  /{usr/,}bin/fusermount rCx -> fusermount,
+  /{usr/,}bin/fusermount{3,} rCx -> fusermount,
 
   @{system_share_dirs}/mime/mime.cache r,
   /run/user/@{uid}/doc/ rw,
@@ -20,7 +20,7 @@ profile xdg-document-portal /usr/libexec/xdg-document-portal {
     capability sys_admin,
     capability dac_read_search,
 
-    /{usr/,}bin/fusermount mr,
+    /{usr/,}bin/fusermount{3,} mr,
 
     /etc/fuse.conf r,
 

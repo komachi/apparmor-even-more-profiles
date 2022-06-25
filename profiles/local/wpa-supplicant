@@ -1,0 +1,2 @@
+  owner @{run}/wpa_supplicant/* rw,
+  @{PROC}/sys/net/ipv[4,6]/conf/wlp4s[0-9]/drop_* rw,

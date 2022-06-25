@@ -30,6 +30,7 @@ profile NetworkManager /{usr/,}{s,}bin/NetworkManager flags=(attach_disconnected
   /{var/,}run/udev/data/** r,
   @{sys}/devices/virtual/net/** r,
   @{sys}/class/rfkill/ r,
+  @{sys}/devices/pci[0-9]*/**/uevent r,
   /dev/rfkill rw,
   /etc/network/interfaces r,
   /etc/network/interfaces.d/{**,} r,

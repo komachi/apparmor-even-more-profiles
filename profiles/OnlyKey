@@ -50,6 +50,8 @@ profile OnlyKey /opt/OnlyKey/nw {
   @{run}/udev/data/+hid:* r,
   @{run}/udev/data/+drm:* r,
   @{run}/udev/data/+sound:* r,
+  @{run}/udev/data/+backlight:acpi_video[0-9] r,
+  @{run}/udev/data/+rfkill:rfkill[0-9] r,
 
   @{PROC}/sys/fs/inotify/max_user_watches r,
   @{PROC}/sys/kernel/yama/ptrace_scope r,
