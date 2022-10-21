@@ -8,6 +8,8 @@ profile xdg-desktop-portal /usr/libexec/xdg-desktop-portal {
   include <abstractions/nameservice>
   include <abstractions/dconf>
 
+  capability sys_ptrace,
+
   ptrace (read),
 
   / r,

@@ -7,5 +7,4 @@ profile dconf-service /usr/libexec/dconf-service flags=(complain) {
   owner @{HOME}/.config/dconf/{**,} rw,
 
   include if exists <local/usr.lib.dconf.dconf-service>
-
 }

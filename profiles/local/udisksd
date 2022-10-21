@@ -1,3 +1,5 @@
 
-@{sys}/devices/virtual/block/*/uevent r,
-@{run}/udev/data/b9:0 r,
+@{sys}/devices/virtual/block/*/{uevent,size,removable,ro,} r,
+@{sys}/devices/virtual/block/*/md/{level,chunk_size,} r,
+@{sys}/devices/virtual/block/*/md/*/{state,slot,errors} r,
+@{run}/udev/data/b9:[0-9]* r,

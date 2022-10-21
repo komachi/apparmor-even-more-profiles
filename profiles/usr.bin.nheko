@@ -21,6 +21,7 @@ profile nheko /{usr/,}bin/nheko {
 
   @{system_share_dirs}/icons/** r,
   @{system_share_dirs}/qt5ct/** r,
+  @{system_share_dirs}/libdrm/amdgpu.ids r,
 
   @{sys}/devices/pci*/**/{uevent,vendor,device} r,
 

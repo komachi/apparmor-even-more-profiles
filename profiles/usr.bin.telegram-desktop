@@ -18,6 +18,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   include <abstractions/dri-enumerate>
   include <abstractions/user-download-strict>
   include <abstractions/qt5-compose-cache-write>
+  include <abstractions/qt5-shader-cache>
   include <abstractions/dconf>
 
   /{usr/,}bin/telegram-desktop rix,
@@ -39,6 +40,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   /dev/dri/ r,
   @{sys}/devices/system/node/ r,
   @{sys}/devices/system/node/*/meminfo r,
+  @{sys}/devices/virtual/dmi/id/* r,
   
   @{system_share_dirs}/libdrm/amdgpu.ids r,
   @{system_share_dirs}/glib-2.0/schemas/gschemas.compiled r,
@@ -52,7 +54,7 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
 
   owner @{PROC}/@{pid}/cmdline r,
   owner @{PROC}/@{pid}/fd/ r,
-  owner /{var/,}run/user/@{uid}/* w,
+  owner @{run}/user/@{uid}/* w,
   owner /dev/shm/* rw,
   owner /dev/tty1 rw,
   
@@ -60,7 +62,6 @@ profile telegram-desktop /{usr/,}bin/telegram-desktop {
   deny @{user_share_dirs}/applications/{**,} r,
   deny @{system_share_dirs}/applications/{**,} r,
   deny @{HOME}/ r,
-  deny @{sys}/devices/virtual/dmi/id/* r,
   deny /{usr/,}bin/systemd-detect-virt rx,
   
   include if exists <local/usr.bin.telegram-desktop>

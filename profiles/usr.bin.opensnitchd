@@ -29,9 +29,12 @@ profile opensnitchd /{usr/,}bin/opensnitchd flags=(attach_disconnected) {
   @{PROC}/@{pids}/environ r,
 
   @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
+  @{sys}/kernel/debug/tracing/kprobe_events rw,
+  @{sys}/kernel/debug/tracing/events/kprobes/rtcp_v6_connect/id r,
+  @{sys}/kernel/debug/tracing/events/kprobes/piptunnel_xmit/id r,
   /etc/opensnitchd/{**,} r,
   /etc/opensnitchd/rules/*.json rw,
-  /var/log/opensnitchd.log w,
+  /var/log/opensnitchd.log w,  
 
   include if exists <local/usr.bin.opensnitchd>
 }

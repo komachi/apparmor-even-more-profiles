@@ -4,3 +4,6 @@
   /usr/share/keyrings/{**,} r,
   owner @{HOME}/.repoconfig/gnupg/{**,} rwl,
   owner /tmp/.git_vtag_* r,
+
+  owner @{HOME}/.cache/{tb,i2pb}/gpgtmpdir/** rwl,
+  @{system_share_dirs}/torbrowser-updater-keys.d/tbb-team.asc r,

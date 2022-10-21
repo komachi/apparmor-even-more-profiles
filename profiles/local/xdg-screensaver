@@ -9,3 +9,5 @@
   owner @{PROC}/@{pid}/stat r,
   @{PROC}/sys/kernel/osrelease r,
   @{PROC}/uptime r,
+  @{PROC}/sys/kernel/pid_max r,
+  @{PROC}/ r,

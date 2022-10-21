@@ -1,0 +1,24 @@
+# Author: Anton Nesterov <anton@nesterov.cc>
+abi <abi/3.0>,
+
+include <tunables/global>
+
+profile unattended-upgrade /{usr/,}bin/unattended-upgrade {
+  include <abstractions/base>
+  include <abstractions/nameservice>
+  include <abstractions/python>
+
+  /{usr/,}/bin/env ix,
+  /{usr/,}/bin/python3.* rix,
+  /{usr/,}bin/unattended-upgrade rix,
+  /{usr/,}bin/lsb_release rPx -> child-lsb_release,
+
+  /{var/,}lib/apt/periodic/*-stamp rw,
+  /etc/apt/apt.conf.d/{**,} r,
+  @{system_share_dirs}/dpkg/cputable r,
+  @{system_share_dirs}/dpkg/tupletable r,
+  @{run}/unattended-upgrades.pid rw,
+  /var/log/unattended-upgrades/unattended-upgrades.log w,
+
+  include if exists <local/usr.bin.unattended-upgrade>
+}

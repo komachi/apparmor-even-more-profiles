@@ -1,2 +1,3 @@
   include <abstractions/user-tmp>
   owner @{HOME}/.repoconfig/gnupg/private-keys-v1.d/{**,} rw,
+  owner @{HOME}/.cache/{tb,i2pb}/gpgtmpdir/** rw,

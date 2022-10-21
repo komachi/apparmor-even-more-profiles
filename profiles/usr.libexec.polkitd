@@ -3,8 +3,25 @@ abi <abi/3.0>,
 
 include <tunables/global>
 
-profile polkitd /usr/libexec/polkitd flags=(complain) {
+profile polkitd /usr/libexec/polkitd {
   include <abstractions/base>
+  include <abstractions/nameservice-strict>
+
+  capability sys_nice,
+  capability sys_ptrace,
+
+  ptrace (read) peer=nm-applet,
+
+  @{PROC}/sys/net/core/somaxconn r,
+  @{PROC}/@{pid}/{stat,cgroup} r,
+  @{PROC}/1/cgroup r,
+  @{PROC}/sys/kernel/random/boot_id r,
+
+  @{run}/systemd/sessions/[0-9] r,
+  @{run}/systemd/users/@{uid} r,
+  /var/lib/polkit-1/localauthority/{**,} r,
+  /etc/polkit-1/localauthority/{**,} r,
+  @{system_share_dirs}/polkit-1/{**,} r,
 
   include if exists <local/usr.libexec.polkitd>
 }

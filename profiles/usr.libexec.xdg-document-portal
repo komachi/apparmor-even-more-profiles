@@ -10,8 +10,10 @@ profile xdg-document-portal /usr/libexec/xdg-document-portal {
   /{usr/,}bin/fusermount{3,} rCx -> fusermount,
 
   @{system_share_dirs}/mime/mime.cache r,
-  /run/user/@{uid}/doc/ rw,
+  @{run}/user/@{uid}/doc/ rw,
   owner @{HOME}/.config/user-dirs.dirs r,
+  @{PROC}/@{pid}/fd/ r,
+  /dev/fuse rw,
 
   profile fusermount {
     include <abstractions/base>
@@ -28,9 +30,9 @@ profile xdg-document-portal /usr/libexec/xdg-document-portal {
 
     @{PROC}/@{pid}/mounts r,
 
-
-    owner /run/user/@{uid}/doc/ r,
-
+    owner @{run}/user/@{uid}/doc/ r,
+    mount fstype={fuse,fuse.portal} -> @{run}/user/@{uid}/doc/,
+    umount @{run}/user/@{uid}/doc/,
   }
 
   include if exists <local/usr.libexec.xdg-document-portal>

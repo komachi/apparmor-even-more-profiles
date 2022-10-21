@@ -16,9 +16,10 @@ profile NetworkManager /{usr/,}{s,}bin/NetworkManager flags=(attach_disconnected
 
   / r,
 
-  /{var/,}run/NetworkManager/{**,} rw,
-  /{var/,}run/network/** r,
-  /{var/,}run/dhclient{6,}{-*,}.pid rw,
+  @{run}/NetworkManager/{**,} rw,
+  @{run}/network/** r,
+  @{run}/dhclient{6,}{-*,}.pid rw,
+  @{run}/systemd/users/@{uid} r,
   /etc/NetworkManager/** r,
   /etc/NetworkManager/system-connections/{**,} rw,
   /{var/,}lib/NetworkManager/ r,

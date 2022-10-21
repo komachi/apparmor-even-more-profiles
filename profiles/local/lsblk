@@ -1,0 +1,2 @@
+@{sys}/devices/virtual/block/*/{hidden,dev,} r,
+/dev/pts/[0-9] rw,
